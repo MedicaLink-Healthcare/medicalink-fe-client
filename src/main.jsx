@@ -5,6 +5,9 @@ import Preloader from './Shared/Preloader/Preloader';
 import './index.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './Router/router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const helmetContext = {}; // Define helmetContext here
 
@@ -13,9 +16,11 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <HelmetProvider context={helmetContext}>
-      <Preloader />
-      <RouterProvider router={router} />
-    </HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider context={helmetContext}>
+        <Preloader />
+        <RouterProvider router={router} />
+      </HelmetProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
