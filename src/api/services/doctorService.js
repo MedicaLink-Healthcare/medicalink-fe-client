@@ -1,11 +1,11 @@
 import axiosClient from '../core/axiosClient';
 
 export const doctorService = {
-  getDoctors: async (filters = {}) => {
-    return axiosClient.get('/doctors', { params: filters });
+  getDoctors: async (params) => {
+    return axiosClient.get('/doctors/profile/public', { params });
   },
 
   getDoctorById: async (id) => {
-    return axiosClient.get(`/doctors/${id}`);
+    return axiosClient.get(`/doctors/profile/public/${id}`);
   },
 };

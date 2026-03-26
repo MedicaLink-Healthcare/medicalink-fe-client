@@ -8,4 +8,8 @@ export const reviewService = {
   getClinicReviews: async (clinicId) => {
     return axiosClient.get(`/reviews/clinic/${clinicId}`);
   },
+
+  createReview: async (data) => {
+    return axiosClient.post('/reviews', data);
+  },
 };
