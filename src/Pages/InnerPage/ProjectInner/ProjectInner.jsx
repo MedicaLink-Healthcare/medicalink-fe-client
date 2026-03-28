@@ -21,7 +21,7 @@ const ProjectData = [
     buttonTitle: 'View Details',
     buttonIcon: <FaArrowRightLong />,
     projectDesc:
-      'Mediic design and develop for high class innovative medical...',
+      'Medicalink design and develop for high class innovative medical...',
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const ProjectData = [
     buttonTitle: 'View Details',
     buttonIcon: <FaArrowRightLong />,
     projectDesc:
-      'Mediic design and develop for high class innovative medical...',
+      'Medicalink design and develop for high class innovative medical...',
   },
   {
     id: 3,
@@ -43,7 +43,7 @@ const ProjectData = [
     buttonTitle: 'View Details',
     buttonIcon: <FaArrowRightLong />,
     projectDesc:
-      'Mediic design and develop for high class innovative medical...',
+      'Medicalink design and develop for high class innovative medical...',
   },
   {
     id: 4,
@@ -54,7 +54,7 @@ const ProjectData = [
     buttonTitle: 'View Details',
     buttonIcon: <FaArrowRightLong />,
     projectDesc:
-      'Mediic design and develop for high class innovative medical...',
+      'Medicalink design and develop for high class innovative medical...',
   },
 ];
 

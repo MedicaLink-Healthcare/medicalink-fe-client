@@ -14,7 +14,7 @@ const testiData = [
     testiRatingIcon: <MdOutlineStarPurple500 />,
     testiDesc: `Commerce end interfaces with collaborative growth
                 strategies wireless recaptiualize one-to-one
-                potentialities through client-focused mediic of
+                potentialities through client-focused medicalink of
                 web-readiness. Appropriately enhance seamless
                 alignments after team solutions forward growth for
                 corporate web-readiness.`,
@@ -28,7 +28,7 @@ const testiData = [
     testiRatingIcon: <MdOutlineStarPurple500 />,
     testiDesc: `Commerce end interfaces with collaborative growth
                 strategies wireless recaptiualize one-to-one
-                potentialities through client-focused mediic of
+                potentialities through client-focused medicalink of
                 web-readiness. Appropriately enhance seamless
                 alignments after team solutions forward growth for
                 corporate web-readiness.`,
@@ -42,7 +42,7 @@ const testiData = [
     testiRatingIcon: <MdOutlineStarPurple500 />,
     testiDesc: `Commerce end interfaces with collaborative growth
                 strategies wireless recaptiualize one-to-one
-                potentialities through client-focused mediic of
+                potentialities through client-focused medicalink of
                 web-readiness. Appropriately enhance seamless
                 alignments after team solutions forward growth for
                 corporate web-readiness.`,

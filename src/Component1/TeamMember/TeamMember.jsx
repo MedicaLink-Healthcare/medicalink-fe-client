@@ -1,6 +1,4 @@
 import teamThumb from '/images/team.jpg';
-import teamThumb2 from '/images/team2.jpg';
-import teamThumb3 from '/images/team3.jpg';
 import TeamCard from './TeamCard';
 import CountUp from 'react-countup';
 import circleShape from '/images/crcle-bg.png';
@@ -8,6 +6,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { useDoctorsQuery } from '@/api/hooks/doctor/useDoctorQueries';
+import Loading from '../../Shared/Loading/Loading';
 
 import {
   FaFacebookF,
@@ -16,57 +16,18 @@ import {
   FaXTwitter,
 } from 'react-icons/fa6';
 
-const teamData = [
-  {
-    id: 1,
-    teamThumb: teamThumb,
-    teamTitle: 'Merina M. Banty',
-    socialIcon: <FaFacebookF />,
-    socialIcon2: <FaXTwitter />,
-    socialIcon3: <FaLinkedinIn />,
-    socialIcon4: <FaPinterestP />,
-    teamSubTitle: 'Dentist',
-  },
-  {
-    id: 2,
-    teamThumb: teamThumb2,
-    teamTitle: 'Jone D. Alexon',
-    socialIcon: <FaFacebookF />,
-    socialIcon2: <FaXTwitter />,
-    socialIcon3: <FaLinkedinIn />,
-    socialIcon4: <FaPinterestP />,
-    teamSubTitle: 'Therapist',
-  },
-  {
-    id: 3,
-    teamThumb: teamThumb3,
-    teamTitle: 'Jisan Khan',
-    socialIcon: <FaFacebookF />,
-    socialIcon2: <FaXTwitter />,
-    socialIcon3: <FaLinkedinIn />,
-    socialIcon4: <FaPinterestP />,
-    teamSubTitle: 'Psychologist',
-  },
-  {
-    id: 4,
-    teamThumb: teamThumb2,
-    teamTitle: 'James E. Huey',
-    socialIcon: <FaFacebookF />,
-    socialIcon2: <FaXTwitter />,
-    socialIcon3: <FaLinkedinIn />,
-    socialIcon4: <FaPinterestP />,
-    teamSubTitle: 'Dentist',
-  },
-];
-
 const TeamMember = () => {
+  const { data: response, isLoading } = useDoctorsQuery({ limit: 6 });
+  const doctors = response?.data || [];
+  const totalDoctors = response?.total || 58;
+
   const settings = {
-    loop: true,
+    loop: doctors.length > 3,
     spaceBetween: 30,
     speed: 1000,
-    initialSlide: 1,
+    initialSlide: 0,
     centeredSlides: true,
-    autoplay: true,
+    autoplay: doctors.length > 3,
     effect: 'coverflow',
     coverflowEffect: {
       rotate: 50,
@@ -97,6 +58,17 @@ const TeamMember = () => {
       return '<span class="' + className + ' pagination-bullet"></span>';
     },
   };
+
+  if (isLoading) {
+    return (
+      <section className='team-members pb-28 pt-[106px] text-center'>
+        <div className='Container'>
+          <Loading />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className='team-members pb-28 relative z-10 bg-BodyBg-0 overflow-hidden pt-[106px]'>
       <div className='Container'>
@@ -118,8 +90,8 @@ const TeamMember = () => {
             <div className='flex items-center gap-8 '>
               <div>
                 <CountUp
-                  start={-11}
-                  end={'58'}
+                  start={0}
+                  end={totalDoctors}
                   suffix={'+'}
                   className='font-AlbertSans text-3xl sm:text-4xl md:text-[60px] leading-[50px] text-HeadingColor-0 font-bold'
                 />
@@ -140,34 +112,23 @@ const TeamMember = () => {
             pagination={pagination}
             modules={[EffectCoverflow, Pagination]}
           >
-            {teamData.map(
-              ({
-                id,
-                teamThumb,
-                teamTitle,
-                socialIcon,
-                socialIcon2,
-                socialIcon3,
-                socialIcon4,
-                teamSubTitle,
-              }) => {
-                return (
-                  <SwiperSlide key={id}>
-                    <div className='pb-[60px] pt-5'>
-                      <TeamCard
-                        teamThumb={teamThumb}
-                        teamTitle={teamTitle}
-                        socialIcon={socialIcon}
-                        socialIcon2={socialIcon2}
-                        socialIcon3={socialIcon3}
-                        socialIcon4={socialIcon4}
-                        teamSubTitle={teamSubTitle}
-                      />
-                    </div>
-                  </SwiperSlide>
-                );
-              }
-            )}
+            {doctors.map((doctor) => {
+              return (
+                <SwiperSlide key={doctor.id}>
+                  <div className='pb-[60px] pt-5'>
+                    <TeamCard
+                      teamThumb={doctor.avatarUrl || teamThumb}
+                      teamTitle={doctor.fullName}
+                      socialIcon={<FaFacebookF />}
+                      socialIcon2={<FaXTwitter />}
+                      socialIcon3={<FaLinkedinIn />}
+                      socialIcon4={<FaPinterestP />}
+                      teamSubTitle={doctor.specialties?.[0]?.name || 'Specialist'}
+                    />
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </div>

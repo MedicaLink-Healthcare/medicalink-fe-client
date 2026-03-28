@@ -109,7 +109,7 @@ const TeamDetailsMain = () => {
                   Location
                 </h5>
                 <p className='font-AlbertSans text-PrimaryColor-0 text-lg transition-all duration-500 group-hover:text-white'>
-                  21 King Street 5th Floor Hamilton, Ontario Canada
+                  123 Medical Street, Da Nang, Vietnam
                 </p>
               </div>
             </div>

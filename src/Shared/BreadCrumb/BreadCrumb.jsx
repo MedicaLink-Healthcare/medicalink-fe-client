@@ -18,7 +18,7 @@ const BreadCrumb = ({
             <li>
               <Link to={'/'}>
                 <button className='font-AlbertSans text-white transition-all duration-500 hover:text-PrimaryColor-0 uppercase'>
-                  Mediic
+                  Medicalink
                 </button>
               </Link>
             </li>

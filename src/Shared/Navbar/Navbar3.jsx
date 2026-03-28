@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import Logo from '/images/logo.png';
-import Logo2 from '/images/logo2.png';
+import Logo from '/images/rect-logo-sm.png';
+import Logo2 from '/images/rect-logo-sm.png';
 import homeOne from '/images/home1.png';
 import homeTwo from '/images/home2.png';
 import homeThree from '/images/home3.png';
@@ -117,12 +117,12 @@ const Navbar3 = () => {
     };
   }, []);
 
-  let headerIcon = `  
-  <span class="header-icon">  
+  let headerIcon = `
+  <span class="header-icon">
     <svg fill="currentColor" viewBox="0 0 320 512" height="15px" width="15px" xmlns="http://www.w3.org/2000/svg">
       <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path>
     </svg>
-  </span>  
+  </span>
 `;
 
   useEffect(() => {
@@ -219,6 +219,7 @@ const Navbar3 = () => {
               <img
                 src={Logo2}
                 draggable='false'
+                className='max-w-[200px] w-full h-auto'
               />
             </Link>
           </div>
@@ -301,6 +302,8 @@ const Navbar3 = () => {
                   <img
                     src={Logo}
                     draggable='false'
+                    className='max-w-[260px] w-full h-auto'
+
                   />
                 </Link>
               </div>

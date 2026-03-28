@@ -1,4 +1,4 @@
 export const API_CONFIG = {
-  PREFIX: '/api/v1',
+  PREFIX: '/api',
   TIMEOUT: 10000,
 };

@@ -1,63 +1,23 @@
 import { FaCircle } from 'react-icons/fa6';
 import blogThumb from '/images/blog.jpg';
-import blogThumb2 from '/images/blog2.jpg';
-import blogThumb3 from '/images/blog3.jpg';
 import BlogCard from './BlogCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Link } from 'react-router-dom';
 import { GoArrowRight } from 'react-icons/go';
-
-const BlogData = [
-  {
-    id: 1,
-    blogThumb: blogThumb,
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogDate: 'April 04, 2024',
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'Top 10 Popular Equipments for Medical Industre',
-  },
-  {
-    id: 2,
-    blogThumb: blogThumb2,
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogDate: 'April 14, 2024',
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'How to maintain Patient for Better Surgery',
-  },
-  {
-    id: 3,
-    blogThumb: blogThumb3,
-    blogDate: 'April 24, 2024',
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'Most Popular Advises for Kids Happy & Smile Life',
-  },
-  {
-    id: 4,
-    blogThumb: blogThumb2,
-    blogDate: 'April 28, 2024',
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'How to maintain Patient for Better Surgery',
-  },
-];
+import { useBlogsQuery } from '@/api/hooks/blog/useBlogQueries';
+import Loading from '../../Shared/Loading/Loading';
 
 const Blog = () => {
+  const { data: response, isLoading } = useBlogsQuery({ limit: 6 });
+  const blogs = response?.data || [];
+
   const settings = {
-    loop: true,
+    loop: blogs.length > 3,
     spaceBetween: 30,
     speed: 1000,
-    initialSlide: 1,
-    autoplay: true,
+    initialSlide: 0,
+    autoplay: blogs.length > 3,
     breakpoints: {
       320: {
         slidesPerView: 1,
@@ -73,6 +33,25 @@ const Blog = () => {
       },
     },
   };
+
+  const formatDate = (dateString) => {
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+    }).format(new Date(dateString));
+  };
+
+  if (isLoading) {
+    return (
+      <section className='py-28 bg-white'>
+        <div className='Container text-center'>
+          <Loading />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className='py-28 bg-white'>
       <div className='Container'>
@@ -104,37 +83,26 @@ const Blog = () => {
         </div>
         <div className='mt-[56px]'>
           <Swiper {...settings}>
-            {BlogData.map(
-              ({
-                id,
-                blogThumb,
-                blogDateIcon,
-                blogDate,
-                blogPostBy,
-                blogUrl,
-                blogTitle,
-                blogPostByIcon,
-              }) => {
-                return (
-                  <SwiperSlide key={id}>
-                    <div
-                      data-aos='fade-up'
-                      data-aos-duration='1000'
-                    >
-                      <BlogCard
-                        blogThumb={blogThumb}
-                        blogDateIcon={blogDateIcon}
-                        blogDate={blogDate}
-                        blogPostBy={blogPostBy}
-                        blogPostByIcon={blogPostByIcon}
-                        blogUrl={blogUrl}
-                        blogTitle={blogTitle}
-                      />
-                    </div>
-                  </SwiperSlide>
-                );
-              }
-            )}
+            {blogs.map((blog) => {
+              return (
+                <SwiperSlide key={blog.id}>
+                  <div
+                    data-aos='fade-up'
+                    data-aos-duration='1000'
+                  >
+                    <BlogCard
+                      blogThumb={blog.thumbnailUrl || blogThumb}
+                      blogDateIcon={<FaCircle />}
+                      blogDate={formatDate(blog.createdAt)}
+                      blogPostBy={"Admin"}
+                      blogPostByIcon={<FaCircle />}
+                      blogUrl={`/blogs/${blog.slug}`}
+                      blogTitle={blog.title}
+                    />
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </div>

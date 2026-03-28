@@ -126,7 +126,7 @@ const WhyChoose = () => {
                   to={'/'}
                   className='text-PrimaryColor-0 underline'
                 >
-                  Mediic
+                  Medicalink
                 </Link>
               </p>
             </div>

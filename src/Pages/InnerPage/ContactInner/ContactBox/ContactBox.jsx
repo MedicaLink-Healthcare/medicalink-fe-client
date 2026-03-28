@@ -9,7 +9,7 @@ const processData = [
     contactBoxIcon: contactBoxIcon,
     contactBoxSubTitle: 'Send Now',
     contactBoxTitle: 'E-Mail Address',
-    contactBoxDesc: 'mediic@example.com',
+    contactBoxDesc: 'medicalink@example.com',
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const processData = [
     contactBoxIcon: contactBoxIcon3,
     contactBoxSubTitle: 'Meet Us',
     contactBoxTitle: 'Location',
-    contactBoxDesc: 'A-1, Envanto Headquarter, Australia',
+    contactBoxDesc: '123 Medical Street, Da Nang, Vietnam',
   },
 ];
 

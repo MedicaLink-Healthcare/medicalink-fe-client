@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import footerLogo from '/images/logo.png';
+import footerLogo from '/images/rect-logo-sm.png';
 import footerImg from '/images/footer_1.png';
 import footerImg2 from '/images/footer_2.png';
 import {
@@ -38,11 +38,12 @@ const Footer2 = () => {
               <div className='inline-block'>
                 <Link
                   to={'/'}
-                  title='Mediic'
+                  title='Medicalink'
                 >
                   <img
                     src={footerLogo}
                     draggable={false}
+                    className='max-w-[260px] w-full h-auto'
                   />
                 </Link>
               </div>
@@ -250,7 +251,6 @@ const Footer2 = () => {
             <div className='flex gap-5 lg:gap-3 xl:gap-5 pt-1 mb-6'>
               <Link
                 to={'/'}
-                className=''
               >
                 <img
                   src={footerImg}
@@ -275,7 +275,6 @@ const Footer2 = () => {
             <div className='flex gap-5 lg:gap-3 xl:gap-5 pt-1'>
               <Link
                 to={'/'}
-                className=''
               >
                 <img
                   src={footerImg2}
