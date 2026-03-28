@@ -1,10 +1,9 @@
-import Main from '../Main/Main';
 import Home1 from '../Pages/Home1/Home1';
 import ErrorPage from '../Shared/ErrorPage/ErrorPage';
-import Home2 from '../Pages/Home2/Home2';
-import Main2 from '../Main/Main2';
-import Main3 from '../Main/Main3';
-import Home3 from '../Pages/Home3/Home3';
+// import Home2 from '../Pages/Home2/Home2';
+// import Main2 from '../Main/Main2';
+// import Main3 from '../Main/Main3';
+// import Home3 from '../Pages/Home3/Home3';
 import AboutInner from '../Pages/InnerPage/AboutInner/AboutInner';
 import ProjectDetails from '../Pages/InnerPage/ProjectDetails/ProjectDetails';
 import ServiceInner from '../Pages/InnerPage/ServiceInner/ServiceInner';
@@ -28,21 +27,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import Main4 from '../Main/Main4';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Main />,
-    children: [{ path: '', element: <Home1 /> }],
-  },
-  {
-    path: '/home2',
-    element: <Main2 />,
-    children: [{ path: '', element: <Home2 /> }],
-  },
-  {
-    path: '/home3',
-    element: <Main3 />,
-    children: [{ path: '', element: <Home3 /> }],
-  },
   {
     path: '/',
     element: <Main4 />,
@@ -69,7 +53,7 @@ const router = createBrowserRouter([
       { path: 'contact', element: <ContactInner /> },
     ],
   },
-  { path: '*', errorElement: <ErrorPage /> },
+  { path: '*', element: <ErrorPage /> },
 ]);
 
 export default router;

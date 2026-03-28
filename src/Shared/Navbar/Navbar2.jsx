@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import Logo from '/images/rect-logo-sm.png';
 import Logo2 from '/images/rect-logo-sm.png';
-import homeOne from '/images/home1.png';
-import homeTwo from '/images/home2.png';
-import homeThree from '/images/home3.png';
-import homeFour from '/images/home4.png';
+// import homeOne from '/images/home1.png';
+// import homeTwo from '/images/home2.png';
+// import homeThree from '/images/home3.png';
+// import homeFour from '/images/home4.png';
 import btnArrow from '/images/arrow.png';
 import './navbar.css';
 import { useEffect, useRef, useState } from 'react';
@@ -319,7 +319,7 @@ const Navbar2 = () => {
                       >
                         Home
                       </Link>
-                      <div className='submenu has-homemenu mega-menu !hidden lg:!block'>
+                      {/* <div className='submenu has-homemenu mega-menu !hidden lg:!block'>
                         <div className='grid grid-cols-1 lg:grid-cols-4 lg:gap-3'>
                           <div className='homemenu'>
                             <div className='homemenu-thumb'>
@@ -368,7 +368,7 @@ const Navbar2 = () => {
                         <li>
                           <Link to={'/home3'}>Home Page Three</Link>
                         </li>
-                      </ul>
+                      </ul> */}
                     </li>
                     <li>
                       <Link to={'/about'}>About</Link>

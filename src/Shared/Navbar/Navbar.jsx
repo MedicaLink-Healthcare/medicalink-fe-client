@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import Logo from '/images/rect-logo-sm.png';
 import Logo2 from '/images/rect-logo-sm.png';
-import homeOne from '/images/home1.png';
-import homeTwo from '/images/home2.png';
-import homeThree from '/images/home3.png';
-import homeFour from '/images/home4.png';
+// import homeOne from '/images/home1.png';
+// import homeTwo from '/images/home2.png';
+// import homeThree from '/images/home3.png';
+// import homeFour from '/images/home4.png';
 import btnArrow from '/images/arrow.png';
 import './navbar.css';
 import { useEffect, useRef, useState } from 'react';
@@ -319,7 +319,7 @@ const Navbar = () => {
                       >
                         Home
                       </Link>
-                      <div className='submenu has-homemenu mega-menu !hidden lg:!block'>
+                      {/* <div className='submenu has-homemenu mega-menu !hidden lg:!block'>
                         <div className='grid grid-cols-1 lg:grid-cols-4 lg:gap-3'>
                           <div className='homemenu'>
                             <div className='homemenu-thumb'>
@@ -368,7 +368,7 @@ const Navbar = () => {
                         <li>
                           <Link to={'/home3'}>Home Page Three</Link>
                         </li>
-                      </ul>
+                      </ul> */}
                     </li>
                     <li>
                       <Link to={'/about'}>About</Link>
@@ -386,13 +386,7 @@ const Navbar = () => {
                           <Link to={'/team'}>team member</Link>
                         </li>
                         <li>
-                          <Link to={'/team_details'}>team details</Link>
-                        </li>
-                        <li>
                           <Link to={'/project'}>Project</Link>
-                        </li>
-                        <li>
-                          <Link to={'/project_details'}>Project Details</Link>
                         </li>
                         <li>
                           <Link to={'/appointment'}>appointment</Link>
@@ -408,16 +402,8 @@ const Navbar = () => {
                         </li>
                       </ul>
                     </li>
-                    <li className='has-dropdown'>
+                    <li>
                       <Link to={'/'}>Services</Link>
-                      <ul className='submenu'>
-                        <li>
-                          <Link to={'/service'}>service</Link>
-                        </li>
-                        <li>
-                          <Link to={'/service_details'}>service details</Link>
-                        </li>
-                      </ul>
                     </li>
                     <li className='has-dropdown'>
                       <Link to={'/'}>Blog</Link>
@@ -426,17 +412,9 @@ const Navbar = () => {
                           <Link to={'/blog_grid'}>blog grid</Link>
                         </li>
                         <li>
-                          <Link to={'/blog_left_sidebar'}>
-                            blog left sidebar
-                          </Link>
-                        </li>
-                        <li>
                           <Link to={'/blog_right_sidebar'}>
                             blog right sidebar
                           </Link>
-                        </li>
-                        <li>
-                          <Link to={'/blog_details'}>blog details</Link>
                         </li>
                       </ul>
                     </li>

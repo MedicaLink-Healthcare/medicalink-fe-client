@@ -27,7 +27,7 @@ const Footer = () => {
                 <img
                   src={footerLogo}
                   draggable={false}
-                  className='max-w-[200x] w-full h-auto'
+                  className='max-w-[200px] w-full h-auto'
                 />
               </Link>
             </div>

@@ -49,16 +49,40 @@ const Preloader = () => {
             I
           </span>
           <span
+            data-text-preloader='C'
+            className='letters-loading'
+          >
+            C
+          </span>
+          <span
+            data-text-preloader='A'
+            className='letters-loading'
+          >
+            A
+          </span>
+          <span
+            data-text-preloader='L'
+            className='letters-loading'
+          >
+            L
+          </span>
+          <span
             data-text-preloader='I'
             className='letters-loading'
           >
             I
           </span>
           <span
-            data-text-preloader='C'
+            data-text-preloader='N'
             className='letters-loading'
           >
-            C
+            N
+          </span>
+          <span
+            data-text-preloader='K'
+            className='letters-loading'
+          >
+            K
           </span>
         </div>
       </div>
