@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { FaArrowRightLong, FaCircle } from 'react-icons/fa6';
 import BreadCrumb from '../../../Shared/BreadCrumb/BreadCrumb';
 import Subscribe from '../../../Component1/Subscribe/Subscribe';
@@ -130,13 +130,7 @@ const BlogDetails = () => {
                 />
               ) : null}
 
-              <div className='mt-10'>
-                <Link to='/blog_grid'>
-                  <button className='primary-btn'>
-                    ← Back to blog list
-                  </button>
-                </Link>
-              </div>
+
             </div>
 
             <div className='lg:col-span-1'>

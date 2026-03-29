@@ -9,6 +9,7 @@ import Loading from '@/Shared/Loading/Loading';
 import usePagination from '@/hooks/usePagination';
 import Pagination from '@/Shared/Pagination/Pagination';
 import sanitizeHtml from 'sanitize-html';
+import { useMemo } from 'react';
 
 const ServiceInner = () => {
   const itemsPerPage = 9;
@@ -26,20 +27,19 @@ const ServiceInner = () => {
     limit: itemsPerPage
   });
 
-  const specialties = response?.data?.data || response?.data || [];
+  const specialties = useMemo(() => response?.data?.data || response?.data || [], [response]);
   
   useEffect(() => {
-    if (response?.meta?.total) {
-      setTotalItems(response.meta.total);
-    } else if (response?.data?.meta?.total) {
-      setTotalItems(response.data.meta.total);
+    const total = response?.meta?.total || response?.data?.meta?.total || specialties.length;
+    if (total) {
+      setTotalItems(total);
     }
-  }, [response]);
+  }, [response, specialties]);
 
   const totalPage = response?.meta?.totalPages || response?.data?.meta?.totalPages || Math.ceil(totalItems / itemsPerPage) || 1;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
   return (

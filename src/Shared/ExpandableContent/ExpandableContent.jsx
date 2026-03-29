@@ -4,10 +4,11 @@ import { GoArrowDown, GoArrowUp } from 'react-icons/go';
 
 const ExpandableContent = ({
   htmlContent,
+  children,
   maxHeight = 300,
   className = '',
-  expandText = 'Read More',
-  collapseText = 'Show Less'
+  expandText = 'Read more',
+  collapseText = 'Show less'
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -15,42 +16,69 @@ const ExpandableContent = ({
 
   useEffect(() => {
     if (contentRef.current) {
-      setIsOverflowing(contentRef.current.scrollHeight > maxHeight);
+      setIsOverflowing(contentRef.current.scrollHeight > maxHeight + 40);
     }
-  }, [htmlContent, maxHeight]);
+  }, [htmlContent, children, maxHeight]);
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
   return (
-    <div className={`relative transition-all duration-500 overflow-hidden ${className}`}>
+    <div className={`relative ${className}`}>
+      {/* Content */}
       <div
         ref={contentRef}
-        className="transition-all duration-500 ease-in-out"
+        className="overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
         style={{
-          maxHeight: isExpanded ? 'none' : `${maxHeight}px`,
-          overflow: 'hidden'
+          maxHeight: isExpanded
+            ? `${contentRef.current?.scrollHeight || 2000}px`
+            : `${maxHeight}px`,
         }}
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-      />
+      >
+        {children || (htmlContent && (
+          <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+        ))}
+      </div>
 
+      {/* Fade overlay */}
       {isOverflowing && !isExpanded && (
-        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none transition-opacity duration-500" />
+        <div className="pointer-events-none absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-white/70 via-white/30 to-transparent" />
       )}
 
+      {/* Text toggle */}
       {isOverflowing && (
-        <div className="mt-4 flex justify-center">
+        <div className="flex justify-center -mt-5 relative z-10">
           <button
             onClick={toggleExpand}
-            className="flex items-center gap-2 font-AlbertSans font-semibold text-PrimaryColor-0 hover:text-Secondarycolor-0 transition-colors duration-300"
+            className="
+              group flex items-center gap-1
+              text-[15px] font-semibold
+              text-PrimaryColor-0
+              hover:opacity-80
+              transition-all duration-300
+            "
           >
+            <span className="relative">
+              {isExpanded ? collapseText : expandText}
+
+              {/* subtle underline */}
+              <span className="
+                absolute left-0 -bottom-0.5 h-[1px] w-0
+                bg-PrimaryColor-0/70
+                transition-all duration-300
+                group-hover:w-full
+              " />
+            </span>
+
             {isExpanded ? (
-              <>
-                {collapseText} <GoArrowUp size={20} />
-              </>
+              <GoArrowUp
+                size={15}
+                className="transition-transform duration-300 group-hover:-translate-y-[2px]"
+              />
             ) : (
-              <>
-                {expandText} <GoArrowDown size={20} />
-              </>
+              <GoArrowDown
+                size={15}
+                className="transition-transform duration-300 group-hover:translate-y-[2px]"
+              />
             )}
           </button>
         </div>
@@ -60,7 +88,8 @@ const ExpandableContent = ({
 };
 
 ExpandableContent.propTypes = {
-  htmlContent: PropTypes.string.isRequired,
+  htmlContent: PropTypes.string,
+  children: PropTypes.node,
   maxHeight: PropTypes.number,
   className: PropTypes.string,
   expandText: PropTypes.string,
