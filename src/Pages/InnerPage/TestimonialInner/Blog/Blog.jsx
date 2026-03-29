@@ -1,57 +1,24 @@
-import { FaCircle } from 'react-icons/fa6';
-import blogThumb from '/images/blog.jpg';
-import blogThumb2 from '/images/blog2.jpg';
-import blogThumb3 from '/images/blog3.jpg';
-import BlogCard from './BlogCard';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import { Link } from 'react-router-dom';
 import { GoArrowRight } from 'react-icons/go';
+import { useBlogsQuery } from '@/api/hooks/blog/useBlogQueries';
+import Loading from '@/Shared/Loading/Loading';
+import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import BlogCard from './BlogCard';
 
-const BlogData = [
-  {
-    id: 1,
-    blogThumb: blogThumb,
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogDate: 'April 04, 2024',
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'Top 10 Popular Equipments for Medical Industre',
-  },
-  {
-    id: 2,
-    blogThumb: blogThumb2,
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogDate: 'April 14, 2024',
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'How to maintain Patient for Better Surgery',
-  },
-  {
-    id: 3,
-    blogThumb: blogThumb3,
-    blogDate: 'April 24, 2024',
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'Most Popular Advises for Kids Happy & Smile Life',
-  },
-  {
-    id: 4,
-    blogThumb: blogThumb2,
-    blogDate: 'April 28, 2024',
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'How to maintain Patient for Better Surgery',
-  },
-];
 
 const Blog = () => {
+  const { data: response, isLoading } = useBlogsQuery({ limit: 4 });
+  const blogs = response?.data || [];
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
+
   const settings = {
     loop: true,
     spaceBetween: 30,
@@ -107,36 +74,29 @@ const Blog = () => {
           data-aos='fade-up'
           data-aos-duration='1000'
         >
-          <Swiper {...settings}>
-            {BlogData.map(
-              ({
-                id,
-                blogThumb,
-                blogDateIcon,
-                blogDate,
-                blogPostBy,
-                blogUrl,
-                blogTitle,
-                blogPostByIcon,
-              }) => {
-                return (
-                  <SwiperSlide key={id}>
-                    <div>
-                      <BlogCard
-                        blogThumb={blogThumb}
-                        blogDateIcon={blogDateIcon}
-                        blogDate={blogDate}
-                        blogPostBy={blogPostBy}
-                        blogPostByIcon={blogPostByIcon}
-                        blogUrl={blogUrl}
-                        blogTitle={blogTitle}
-                      />
-                    </div>
-                  </SwiperSlide>
-                );
-              }
-            )}
-          </Swiper>
+          {isLoading ? (
+            <div className='flex justify-center py-10'>
+              <Loading />
+            </div>
+          ) : blogs.length === 0 ? (
+            <p className='text-center text-TextColor2-0'>No blogs found.</p>
+          ) : (
+            <Swiper {...settings}>
+              {blogs.map((blog) => (
+                <SwiperSlide key={blog.id}>
+                  <div>
+                    <BlogCard
+                      blogThumb={blog.thumbnailUrl}
+                      blogDate={formatDate(blog.publishedAt)}
+                      blogPostBy={blog.authorName || 'Admin'}
+                      blogUrl={`/blog_details/${blog.slug}`}
+                      blogTitle={blog.title}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
         </div>
       </div>
     </section>

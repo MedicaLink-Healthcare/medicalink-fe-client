@@ -3,101 +3,57 @@ import BreadCrumb from '../../../Shared/BreadCrumb/BreadCrumb';
 import {
   FaArrowRight,
   FaArrowRightLong,
-  FaCircle,
   FaRegFolderOpen,
 } from 'react-icons/fa6';
 import { MdEmail } from 'react-icons/md';
-import blogThumb from '/images/blog.jpg';
-import blogThumb2 from '/images/blog2.jpg';
-import blogThumb3 from '/images/blog3.jpg';
-import blogThumb4 from '/images/blog4.jpg';
-import blogThumb5 from '/images/blog5.jpg';
-import blogThumb6 from '/images/blog6.jpg';
 import callIcon from '/images/call3..png';
-import itemthumb from '/images/blog4.jpg';
-import itemthumb2 from '/images/blog5.jpg';
-import itemthumb3 from '/images/blog6.jpg';
 import { IoSearch } from 'react-icons/io5';
 import Subscribe from '../../../Component1/Subscribe/Subscribe';
 import { GoArrowRight } from 'react-icons/go';
 import BlogSidebarCard from './BlogSidebarCard';
+import { useBlogsQuery, useBlogCategoriesQuery } from '../../../api/hooks/blog/useBlogQueries';
+import Loading from '../../../Shared/Loading/Loading';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { GoArrowDown, GoArrowUp } from 'react-icons/go';
 
-const BlogSidebarData = [
-  {
-    id: 1,
-    blogThumb: blogThumb,
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogDate: 'April 04, 2024',
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'Top 10 Popular Equipments for Medical Industre',
-    blogGridContent: 'Read More',
-    blogGridIcon: <GoArrowRight />,
-  },
-  {
-    id: 2,
-    blogThumb: blogThumb2,
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogDate: 'April 14, 2024',
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'How to maintain Patient for Better Surgery',
-    blogGridContent: 'Read More',
-    blogGridIcon: <GoArrowRight />,
-  },
-  {
-    id: 3,
-    blogThumb: blogThumb3,
-    blogDate: 'April 24, 2024',
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'Most Popular Advises for Kids Happy & Smile Life',
-    blogGridContent: 'Read More',
-    blogGridIcon: <GoArrowRight />,
-  },
-  {
-    id: 4,
-    blogThumb: blogThumb4,
-    blogDate: 'June 08, 2024',
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'How to maintain Patient for Better Surgery',
-    blogGridContent: 'Read More',
-    blogGridIcon: <GoArrowRight />,
-  },
-  {
-    id: 5,
-    blogThumb: blogThumb5,
-    blogDate: 'June 19, 2024',
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'How to maintain Patient for Better Surgery',
-    blogGridContent: 'Read More',
-    blogGridIcon: <GoArrowRight />,
-  },
-  {
-    id: 6,
-    blogThumb: blogThumb6,
-    blogDate: 'June 28, 2024',
-    blogPostByIcon: <FaCircle />,
-    blogDateIcon: <FaCircle />,
-    blogPostBy: 'Admin',
-    blogUrl: '/blog_details',
-    blogTitle: 'How to maintain Patient for Better Surgery',
-    blogGridContent: 'Read More',
-    blogGridIcon: <GoArrowRight />,
-  },
-];
+
 
 const BlogRightSidebar = () => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showAllCategories, setShowAllCategories] = useState(false);
+
+  const { data: blogResponse, isLoading: isBlogsLoading } = useBlogsQuery({
+    limit: 6
+  });
+  const { data: popularResponse } = useBlogsQuery({
+    limit: 3,
+    sort: 'publishedAt:desc'
+  });
+  const { data: categoriesResponse } = useBlogCategoriesQuery();
+
+  const blogs = blogResponse?.data || [];
+  const popularPosts = popularResponse?.data || [];
+  const allCategories = categoriesResponse?.data || [];
+  const categories = showAllCategories ? allCategories : allCategories.slice(0, 10);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/blog_grid?search=${encodeURIComponent(searchTerm.trim())}`);
+    }
+  };
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
+
   return (
     <>
       <BreadCrumb
@@ -109,42 +65,35 @@ const BlogRightSidebar = () => {
         <div className='Container'>
           <div className='grid grid-cols-3 gap-[50px]'>
             <div className='col-span-3 lg:col-span-2'>
-              <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-7'>
-                {BlogSidebarData.map(
-                  ({
-                    id,
-                    blogThumb,
-                    blogDateIcon,
-                    blogDate,
-                    blogPostBy,
-                    blogUrl,
-                    blogTitle,
-                    blogPostByIcon,
-                    blogGridContent,
-                    blogGridIcon,
-                  }) => {
-                    return (
-                      <div
-                        key={id}
-                        data-aos='fade-up'
-                        data-aos-duration='1000'
-                      >
-                        <BlogSidebarCard
-                          blogThumb={blogThumb}
-                          blogDateIcon={blogDateIcon}
-                          blogDate={blogDate}
-                          blogPostBy={blogPostBy}
-                          blogPostByIcon={blogPostByIcon}
-                          blogUrl={blogUrl}
-                          blogTitle={blogTitle}
-                          blogGridContent={blogGridContent}
-                          blogGridIcon={blogGridIcon}
-                        />
-                      </div>
-                    );
-                  }
-                )}
-              </div>
+              {isBlogsLoading ? (
+                <div className='flex justify-center py-20'>
+                  <Loading />
+                </div>
+              ) : blogs.length === 0 ? (
+                <p className='font-AlbertSans text-TextColor2-0 text-center text-xl'>
+                  No blogs found.
+                </p>
+              ) : (
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center gap-7'>
+                  {blogs.map((blog) => (
+                    <div
+                      key={blog.id}
+                      data-aos='fade-up'
+                      data-aos-duration='1000'
+                    >
+                      <BlogSidebarCard
+                        blogThumb={blog.thumbnailUrl}
+                        blogDate={formatDate(blog.publishedAt)}
+                        blogPostBy={blog.authorName || 'Admin'}
+                        blogUrl={`/blog_details/${blog.slug}`}
+                        blogTitle={blog.title}
+                        blogGridContent='Read More'
+                        blogGridIcon={<GoArrowRight />}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <div className='col-span-3 lg:col-span-1'>
               <div
@@ -155,14 +104,15 @@ const BlogRightSidebar = () => {
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
                   Search
                 </h4>
-                <div className='relative inline-block w-full'>
+                <form onSubmit={handleSearch} className='relative inline-block w-full'>
                   <input
                     type='text'
                     name='search'
                     id='search'
                     placeholder='Search here...'
-                    required
-                    className='w-full h-[60px] p-6 bg-white bg-opacity-30 border-2 border-white border-opacity-80 rounded-full font-AlbertSans'
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className='w-full h-[60px] p-6 bg-white bg-opacity-30 border-2 border-white border-opacity-80 rounded-full font-AlbertSans focus:outline-PrimaryColor-0'
                   />
                   <button
                     type='submit'
@@ -170,7 +120,7 @@ const BlogRightSidebar = () => {
                   >
                     <IoSearch />
                   </button>
-                </div>
+                </form>
               </div>
               <div
                 className='rounded-2xl px-4 sm:px-7 lg:px-4 xl:px-7 pt-7 pb-6 overflow-hidden bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-7'
@@ -181,61 +131,40 @@ const BlogRightSidebar = () => {
                   Categories
                 </h4>
                 <ul className='mt-8'>
-                  <li>
-                    <Link to={'/service_details'}>
-                      <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
-                        <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
-                          <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Dental Care
-                        </span>
-                        <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
+                  {categories.map((cat) => (
+                    <li key={cat.id}>
+                      <Link to={`/blog_grid?category=${cat.id}`}>
+                        <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
+                          <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
+                            <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
+                            {cat.name}
+                          </span>
+                          <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
+                        </button>
+                      </Link>
+                    </li>
+                  ))}
+                  {allCategories.length > 10 && (
+                    <div className='mt-4 flex justify-center'>
+                      <button
+                        onClick={() => setShowAllCategories(!showAllCategories)}
+                        className='flex items-center gap-2 font-AlbertSans font-semibold text-PrimaryColor-0 hover:text-Secondarycolor-0 transition-colors duration-300 px-5 py-2 border border-PrimaryColor-0 rounded-full bg-white bg-opacity-20'
+                      >
+                        {showAllCategories ? (
+                          <>
+                            Show Less <GoArrowUp size={18} />
+                          </>
+                        ) : (
+                          <>
+                            Show More ({allCategories.length - 10} more) <GoArrowDown size={18} />
+                          </>
+                        )}
                       </button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={'/service_details2'}>
-                      <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
-                        <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
-                          <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Pharmachology
-                        </span>
-                        <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                      </button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={'/service_details3'}>
-                      <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
-                        <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
-                          <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Plastic Surgery
-                        </span>
-                        <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                      </button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={'/service_details4'}>
-                      <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
-                        <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
-                          <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Mental Care
-                        </span>
-                        <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                      </button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={'/service_details5'}>
-                      <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
-                        <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
-                          <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Hematology
-                        </span>
-                        <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                      </button>
-                    </Link>
-                  </li>
+                    </div>
+                  )}
+                  {allCategories.length === 0 && (
+                    <p className='text-TextColor2-0 italic text-sm text-center'>No categories found</p>
+                  )}
                 </ul>
               </div>
               <div
@@ -246,63 +175,35 @@ const BlogRightSidebar = () => {
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
                   Popular Post
                 </h4>
-                <Link to={'/blog-details'}>
-                  <button className='group flex gap-4 mb-6'>
-                    <div className='size-[82px] rounded-xl overflow-hidden'>
-                      <img
-                        draggable='false'
-                        src={itemthumb}
-                        className='size-full'
-                      />
-                    </div>
-                    <div className='flex-1 text-left'>
-                      <h6 className='font-AlbertSans font-semibold md:text-lg lg:text-sm xl:text-lg leading-6 text-HeadingColor-0 transition-all duration-500 group-hover:text-PrimaryColor-0'>
-                        How Virtual Healthcare is Transforming Pati...
-                      </h6>
-                      <p className='font-AlbertSans text-TextColor2-0 text-sm mt-1'>
-                        AUGUST 01, 2024
-                      </p>
-                    </div>
-                  </button>
-                </Link>
-                <Link to={'/blog_details'}>
-                  <button className='group flex gap-4 my-6'>
-                    <div className='size-[82px] rounded-xl overflow-hidden'>
-                      <img
-                        draggable='false'
-                        src={itemthumb2}
-                        className='size-full'
-                      />
-                    </div>
-                    <div className='flex-1 text-left'>
-                      <h6 className='font-AlbertSans font-semibold md:text-lg lg:text-sm xl:text-lg leading-6 text-HeadingColor-0 transition-all duration-500 group-hover:text-PrimaryColor-0'>
-                        How Your Digestive Health Impacts Mental...
-                      </h6>
-                      <p className='font-AlbertSans text-TextColor2-0 text-sm mt-1'>
-                        AUGUST 16, 2024
-                      </p>
-                    </div>
-                  </button>
-                </Link>
-                <Link to={'/blog_details'}>
-                  <button className='group flex gap-4 my-6'>
-                    <div className='size-[82px] rounded-xl overflow-hidden'>
-                      <img
-                        draggable='false'
-                        src={itemthumb3}
-                        className='size-full'
-                      />
-                    </div>
-                    <div className='flex-1 text-left'>
-                      <h6 className='font-AlbertSans font-semibold md:text-lg lg:text-sm xl:text-lg leading-6 text-HeadingColor-0 transition-all duration-500 group-hover:text-PrimaryColor-0'>
-                        Expert Advice for a Better Quality of Life...
-                      </h6>
-                      <p className='font-AlbertSans text-TextColor2-0 text-sm mt-1'>
-                        AUGUST 27, 2024
-                      </p>
-                    </div>
-                  </button>
-                </Link>
+                {popularPosts.map((post) => (
+                  <Link key={post.id} to={`/blog_details/${post.slug}`}>
+                    <button className='group flex gap-4 my-6 w-full text-left'>
+                      <div className='size-[82px] rounded-xl overflow-hidden flex-shrink-0'>
+                        {post.thumbnailUrl ? (
+                          <img
+                            draggable='false'
+                            src={post.thumbnailUrl}
+                            alt={post.title}
+                            className='size-full object-cover'
+                          />
+                        ) : (
+                          <div className='size-full bg-PrimaryColor-0 bg-opacity-10 flex items-center justify-center text-2xl'>📰</div>
+                        )}
+                      </div>
+                      <div className='flex-1'>
+                        <h6 className='font-AlbertSans font-semibold md:text-lg lg:text-sm xl:text-lg leading-6 text-HeadingColor-0 transition-all duration-500 group-hover:text-PrimaryColor-0 line-clamp-2'>
+                          {post.title}
+                        </h6>
+                        <p className='font-AlbertSans text-TextColor2-0 text-sm mt-1 uppercase'>
+                          {formatDate(post.publishedAt)}
+                        </p>
+                      </div>
+                    </button>
+                  </Link>
+                ))}
+                {popularPosts.length === 0 && (
+                  <p className='text-TextColor2-0 italic text-sm text-center'>No popular posts found</p>
+                )}
               </div>
               <div
                 className='rounded-2xl px-4 sm:px-7 lg:px-4 xl:px-7 pt-7 pb-6 overflow-hidden bg-white bg-opacity-20 border-2 border-white border-opacity-80 mb-7'

@@ -19,7 +19,7 @@ const testiData = [
     testiRatingIcon: <MdOutlineStarPurple500 />,
     testiName: 'Anjelina Watson',
     testiDesignation: 'Dentist',
-    testiDesc: `Dr. Anjelina Watson conducted a thorough examination and took the time to explain my condition 
+    testiDesc: `Dr. Anjelina Watson conducted a thorough examination and took the time to explain my condition
     in detail. Their compassionate approach made all the difference; I felt genuinely cared for.`,
     testiQuote: testiQuote,
   },
@@ -29,7 +29,7 @@ const testiData = [
     testiRatingIcon: <MdOutlineStarPurple500 />,
     testiName: 'Jhon D. Alexon',
     testiDesignation: 'Surjoun',
-    testiDesc: `Dr. Jhon D. Alexon conducted a thorough examination and took the time to explain my condition 
+    testiDesc: `Dr. Jhon D. Alexon conducted a thorough examination and took the time to explain my condition
     in detail. Their compassionate approach made all the difference; I felt genuinely cared for.`,
     testiQuote: testiQuote,
   },
@@ -39,7 +39,7 @@ const testiData = [
     testiRatingIcon: <MdOutlineStarPurple500 />,
     testiName: 'David Miller',
     testiDesignation: 'Therapist',
-    testiDesc: `Dr. Anjelina Watson conducted a thorough examination and took the time to explain my condition 
+    testiDesc: `Dr. Anjelina Watson conducted a thorough examination and took the time to explain my condition
     in detail. Their compassionate approach made all the difference; I felt genuinely cared for.`,
     testiQuote: testiQuote,
   },

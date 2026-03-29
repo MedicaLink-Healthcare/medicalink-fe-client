@@ -377,12 +377,6 @@ const Navbar = () => {
                       <Link to={'/'}>Pages</Link>
                       <ul className='submenu'>
                         <li>
-                          <Link to={'/about'}>about us</Link>
-                        </li>
-                        <li>
-                          <Link to={'/service'}>Our Service</Link>
-                        </li>
-                        <li>
                           <Link to={'/team'}>team member</Link>
                         </li>
                         <li>
@@ -390,6 +384,9 @@ const Navbar = () => {
                         </li>
                         <li>
                           <Link to={'/appointment'}>appointment</Link>
+                        </li>
+                        <li>
+                          <Link to={'/patient_lookup'}>Patient Lookup</Link>
                         </li>
                         <li>
                           <Link to={'/testimonial'}>testimonial</Link>
@@ -403,10 +400,10 @@ const Navbar = () => {
                       </ul>
                     </li>
                     <li>
-                      <Link to={'/'}>Services</Link>
+                      <Link to={'/service'}>Services</Link>
                     </li>
                     <li className='has-dropdown'>
-                      <Link to={'/'}>Blog</Link>
+                      <Link to={'/blog_grid'}>Blog</Link>
                       <ul className='submenu'>
                         <li>
                           <Link to={'/blog_grid'}>blog grid</Link>

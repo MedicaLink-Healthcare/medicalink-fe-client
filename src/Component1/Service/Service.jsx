@@ -121,7 +121,7 @@ const Service = () => {
           data-aos='fade-left'
           data-aos-duration='1000'
         >
-          <Link to={'/service_details'}>
+          <Link to={'/service'}>
             <button className='primary-btn mt-3 px-8'>
               View All Services
               <GoArrowRight

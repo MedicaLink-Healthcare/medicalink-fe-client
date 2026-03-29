@@ -96,7 +96,7 @@ const Blog = () => {
                       blogDate={formatDate(blog.createdAt)}
                       blogPostBy={"Admin"}
                       blogPostByIcon={<FaCircle />}
-                      blogUrl={`/blogs/${blog.slug}`}
+                      blogUrl={`/blog_details/${blog.slug}`}
                       blogTitle={blog.title}
                     />
                   </div>
