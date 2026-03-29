@@ -44,7 +44,8 @@ const TeamDetails = () => {
       <BreadCrumb
         breadCrumbTitle={'Team Details'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={doctor.fullName || 'Team Details'}
+        breadCrumbLink={doctor.fullName || 'Chi tiết bác sĩ'}
+        url={`/team-details/${id}`}
       />
       <TeamDetailsMain doctor={doctor} />
       <Subscribe />

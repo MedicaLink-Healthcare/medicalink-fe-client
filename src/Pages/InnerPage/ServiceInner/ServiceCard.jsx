@@ -12,17 +12,18 @@ const ServiceCard = ({
   return (
     <div className='rounded-xl bg-white bg-opacity-20 border-2 border-white border-opacity-75 group relative z-10 pt-10 px-4 sm:px-9 md:px-6 lg:px-4 xl:px-9 pb-9'>
       <div className='flex items-center gap-5'>
-        <div className='size-[72px] rounded-full bg-white bg-opacity-20 border-2 border-white border-opacity-75 relative overflow-hidden'>
+        <div className='size-[72px] rounded-full bg-white bg-opacity-20 border-2 border-white border-opacity-75 relative flex items-center justify-center overflow-hidden'>
           <img
-            src={serviceIcon}
-            draggable='false'
-            className='absolute translate-y-0 top-full left-1/2 -translate-x-1/2 transition-all duration-500 group-hover:-translate-y-1/2 group-hover:top-1/2'
-          />
-          <img
-            src={serviceIcon2}
-            draggable='false'
-            className='absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 transition-all duration-500 group-hover:-top-1/3'
-          />
+  src={serviceIcon}
+  draggable="true"
+  className="w-10 h-10 object-contain absolute opacity-0 scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 select-none"
+/>
+
+<img
+  src={serviceIcon2}
+  draggable="true"
+  className="w-10 h-10 object-contain absolute opacity-100 scale-100 transition-all duration-500 group-hover:opacity-0 group-hover:scale-75 select-none"
+/>
         </div>
         <div className='flex-1 inline-block'>
           <Link to={serviceUrl}>

@@ -885,3 +885,79 @@ body {
 .project-details {
   -ms-overflow-style: -ms-autohiding-scrollbar; /* Auto-hiding scrollbar */
 }
+
+/* Article & Biography Typography */
+.blog-content,
+.biography-content {
+  @apply text-justify;
+}
+
+.blog-content p,
+.biography-content p {
+  @apply mb-6 leading-relaxed;
+}
+
+.blog-content strong,
+.biography-content strong {
+  @apply font-bold text-HeadingColor-0;
+}
+
+.blog-content ul,
+.biography-content ul {
+  @apply list-disc list-inside mb-6 space-y-2 ml-4 text-TextColor2-0;
+}
+
+.blog-content ol,
+.biography-content ol {
+  @apply list-decimal list-inside mb-6 space-y-2 ml-4 text-TextColor2-0;
+}
+
+.blog-content h2,
+.biography-content h2 {
+  @apply text-2xl font-bold text-HeadingColor-0 mt-10 mb-5 font-AlbertSans;
+}
+
+.blog-content h3,
+.biography-content h3 {
+  @apply text-xl font-bold text-HeadingColor-0 mt-8 mb-4 font-AlbertSans;
+}
+
+.blog-content figure,
+.biography-content figure {
+  @apply my-10 rounded-3xl overflow-hidden border-2 border-white shadow-sm bg-white/30 p-2;
+}
+
+.blog-content img,
+.biography-content img {
+  @apply w-full h-auto object-cover rounded-2xl;
+}
+
+.blog-content figcaption,
+.biography-content figcaption {
+  @apply text-center text-sm italic text-TextColor2-0 font-AlbertSans;
+}
+
+/* Custom Animations */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(-10%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
