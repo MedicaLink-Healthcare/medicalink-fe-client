@@ -12,6 +12,8 @@ import AppointmentInner from '../Pages/InnerPage/Appointment/AppointmentInner';
 import ProjectInner from '../Pages/InnerPage/ProjectInner/ProjectInner';
 import TestimonialInner from '../Pages/InnerPage/TestimonialInner/TestimonialInner';
 import FaqInner from '../Pages/InnerPage/Faq/FaqInner';
+import CommunityQAInner from '../Pages/InnerPage/CommunityQA/CommunityQAInner';
+import CommunityQADetailInner from '../Pages/InnerPage/CommunityQA/CommunityQADetailInner';
 import TeamDetails from '../Pages/InnerPage/TeamDetails/TeamDetails';
 import BlogLeftSidebar from '../Pages/InnerPage/BlogLeftSidebar/BlogLeftSidebar';
 import BlogRightSidebar from '../Pages/InnerPage/BlogRightSidebar/BlogRightSidebar';
@@ -39,6 +41,8 @@ const router = createBrowserRouter([
       { path: 'blog_details/:slug', element: <BlogDetails /> },
       { path: 'appointment', element: <AppointmentInner /> },
       { path: 'faqs', element: <FaqInner /> },
+      { path: 'community-qa', element: <CommunityQAInner /> },
+      { path: 'community-qa/:id', element: <CommunityQADetailInner /> },
       { path: 'contact', element: <ContactInner /> },
       { path: 'patient_lookup', element: <PatientLookup /> },
     ],
