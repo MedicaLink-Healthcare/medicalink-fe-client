@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { questionService } from '@/api/services/questionService';
 
 export const QA_KEYS = {
@@ -19,10 +19,11 @@ export const useQuestionsQuery = (params = {}) => {
   });
 };
 
-export const useQuestionDetailQuery = (id) => {
+export const useQuestionDetailQuery = (id, options = {}) => {
+  const { increaseView = true } = options;
   return useQuery({
-    queryKey: QA_KEYS.detail(id),
-    queryFn: () => questionService.getQuestionDetail(id),
+    queryKey: [...QA_KEYS.detail(id), { increaseView }],
+    queryFn: () => questionService.getQuestionDetail(id, { increaseView }),
     enabled: !!id,
     staleTime: 5 * 60 * 1000,
   });
@@ -38,7 +39,11 @@ export const useAcceptedAnswersQuery = (id) => {
 };
 
 export const useCreateQuestionMutation = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data) => questionService.createQuestion(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QA_KEYS.lists() });
+    },
   });
 };

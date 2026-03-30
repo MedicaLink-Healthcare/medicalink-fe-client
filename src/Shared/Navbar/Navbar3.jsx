@@ -404,6 +404,9 @@ const Navbar3 = () => {
                           <Link to={'/faqs'}>faqs</Link>
                         </li>
                         <li>
+                          <Link to={'/community-qa'}>Q&A</Link>
+                        </li>
+                        <li>
                           <Link to={'/contact'}>Contact Us</Link>
                         </li>
                       </ul>
