@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FaUser } from 'react-icons/fa6';
 import { GoArrowRight } from 'react-icons/go';
@@ -67,6 +68,7 @@ const STEPS = [
 
 const AppointmentBooking = () => {
   const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
   const { data: doctorListData, isLoading: loadingDoctors } = useDoctorsQuery({
     limit: 100,
   });
@@ -90,6 +92,13 @@ const AppointmentBooking = () => {
   const [serviceDate, setServiceDate] = useState(todayISODate);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [eventId, setEventId] = useState(null);
+
+  const doctorIdFromUrl = searchParams.get('doctorId');
+  useEffect(() => {
+    if (!doctorIdFromUrl) return;
+    setBookingMode('doctor-first');
+    setDoctorId(doctorIdFromUrl);
+  }, [doctorIdFromUrl]);
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -383,22 +392,6 @@ const AppointmentBooking = () => {
                 </div>
                 <div>
                   <label
-                    htmlFor='book-date-df'
-                    className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
-                  >
-                    Preferred date
-                  </label>
-                  <input
-                    id='book-date-df'
-                    type='date'
-                    min={todayISODate()}
-                    value={serviceDate}
-                    onChange={(ev) => setServiceDate(ev.target.value)}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
-                  />
-                </div>
-                <div>
-                  <label
                     htmlFor='book-specialty-df'
                     className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
                   >
@@ -527,22 +520,6 @@ const AppointmentBooking = () => {
                     ))}
                   </select>
                 </div>
-                <div>
-                  <label
-                    htmlFor='book-date'
-                    className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
-                  >
-                    Preferred date
-                  </label>
-                  <input
-                    id='book-date'
-                    type='date'
-                    min={todayISODate()}
-                    value={serviceDate}
-                    onChange={(ev) => setServiceDate(ev.target.value)}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
-                  />
-                </div>
               </>
             )}
           </div>
@@ -567,6 +544,22 @@ const AppointmentBooking = () => {
             <h4 className='font-AlbertSans text-HeadingColor-0 mb-3 text-base font-semibold'>
               Available times
             </h4>
+            <div className='mb-4 max-w-xs'>
+              <label
+                htmlFor='slot-service-date'
+                className='mb-1 block font-AlbertSans text-xs font-medium text-TextColor2-0'
+              >
+                Date for availability
+              </label>
+              <input
+                id='slot-service-date'
+                type='date'
+                min={todayISODate()}
+                value={serviceDate}
+                onChange={(ev) => setServiceDate(ev.target.value)}
+                className='font-AlbertSans text-HeadingColor-0 h-[44px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-3 text-sm focus:outline-PrimaryColor-0'
+              />
+            </div>
             {!doctorId || !serviceDate || !effectiveLocationId ? (
               <p className='text-muted-foreground font-DMSans text-sm'>
                 Choose a doctor, location, and date to load open slots.

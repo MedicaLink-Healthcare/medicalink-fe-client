@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaPhoneAlt, FaCommentDots, FaGraduationCap, FaAward, FaFlask, FaUser } from 'react-icons/fa';
 import { FaBriefcase, FaRegCircleCheck } from 'react-icons/fa6';
@@ -76,6 +77,15 @@ const TeamDetailsMain = ({ doctor }) => {
                     ))}
                   </div>
                 )}
+
+                <div className='mb-6'>
+                  <Link
+                    to={doctor?.id ? `/appointment?doctorId=${encodeURIComponent(doctor.id)}` : '/appointment'}
+                    className='inline-flex items-center justify-center rounded-2xl bg-Secondarycolor-0 px-6 py-3 font-AlbertSans text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90'
+                  >
+                    Get appointment
+                  </Link>
+                </div>
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-white/60'>
                   <div className='flex items-center gap-4 group'>

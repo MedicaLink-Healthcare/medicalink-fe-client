@@ -10,7 +10,7 @@ const TeamDetails = () => {
   const { id } = useParams();
   const { data: response, isLoading, isError } = useDoctorDetailQuery(id);
 
-  const doctor = response?.data?.data || response?.data;
+  const doctor = response?.data && !Array.isArray(response.data) ? response.data : null;
 
   if (isLoading) {
     return (

@@ -11,7 +11,7 @@ export const doctorService = {
 
   /** @param {string} doctorId @param {{ serviceDate: string, locationId?: string }} params */
   getAvailableSlots: async (doctorId, params) => {
-    return axiosClient.get(`/doctors/profile/public/${doctorId}/slots`, {
+    return axiosClient.get(`/doctors/profile/${doctorId}/slots`, {
       params,
     });
   },

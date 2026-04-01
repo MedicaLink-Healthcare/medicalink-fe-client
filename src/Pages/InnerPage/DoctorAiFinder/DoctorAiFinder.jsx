@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FaArrowRightLong, FaStethoscope } from 'react-icons/fa6';
+import { FaArrowRightLong } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import BreadCrumb from '@/Shared/BreadCrumb/BreadCrumb';
 import Loading from '@/Shared/Loading/Loading';
@@ -8,6 +8,7 @@ import {
   useAIRecommendDoctorMutation,
   useAISuggestSpecialtiesMutation,
 } from '@/api/hooks/ai/useAIQueries';
+import { doctorService } from '@/api/services/doctorService';
 
 const STORAGE_KEY = 'mediic:doctor-ai-finder:v1';
 
@@ -32,6 +33,37 @@ const persistSnapshot = (snapshot) => {
 const unwrapList = (res) => res?.data?.data ?? res?.data ?? [];
 
 const unwrapAiPayload = (res) => res?.data ?? res;
+
+const pickPublicDoctor = (res) => {
+  const body = res?.data ?? res;
+  return body?.data ?? body;
+};
+
+async function enrichRecommendationsWithProfiles(recs) {
+  const list = Array.isArray(recs) ? recs : [];
+  const enriched = await Promise.all(
+    list.map(async (r) => {
+      const id = r?.doctor_id ?? r?.doctorId;
+      if (!id) return r;
+      try {
+        const res = await doctorService.getDoctorById(id);
+        const d = pickPublicDoctor(res);
+        if (!d || typeof d !== 'object') return r;
+        return {
+          ...r,
+          profile: {
+            fullName: d.fullName ?? d.full_name,
+            avatarUrl: d.avatarUrl ?? d.avatar_url,
+            degree: d.degree,
+          },
+        };
+      } catch {
+        return r;
+      }
+    }),
+  );
+  return enriched;
+}
 
 const DoctorAiFinder = () => {
   const persisted = useMemo(() => readPersisted(), []);
@@ -150,11 +182,18 @@ const DoctorAiFinder = () => {
       ...(specialtyIds.length ? { specialtyIds } : {}),
     };
     recommendMutation.mutate(body, {
-      onSuccess: (res) => {
+      onSuccess: async (res) => {
         const payload = unwrapAiPayload(res);
         const recs = payload?.recommendations ?? [];
-        setRecommendations(Array.isArray(recs) ? recs : []);
+        const base = Array.isArray(recs) ? recs : [];
+        setRecommendations(base);
         scrollToResults();
+        try {
+          const withProfiles = await enrichRecommendationsWithProfiles(base);
+          setRecommendations(withProfiles);
+        } catch {
+          /* giữ danh sách gốc nếu profile lỗi */
+        }
       },
       onError: (e) => {
         setErrorMsg(e?.message || 'Could not get recommendations. Please try again.');
@@ -173,7 +212,6 @@ const DoctorAiFinder = () => {
         <div className='Container max-w-5xl'>
           <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8'>
             <div className='flex items-center gap-3'>
-              <FaStethoscope className='text-PrimaryColor-0 text-3xl shrink-0' aria-hidden />
               <div>
                 <h1 className='font-AlbertSans font-bold text-3xl text-HeadingColor-0'>
                   Find a doctor with AI
@@ -300,30 +338,60 @@ const DoctorAiFinder = () => {
                 ) : null}
               </div>
               <ul className='space-y-4'>
-                {recommendations.map((r) => (
-                  <li
-                    key={r.doctor_id}
-                    className='bg-white rounded-2xl border border-BodyBg2-0 p-6 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md'
-                  >
-                    <div className='flex flex-col md:flex-row md:items-start md:justify-between gap-4'>
-                      <div>
-                        <p className='font-AlbertSans font-bold text-lg text-HeadingColor-0'>
-                          Doctor #{r.doctor_id.slice(0, 8)}…
-                        </p>
-                        <p className='text-TextColor2-0 text-[15px] mt-2 leading-relaxed'>
-                          {r.reason}
-                        </p>
+                {recommendations.map((r) => {
+                  const docId = r.doctor_id ?? r.doctorId;
+                  const displayName =
+                    r.profile?.fullName ||
+                    (docId ? `Bác sĩ #${String(docId).slice(0, 8)}…` : 'Bác sĩ');
+                  const avatar = r.profile?.avatarUrl;
+                  const degree = r.profile?.degree;
+                  return (
+                    <li
+                      key={docId}
+                      className='bg-white rounded-2xl border border-BodyBg2-0 p-6 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md'
+                    >
+                      <div className='flex flex-col md:flex-row md:items-start md:justify-between gap-4'>
+                        <div className='flex gap-4 min-w-0'>
+                          {avatar ? (
+                            <img
+                              src={avatar}
+                              alt=''
+                              className='size-16 md:size-20 rounded-2xl object-cover border border-BodyBg2-0 shrink-0'
+                            />
+                          ) : (
+                            <div className='size-16 md:size-20 rounded-2xl bg-PrimaryColor-0/10 shrink-0' />
+                          )}
+                          <div className='min-w-0'>
+                            <p className='font-AlbertSans font-bold text-lg text-HeadingColor-0'>
+                              {displayName}
+                            </p>
+                            {degree ? (
+                              <p className='text-xs text-TextColor2-0 mt-0.5'>{degree}</p>
+                            ) : null}
+                            <p className='text-TextColor2-0 text-[15px] mt-2 leading-relaxed'>
+                              {r.reason}
+                            </p>
+                          </div>
+                        </div>
+                        <div className='flex flex-col sm:flex-row gap-2 shrink-0'>
+                          <Link
+                            to={`/appointment?doctorId=${encodeURIComponent(docId)}`}
+                            className='inline-flex items-center justify-center px-4 py-2 rounded-full bg-PrimaryColor-0 text-white text-sm font-semibold hover:opacity-90 transition-opacity text-center'
+                          >
+                              Book Appointment
+                          </Link>
+                          <Link
+                            to={`/team_details/${docId}`}
+                            state={{ fromAiFinder: true }}
+                            className='inline-flex items-center justify-center px-4 py-2 rounded-full bg-Secondarycolor-0 text-white text-sm font-semibold hover:opacity-90 transition-opacity text-center'
+                          >
+                            View Profile
+                          </Link>
+                        </div>
                       </div>
-                      <Link
-                        to={`/team_details/${r.doctor_id}`}
-                        state={{ fromAiFinder: true }}
-                        className='shrink-0 inline-flex items-center justify-center px-4 py-2 rounded-full bg-Secondarycolor-0 text-white text-sm font-semibold hover:opacity-90 transition-opacity'
-                      >
-                        View profile
-                      </Link>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ) : recommendations && recommendations.length === 0 ? (
