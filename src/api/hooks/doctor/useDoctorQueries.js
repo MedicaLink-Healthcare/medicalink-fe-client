@@ -11,12 +11,18 @@ export const DOCTOR_KEYS = {
     [...DOCTOR_KEYS.all, 'slots', doctorId, serviceDate, locationId],
 };
 
+/**
+ * API trả `{ data: Doctor[] | { data: Doctor[] }, meta? }` sau interceptor axios.
+ * Luôn normalize thành `{ items, meta }` để trang không nhầm `data` đã là mảng.
+ */
 function selectDoctorListEnvelope(res) {
-  if (!res) return [];
+  if (!res) return { items: [], meta: null };
   const inner = res.data;
-  if (inner && Array.isArray(inner.data)) return inner.data;
-  if (Array.isArray(inner)) return inner;
-  return [];
+  let items = [];
+  if (inner && Array.isArray(inner.data)) items = inner.data;
+  else if (Array.isArray(inner)) items = inner;
+  const meta = res.meta && typeof res.meta === 'object' ? res.meta : null;
+  return { items, meta };
 }
 
 function selectSlotsEnvelope(res) {
