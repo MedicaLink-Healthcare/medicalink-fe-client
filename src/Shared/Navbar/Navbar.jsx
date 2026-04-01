@@ -380,6 +380,9 @@ const Navbar = () => {
                           <Link to={'/team'}>team member</Link>
                         </li>
                         <li>
+                          <Link to={'/doctor-ai'}>AI Doctor Finder</Link>
+                        </li>
+                        <li>
                           <Link to={'/project'}>Project</Link>
                         </li>
                         <li>

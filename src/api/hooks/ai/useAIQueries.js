@@ -7,7 +7,13 @@ export const AI_KEYS = {
 
 export const useAIRecommendDoctorMutation = () => {
   return useMutation({
-    mutationFn: (symptoms) => aiService.recommendDoctor(symptoms),
+    mutationFn: (payload) => aiService.recommendDoctor(payload),
+  });
+};
+
+export const useAISuggestSpecialtiesMutation = () => {
+  return useMutation({
+    mutationFn: (payload) => aiService.suggestSpecialties(payload),
   });
 };
 

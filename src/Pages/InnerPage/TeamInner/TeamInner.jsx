@@ -19,20 +19,21 @@ const TeamInner = () => {
 
   const { currentPage, handlePageChangeButtonClick, handleNextButtonClick, handlePreviousButtonClick, handleNextPageGroupButtonClick, handlePreviousPageGroupButtonClick } = pagination;
 
-  const { data: response, isLoading } = useDoctorsQuery({
+  const { data: doctorPage, isLoading } = useDoctorsQuery({
     page: currentPage,
-    limit: itemsPerPage
+    limit: itemsPerPage,
   });
 
-  const doctors = response?.data?.data || response?.data || [];
+  const doctors = doctorPage?.items ?? [];
 
   useEffect(() => {
-    if (response?.meta?.total) {
-      setTotalItems(response.meta.total);
+    if (doctorPage?.meta?.total != null) {
+      setTotalItems(doctorPage.meta.total);
     }
-  }, [response]);
+  }, [doctorPage]);
 
-  const totalPage = response?.meta?.totalPages || Math.ceil(totalItems / itemsPerPage) || 1;
+  const totalPage =
+    doctorPage?.meta?.totalPages || Math.ceil(totalItems / itemsPerPage) || 1;
 
   useEffect(() => {
     window.scrollTo(0, 0);

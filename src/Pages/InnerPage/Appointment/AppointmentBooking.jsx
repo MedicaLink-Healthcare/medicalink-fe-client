@@ -67,9 +67,10 @@ const STEPS = [
 
 const AppointmentBooking = () => {
   const queryClient = useQueryClient();
-  const { data: doctors = [], isLoading: loadingDoctors } = useDoctorsQuery({
+  const { data: doctorListData, isLoading: loadingDoctors } = useDoctorsQuery({
     limit: 100,
   });
+  const doctors = doctorListData?.items ?? [];
 
   const { data: locationsRes, isLoading: loadingLocations, isError: locationsError } =
     useWorkLocationsQuery({ page: 1, limit: 100 });

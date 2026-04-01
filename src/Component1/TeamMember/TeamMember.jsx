@@ -17,9 +17,9 @@ import {
 } from 'react-icons/fa6';
 
 const TeamMember = () => {
-  const { data: response, isLoading } = useDoctorsQuery({ limit: 6 });
-  const doctors = response?.data || [];
-  const totalDoctors = response?.total || 58;
+  const { data: doctorList, isLoading } = useDoctorsQuery({ limit: 6 });
+  const doctors = doctorList?.items ?? [];
+  const totalDoctors = doctorList?.meta?.total ?? 58;
 
   const settings = {
     loop: doctors.length > 3,

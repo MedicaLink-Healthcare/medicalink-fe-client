@@ -18,6 +18,7 @@ import TeamDetails from '../Pages/InnerPage/TeamDetails/TeamDetails';
 import BlogLeftSidebar from '../Pages/InnerPage/BlogLeftSidebar/BlogLeftSidebar';
 import BlogRightSidebar from '../Pages/InnerPage/BlogRightSidebar/BlogRightSidebar';
 import PatientLookup from '../Pages/InnerPage/PatientLookup/PatientLookup';
+import DoctorAiFinder from '../Pages/InnerPage/DoctorAiFinder/DoctorAiFinder';
 import { createBrowserRouter } from 'react-router-dom';
 import Main4 from '../Main/Main4';
 
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       { path: 'project', element: <ProjectInner /> },
       { path: 'testimonial', element: <TestimonialInner /> },
       { path: 'team', element: <TeamInner /> },
+      { path: 'doctor-ai', element: <DoctorAiFinder /> },
       { path: 'team_details/:id', element: <TeamDetails /> },
       { path: 'blog_grid', element: <BlogGrid /> },
       { path: 'blog_left_sidebar', element: <BlogLeftSidebar /> },
