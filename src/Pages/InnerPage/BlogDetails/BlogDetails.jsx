@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import HelmetChanger from '../../../Shared/Helmet/Helmet';
 import { FaArrowRightLong, FaCircle } from 'react-icons/fa6';
 import BreadCrumb from '../../../Shared/BreadCrumb/BreadCrumb';
 import Subscribe from '../../../Component1/Subscribe/Subscribe';
@@ -51,6 +52,13 @@ const BlogDetails = () => {
 
   return (
     <>
+      <HelmetChanger
+        title={blog.title}
+        description={blog.excerpt || `Read the article: ${blog.title} on Medicalink. Healthcare management with AI & RAG technology.`}
+        image={blog.thumbnailUrl}
+        url={`/blog-details/${slug}`}
+        type="article"
+      />
       <BreadCrumb
         breadCrumbTitle={'Blog Details'}
         breadCrumbIcon={<FaArrowRightLong />}

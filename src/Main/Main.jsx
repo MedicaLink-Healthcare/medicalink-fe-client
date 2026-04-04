@@ -30,7 +30,10 @@ const Main = () => {
 
   return (
     <>
-      <HelmetChanger title={'Main Page'} />
+      <HelmetChanger 
+        title="AI Doctor Finder & Online Booking" 
+        description="Find the right doctor with AI-powered specialty suggestions and RAG-integrated medical management. Experience the future of healthcare booking at Medicalink."
+      />
       <Navbar />
       <Cursor />
       <BackToTop />
