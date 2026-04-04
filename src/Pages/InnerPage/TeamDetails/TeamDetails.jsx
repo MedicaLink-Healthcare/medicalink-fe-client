@@ -5,6 +5,7 @@ import Subscribe from '../../../Component1/Subscribe/Subscribe';
 import { useParams } from 'react-router-dom';
 import { useDoctorDetailQuery } from '../../../api/hooks/doctor/useDoctorQueries';
 import Loading from '../../../Shared/Loading/Loading';
+import HelmetChanger from '../../../Shared/Helmet/Helmet';
 
 const TeamDetails = () => {
   const { id } = useParams();
@@ -41,6 +42,13 @@ const TeamDetails = () => {
 
   return (
     <>
+      <HelmetChanger
+        title={doctor.fullName || 'Doctor Details'}
+        description={`${doctor.fullName} - ${doctor.specialty?.name || 'Healthcare Professional'} at Medicalink. Smart medical appointment booking integrated with RAG technology.`}
+        image={doctor.imageUrl}
+        url={`/team-details/${id}`}
+        type="profile"
+      />
       <BreadCrumb
         breadCrumbTitle={'Team Details'}
         breadCrumbIcon={<FaArrowRightLong />}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import BreadCrumb from '@/Shared/BreadCrumb/BreadCrumb';
+import HelmetChanger from '@/Shared/Helmet/Helmet';
 import Loading from '@/Shared/Loading/Loading';
 import { useSpecialtiesQuery } from '@/api/hooks/specialty/useSpecialtyQueries';
 import {
@@ -203,6 +204,11 @@ const DoctorAiFinder = () => {
 
   return (
     <>
+      <HelmetChanger
+        title="AI Doctor Finder - Smart Healthcare Suggestions"
+        description="Describe your symptoms and let our AI suggest the most suitable medical specialties and doctors for you. Powered by RAG technology for accurate medical matching."
+        url="/doctor-ai-finder"
+      />
       <BreadCrumb
         breadCrumbTitle={'AI Doctor Finder'}
         breadCrumbIcon={<FaArrowRightLong />}
