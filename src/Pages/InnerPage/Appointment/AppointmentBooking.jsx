@@ -1,16 +1,98 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { FaUser } from 'react-icons/fa6';
+import { FaUser, FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { GoArrowRight } from 'react-icons/go';
 import { HiOutlineMailOpen } from 'react-icons/hi';
 import { MdCall } from 'react-icons/md';
+import moment from 'moment';
+import PropTypes from 'prop-types';
 import { useDoctorsQuery, useDoctorSlotsQuery } from '@/api/hooks/doctor/useDoctorQueries';
 import { useWorkLocationsQuery } from '@/api/hooks/location/useLocationQueries';
 import { useSpecialtiesQuery } from '@/api/hooks/specialty/useSpecialtyQueries';
 import { appointmentService } from '@/api/services/appointmentService';
 import { patientService } from '@/api/services/patientService';
 import Loading from '@/Shared/Loading/Loading';
+
+const MiniCalendar = ({ selectedDate, onDateSelect }) => {
+  const [currentMonth, setCurrentMonth] = useState(() => moment(selectedDate || new Date()));
+
+  // Allow calendar to change when external selectedDate changes
+  useEffect(() => {
+    if (selectedDate) {
+      const d = moment(selectedDate);
+      if (d.isValid() && d.month() !== currentMonth.month()) {
+        setCurrentMonth(d);
+      }
+    }
+  }, [selectedDate, currentMonth]);
+
+  const prevMonth = useCallback(() => setCurrentMonth(prev => moment(prev).subtract(1, 'month')), []);
+  const nextMonth = useCallback(() => setCurrentMonth(prev => moment(prev).add(1, 'month')), []);
+
+  const days = useMemo(() => {
+    const startDate = moment(currentMonth).startOf('month').startOf('isoWeek');
+    const endDate = moment(currentMonth).endOf('month').endOf('isoWeek');
+    const arr = [];
+    let day = startDate;
+    while (day <= endDate) {
+      arr.push(day);
+      day = moment(day).add(1, 'day');
+    }
+    return arr;
+  }, [currentMonth]);
+
+  return (
+    <div className='w-full max-w-sm rounded-[1.2rem] border border-Secondarycolor-0 border-opacity-45 bg-white/50 p-4 shadow-sm'>
+      <div className='mb-4 flex items-center justify-between'>
+        <button type='button' onClick={prevMonth} className='rounded-full p-2 hover:bg-white/80 transition-colors'>
+          <FaChevronLeft size={14} className='text-HeadingColor-0' />
+        </button>
+        <span className='font-AlbertSans font-semibold text-HeadingColor-0'>
+          {currentMonth.format('MMMM YYYY')}
+        </span>
+        <button type='button' onClick={nextMonth} className='rounded-full p-2 hover:bg-white/80 transition-colors'>
+          <FaChevronRight size={14} className='text-HeadingColor-0' />
+        </button>
+      </div>
+      <div className='mb-2 grid grid-cols-7 gap-1 text-center font-AlbertSans text-xs font-semibold text-TextColor2-0'>
+        <div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div><div>Su</div>
+      </div>
+      <div className='grid grid-cols-7 gap-1'>
+        {days.map(d => {
+          const isCurrentMonth = d.month() === currentMonth.month();
+          const dateStr = d.format('YYYY-MM-DD');
+          const isSelected = selectedDate === dateStr;
+          const isPast = d.isBefore(moment(), 'day');
+          return (
+            <button
+              key={dateStr}
+              type='button'
+              disabled={isPast}
+              onClick={() => onDateSelect(dateStr)}
+              className={`flex aspect-square items-center justify-center rounded-md font-AlbertSans text-sm transition-all ${
+                !isCurrentMonth ? 'text-gray-400 font-light' : 'text-HeadingColor-0 font-medium'
+              } ${
+                isSelected
+                  ? 'bg-PrimaryColor-0 text-white font-bold hover:bg-PrimaryColor-0/90 shadow'
+                  : !isPast
+                    ? 'hover:bg-PrimaryColor-0/10'
+                    : 'cursor-not-allowed opacity-50'
+              }`}
+            >
+              {d.date()}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+MiniCalendar.propTypes = {
+  selectedDate: PropTypes.string,
+  onDateSelect: PropTypes.func.isRequired,
+};
 
 function pickInnerPayload(res) {
   if (res == null) return null;
@@ -72,7 +154,7 @@ const AppointmentBooking = () => {
   const { data: doctorListData, isLoading: loadingDoctors } = useDoctorsQuery({
     limit: 100,
   });
-  const doctors = doctorListData?.items ?? [];
+  const doctors = useMemo(() => doctorListData?.items ?? [], [doctorListData?.items]);
 
   const { data: locationsRes, isLoading: loadingLocations, isError: locationsError } =
     useWorkLocationsQuery({ page: 1, limit: 100 });
@@ -540,71 +622,68 @@ const AppointmentBooking = () => {
             </p>
           )}
 
-          <div className='mt-6'>
-            <h4 className='font-AlbertSans text-HeadingColor-0 mb-3 text-base font-semibold'>
-              Available times
-            </h4>
-            <div className='mb-4 max-w-xs'>
-              <label
-                htmlFor='slot-service-date'
-                className='mb-1 block font-AlbertSans text-xs font-medium text-TextColor2-0'
-              >
-                Date for availability
-              </label>
-              <input
-                id='slot-service-date'
-                type='date'
-                min={todayISODate()}
-                value={serviceDate}
-                onChange={(ev) => setServiceDate(ev.target.value)}
-                className='font-AlbertSans text-HeadingColor-0 h-[44px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-3 text-sm focus:outline-PrimaryColor-0'
-              />
+          <div className='mt-8 grid grid-cols-1 gap-8 md:grid-cols-2'>
+            <div>
+              <h4 className='font-AlbertSans text-HeadingColor-0 mb-4 text-base font-semibold'>
+                Select appointment date
+              </h4>
+              <MiniCalendar selectedDate={serviceDate} onDateSelect={setServiceDate} />
             </div>
-            {!doctorId || !serviceDate || !effectiveLocationId ? (
-              <p className='text-muted-foreground font-DMSans text-sm'>
-                Choose a doctor, location, and date to load open slots.
-              </p>
-            ) : loadingSlots ? (
-              <div className='flex justify-center py-8'>
-                <Loading />
-              </div>
-            ) : slotsError ? (
-              <p className='font-DMSans text-sm text-red-600'>
-                {slotsErr?.message || 'Failed to load availability.'}
-              </p>
-            ) : slots.length === 0 ? (
-              <p className='font-DMSans text-sm text-TextColor2-0'>
-                No open slots for this date. Try another day.
-              </p>
-            ) : (
-              <div className='flex flex-wrap gap-2'>
-                {slots.map((s, idx) => {
-                  const active =
-                    selectedSlot?.timeStart === s.timeStart &&
-                    selectedSlot?.timeEnd === s.timeEnd;
-                  return (
-                    <button
-                      key={`${s.timeStart}-${s.timeEnd}-${idx}`}
-                      type='button'
-                      disabled={holdMutation.isPending}
-                      onClick={() => handlePickSlot(s)}
-                      className={`rounded-xl border px-4 py-2 font-AlbertSans text-sm transition-colors ${
-                        active
-                          ? 'border-PrimaryColor-0 bg-PrimaryColor-0 text-white'
-                          : 'border-Secondarycolor-0 border-opacity-45 bg-white/50 text-HeadingColor-0 hover:border-PrimaryColor-0'
-                      }`}
-                    >
-                      {s.timeStart} – {s.timeEnd}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-            {selectedSlot && eventId && (
-              <p className='mt-3 font-DMSans text-sm text-green-700'>
-                Slot held — complete the next steps within 10 minutes.
-              </p>
-            )}
+            
+            <div>
+              <h4 className='font-AlbertSans text-HeadingColor-0 mb-4 text-base font-semibold'>
+                Available time slots
+              </h4>
+              {!doctorId || !serviceDate || !effectiveLocationId ? (
+                <div className='rounded-xl border border-dashed border-Secondarycolor-0 border-opacity-45 p-6 text-center text-sm font-DMSans text-TextColor2-0'>
+                  Please choose a doctor and location first.
+                </div>
+              ) : loadingSlots ? (
+                <div className='flex justify-center py-8'>
+                  <Loading />
+                </div>
+              ) : slotsError ? (
+                <p className='font-DMSans text-sm text-red-600'>
+                  {slotsErr?.message || 'Failed to load availability.'}
+                </p>
+              ) : slots.length === 0 ? (
+                 <div className='rounded-xl border border-dashed border-Secondarycolor-0 border-opacity-45 p-6 text-center text-sm font-DMSans text-TextColor2-0'>
+                  No open slots for this date. Try another day.
+                </div>
+              ) : (
+                <>
+                  <div className='grid grid-cols-3 gap-2 overflow-y-auto max-h-[280px] p-1'>
+                    {slots.map((s, idx) => {
+                      const active =
+                        selectedSlot?.timeStart === s.timeStart &&
+                        selectedSlot?.timeEnd === s.timeEnd;
+                      return (
+                        <button
+                          key={`${s.timeStart}-${s.timeEnd}-${idx}`}
+                          type='button'
+                          disabled={holdMutation.isPending}
+                          onClick={() => handlePickSlot(s)}
+                          className={`flex flex-col items-center justify-center rounded-xl border p-2 font-AlbertSans transition-all ${
+                            active
+                              ? 'border-PrimaryColor-0 bg-PrimaryColor-0 text-white shadow-md'
+                              : 'border-Secondarycolor-0 border-opacity-45 bg-white/50 text-HeadingColor-0 hover:border-PrimaryColor-0 hover:bg-PrimaryColor-0/10'
+                          }`}
+                        >
+                          <span className='font-semibold text-sm'>{s.timeStart}</span>
+                          <span className='text-[10px] opacity-80'>to {s.timeEnd}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className='mt-3 font-DMSans text-xs flex items-center justify-between'>
+                    <span className='text-TextColor2-0'>{slots.length} available slots</span>
+                    {selectedSlot && eventId && (
+                      <span className='text-green-700 font-semibold'>Slot held! (expires in 10m)</span>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
 
           {formError && step === 1 ? (
