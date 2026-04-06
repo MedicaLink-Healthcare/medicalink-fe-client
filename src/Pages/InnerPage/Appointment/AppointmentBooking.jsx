@@ -231,6 +231,12 @@ const AppointmentBooking = () => {
     }
   }, [bookingMode, filteredDoctors, doctorId]);
 
+  useEffect(() => {
+    if (locations.length === 1 && !locationId) {
+      setLocationId(locations[0].id);
+    }
+  }, [locations, locationId]);
+
   const effectiveLocationId = locationId;
 
   const {
@@ -508,8 +514,8 @@ const AppointmentBooking = () => {
                     id='book-location-df'
                     value={locationId}
                     onChange={(ev) => setLocationId(ev.target.value)}
-                    disabled={loadingLocations || !selectedDoctor}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
+                    disabled={loadingLocations || !selectedDoctor || doctorLocationOptions.length === 1}
+                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0 disabled:opacity-75 disabled:bg-gray-100/50'
                   >
                     <option value=''>Select location</option>
                     {doctorLocationOptions.length > 0
@@ -548,8 +554,8 @@ const AppointmentBooking = () => {
                     id='book-location'
                     value={locationId}
                     onChange={(ev) => setLocationId(ev.target.value)}
-                    disabled={loadingLocations}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
+                    disabled={loadingLocations || locations.length === 1}
+                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0 disabled:opacity-75 disabled:bg-gray-100/50'
                   >
                     <option value=''>Select location</option>
                     {locations.map((loc) => (
