@@ -1,11 +1,33 @@
+import { useState } from 'react';
 import { FaUser } from 'react-icons/fa6';
 import { GoArrowRight } from 'react-icons/go';
 import { HiOutlineMailOpen } from 'react-icons/hi';
 import { MdCall } from 'react-icons/md';
 import Heart from '/images/banner-heart.png';
 import circleShape from '/images/crcle-bg.png';
+import { utilityService } from '../../api/services/utilityService';
 
 const Appointment = () => {
+  const [status, setStatus] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      await utilityService.sendContactMessage(data);
+      setStatus('success');
+      e.target.reset();
+      setTimeout(() => setStatus(null), 3000);
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+    }
+  };
+
   return (
     <section className='px-5 2xl:px-20 bg-BodyBg-0 pt-[106px] relative z-10 overflow-hidden'>
       <div className='absolute -z-10 -top-1/2 left-1/2 -translate-x-1/2'>
@@ -45,8 +67,7 @@ const Appointment = () => {
             Make an Online Appoinemnt <br /> Booking For Treatment Patients
           </h1>
           <form
-            action='https://formspree.io/f/xayrekgy'
-            method='post'
+            onSubmit={handleSubmit}
             className='flex flex-col gap-y-5 mt-9'
           >
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
@@ -81,8 +102,8 @@ const Appointment = () => {
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
               <select
-                name='select'
-                id='select'
+                name='subject'
+                id='subject'
                 className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-xl py-2 px-6 h-[60px] w-full focus:outline-PrimaryColor-0'
               >
                 <option
@@ -92,22 +113,22 @@ const Appointment = () => {
                   Your Subject
                 </option>
                 <option
-                  value='subject2'
+                  value='Cardiology'
                   className='text-HeadingColor-0'
                 >
-                  Bangla
+                  Cardiology
                 </option>
                 <option
-                  value='subject3'
+                  value='Neurology'
                   className='text-HeadingColor-0'
                 >
-                  Arabic
+                  Neurology
                 </option>
                 <option
-                  value='subject4'
+                  value='General Checkup'
                   className='text-HeadingColor-0'
                 >
-                  China
+                  General Checkup
                 </option>
               </select>
               <div className='relative inline-block'>
@@ -131,12 +152,25 @@ const Appointment = () => {
               placeholder='Write a short meassage...'
               className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-2xl py-2 px-6 h-[150px] w-full focus:outline-PrimaryColor-0 resize-none'
             ></textarea>
+
+            {status === 'success' && (
+              <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+                Message sent successfully!
+              </div>
+            )}
+            {status === 'error' && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                There was an error sending your message. Please try again later.
+              </div>
+            )}
+
             <div className='inline-block mt-2'>
               <button
                 type='submit'
-                className='primary-btn'
+                className='primary-btn disabled:opacity-50'
+                disabled={status === 'loading'}
               >
-                Send Now
+                {status === 'loading' ? 'Sending...' : 'Send Now'}
                 <GoArrowRight
                   size={'22'}
                   className='-rotate-45'
