@@ -1,6 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Preloader from './Shared/Preloader/Preloader';
 import './index.css';
 import { RouterProvider } from 'react-router-dom';
@@ -22,5 +24,7 @@ root.render(
         <RouterProvider router={router} />
       </HelmetProvider>
     </QueryClientProvider>
+    <Analytics />
+    <SpeedInsights />
   </React.StrictMode>
 );
