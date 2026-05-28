@@ -70,6 +70,7 @@ const DoctorAiFinder = () => {
   const persisted = useMemo(() => readPersisted(), []);
 
   const [symptoms, setSymptoms] = useState(() => persisted.symptoms ?? '');
+  const [extractedSymptoms, setExtractedSymptoms] = useState(() => persisted.extractedSymptoms ?? []);
   const [selectedIds, setSelectedIds] = useState(() => {
     const ids = persisted.selectedIds;
     return new Set(Array.isArray(ids) ? ids.map(String) : []);
@@ -105,11 +106,12 @@ const DoctorAiFinder = () => {
   useEffect(() => {
     persistSnapshot({
       symptoms,
+      extractedSymptoms,
       selectedIds: Array.from(selectedIds),
       aiNote,
       recommendations,
     });
-  }, [symptoms, selectedIds, aiNote, recommendations]);
+  }, [symptoms, extractedSymptoms, selectedIds, aiNote, recommendations]);
 
   const scrollToResults = useCallback(() => {
     requestAnimationFrame(() => {
@@ -133,6 +135,7 @@ const DoctorAiFinder = () => {
       /* ignore */
     }
     setSymptoms('');
+    setExtractedSymptoms([]);
     setSelectedIds(new Set());
     setAiNote('');
     setRecommendations(null);
@@ -151,12 +154,16 @@ const DoctorAiFinder = () => {
       return;
     }
     suggestMutation.mutate(
-      { symptoms: symptoms.trim(), specialties: catalog },
+      { symptoms: symptoms.trim() },
       {
         onSuccess: (res) => {
           const payload = unwrapAiPayload(res);
           const ids = payload?.specialty_ids ?? payload?.specialtyIds ?? [];
+          const extracted = payload?.extracted_symptoms ?? payload?.extractedSymptoms ?? [];
+          
           setAiNote(payload?.note ?? '');
+          setExtractedSymptoms(extracted);
+          
           if (Array.isArray(ids) && ids.length) {
             setSelectedIds(new Set(ids.map(String)));
           } else {
@@ -177,8 +184,9 @@ const DoctorAiFinder = () => {
       return;
     }
     const specialtyIds = Array.from(selectedIds);
+    const searchSymptoms = extractedSymptoms.length > 0 ? extractedSymptoms.join(', ') : symptoms.trim();
     const body = {
-      symptoms: symptoms.trim(),
+      symptoms: searchSymptoms,
       topK: 5,
       ...(specialtyIds.length ? { specialtyIds } : {}),
     };

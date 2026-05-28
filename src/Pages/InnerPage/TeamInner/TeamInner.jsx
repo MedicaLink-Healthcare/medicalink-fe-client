@@ -3,7 +3,9 @@ import { FaArrowRightLong, FaFacebookF, FaLinkedinIn, FaXTwitter } from 'react-i
 import BreadCrumb from '@/Shared/BreadCrumb/BreadCrumb';
 // import Subscribe from '@/Component1/Subscribe/Subscribe';
 import { useDoctorsQuery } from '@/api/hooks/doctor/useDoctorQueries';
+import { useSpecialtiesQuery } from '@/api/hooks/specialty/useSpecialtyQueries';
 import { Link } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 import Loading from '@/Shared/Loading/Loading';
 import usePagination from '@/hooks/usePagination';
 import Pagination from '@/Shared/Pagination/Pagination';
@@ -12,6 +14,10 @@ const TeamInner = () => {
   const itemsPerPage = 12;
   const [totalItems, setTotalItems] = useState(0);
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchName, setSearchName] = useState('');
+  const [selectedSpecialty, setSelectedSpecialty] = useState('');
+
   const pagination = usePagination({
     totalItems: totalItems,
     limit: itemsPerPage,
@@ -19,10 +25,32 @@ const TeamInner = () => {
 
   const { currentPage, handlePageChangeButtonClick, handleNextButtonClick, handlePreviousButtonClick, handleNextPageGroupButtonClick, handlePreviousPageGroupButtonClick } = pagination;
 
-  const { data: doctorPage, isLoading } = useDoctorsQuery({
+  const { data: specRes } = useSpecialtiesQuery({
+    page: 1,
+    limit: 100,
+    sortBy: 'name',
+    sortOrder: 'asc',
+  });
+
+  const specialties = specRes?.data?.data ?? specRes?.data ?? [];
+
+  const { data: doctorPage, isLoading, isFetching } = useDoctorsQuery({
     page: currentPage,
     limit: itemsPerPage,
+    ...(searchName ? { fullName: searchName, name: searchName } : {}),
+    ...(selectedSpecialty ? { specialtyIds: selectedSpecialty } : {}),
   });
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchName(searchTerm);
+    handlePageChangeButtonClick(1);
+  };
+
+  const handleSpecialtyChange = (e) => {
+    setSelectedSpecialty(e.target.value);
+    handlePageChangeButtonClick(1);
+  };
 
   const doctors = doctorPage?.items ?? [];
 
@@ -46,9 +74,44 @@ const TeamInner = () => {
         breadCrumbIcon={<FaArrowRightLong />}
         breadCrumbLink={'Team Member'}
       />
-      <section className='bg-BodyBg-0 bg-no-repeat bg-cover bg-center py-28 relative'>
+      <section className='bg-BodyBg-0 bg-no-repeat bg-cover bg-center py-20 relative'>
         <div className='Container'>
-          {isLoading ? (
+          {/* Filters Section */}
+          <div className='bg-white p-6 rounded-3xl shadow-sm border border-BodyBg2-0 mb-10'>
+            <form onSubmit={handleSearch} className='grid grid-cols-1 md:grid-cols-12 gap-4'>
+              <div className='md:col-span-6 relative'>
+                <input
+                  type='text'
+                  placeholder='Search Doctor...'
+                  className='w-full pl-5 pr-12 py-3.5 bg-BodyBg-0 rounded-2xl border border-transparent focus:border-PrimaryColor-0 focus:outline-none font-AlbertSans text-HeadingColor-0 transition-all'
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button type='submit' className='absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-PrimaryColor-0 text-white rounded-xl hover:bg-Secondarycolor-0 transition-all'>
+                  <FaSearch size={14} />
+                </button>
+              </div>
+              <div className='md:col-span-6 relative'>
+                <select
+                  className='w-full px-5 py-3.5 bg-BodyBg-0 rounded-2xl border border-transparent focus:border-PrimaryColor-0 focus:outline-none font-AlbertSans text-HeadingColor-0 appearance-none transition-all cursor-pointer'
+                  value={selectedSpecialty}
+                  onChange={handleSpecialtyChange}
+                >
+                  <option value=''>Tất cả chuyên khoa</option>
+                  {specialties.map(spec => (
+                    <option key={spec.id} value={spec.id}>{spec.name}</option>
+                  ))}
+                </select>
+                <div className='absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none'>
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1.5L6 6.5L11 1.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          {isLoading || isFetching ? (
             <div className='flex justify-center py-20'>
               <Loading />
             </div>
