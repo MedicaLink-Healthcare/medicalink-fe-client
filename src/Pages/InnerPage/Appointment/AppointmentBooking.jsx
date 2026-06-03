@@ -377,11 +377,25 @@ const AppointmentBooking = () => {
         patientId = created.id;
       }
 
+      let aiTriageData = undefined;
+      try {
+        const raw = sessionStorage.getItem('mediic:doctor-ai-finder:v1');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed?.cquData) {
+            aiTriageData = parsed.cquData;
+          }
+        }
+      } catch (err) {
+        /* ignore */
+      }
+
       const confirmRaw = await confirmMutation.mutateAsync({
         eventId,
         patientId,
         specialtyId,
         reason: reason.trim(),
+        aiTriageData,
       });
       const appt = pickInnerPayload(confirmRaw);
       setFormSuccess(
@@ -391,6 +405,9 @@ const AppointmentBooking = () => {
       setEventId(null);
       setSelectedSlot(null);
       setReason('');
+      try {
+        sessionStorage.removeItem('mediic:doctor-ai-finder:v1'); // clear triage data on success
+      } catch (err) {}
       setStep(1);
     } catch (err) {
       setFormError(

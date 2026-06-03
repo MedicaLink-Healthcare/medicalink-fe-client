@@ -35,35 +35,50 @@ const unwrapList = (res) => res?.data?.data ?? res?.data ?? [];
 
 const unwrapAiPayload = (res) => res?.data ?? res;
 
-const pickPublicDoctor = (res) => {
-  const body = res?.data ?? res;
-  return body?.data ?? body;
-};
+// const pickPublicDoctor = (res) => {
+//   const body = res?.data ?? res;
+//   return body?.data ?? body;
+// };
 
 async function enrichRecommendationsWithProfiles(recs) {
   const list = Array.isArray(recs) ? recs : [];
-  const enriched = await Promise.all(
-    list.map(async (r) => {
+  if (list.length === 0) return list;
+
+  const doctorIds = list.map((r) => r?.doctor_id ?? r?.doctorId).filter(Boolean);
+  if (doctorIds.length === 0) return list;
+
+  try {
+    const res = await doctorService.getDoctorsBulkPublic(doctorIds);
+    const profiles = res?.data?.data ?? res?.data ?? [];
+
+    // Create a map for quick lookup
+    const profileMap = {};
+    if (Array.isArray(profiles)) {
+      profiles.forEach((p) => {
+        if (p?.id) {
+          profileMap[p.id] = p;
+        }
+      });
+    }
+
+    // Merge profiles back into recommendations
+    return list.map((r) => {
       const id = r?.doctor_id ?? r?.doctorId;
-      if (!id) return r;
-      try {
-        const res = await doctorService.getDoctorById(id);
-        const d = pickPublicDoctor(res);
-        if (!d || typeof d !== 'object') return r;
-        return {
-          ...r,
-          profile: {
-            fullName: d.fullName ?? d.full_name,
-            avatarUrl: d.avatarUrl ?? d.avatar_url,
-            degree: d.degree,
-          },
-        };
-      } catch {
-        return r;
-      }
-    }),
-  );
-  return enriched;
+      const d = profileMap[id];
+      if (!d) return r;
+      return {
+        ...r,
+        profile: {
+          fullName: d.fullName ?? d.full_name,
+          avatarUrl: d.avatarUrl ?? d.avatar_url,
+          degree: d.degree,
+        },
+      };
+    });
+  } catch (error) {
+    console.error('Failed to fetch bulk profiles:', error);
+    return list; // fallback to un-enriched list
+  }
 }
 
 const DoctorAiFinder = () => {
@@ -76,6 +91,14 @@ const DoctorAiFinder = () => {
     return new Set(Array.isArray(ids) ? ids.map(String) : []);
   });
   const [aiNote, setAiNote] = useState(() => persisted.aiNote ?? '');
+
+  // New CQU States
+  const [cquData, setCquData] = useState(() => persisted.cquData ?? null);
+  const [clarificationQuestion, setClarificationQuestion] = useState(() => persisted.clarificationQuestion ?? '');
+  const [isEmergency, setIsEmergency] = useState(() => persisted.isEmergency ?? false);
+  const [emergencyReason, setEmergencyReason] = useState(() => persisted.emergencyReason ?? '');
+  const [userAnswer, setUserAnswer] = useState('');
+
   const [recommendations, setRecommendations] = useState(() =>
     Array.isArray(persisted.recommendations) ? persisted.recommendations : null,
   );
@@ -109,9 +132,13 @@ const DoctorAiFinder = () => {
       extractedSymptoms,
       selectedIds: Array.from(selectedIds),
       aiNote,
+      cquData,
+      clarificationQuestion,
+      isEmergency,
+      emergencyReason,
       recommendations,
     });
-  }, [symptoms, extractedSymptoms, selectedIds, aiNote, recommendations]);
+  }, [symptoms, extractedSymptoms, selectedIds, aiNote, cquData, clarificationQuestion, isEmergency, emergencyReason, recommendations]);
 
   const scrollToResults = useCallback(() => {
     requestAnimationFrame(() => {
@@ -138,14 +165,27 @@ const DoctorAiFinder = () => {
     setExtractedSymptoms([]);
     setSelectedIds(new Set());
     setAiNote('');
+    setCquData(null);
+    setClarificationQuestion('');
+    setIsEmergency(false);
+    setEmergencyReason('');
+    setUserAnswer('');
     setRecommendations(null);
     setErrorMsg('');
   };
 
-  const applyAiSuggestion = () => {
+  const applyAiSuggestion = (overrideSymptoms = null) => {
     setErrorMsg('');
     setAiNote('');
-    if (symptoms.trim().length < 8) {
+    setClarificationQuestion('');
+    setIsEmergency(false);
+    setEmergencyReason('');
+    setCquData(null);
+
+    // Support being called directly from onClick (Event object) or from code (string)
+    const textToAnalyze = typeof overrideSymptoms === 'string' ? overrideSymptoms : symptoms;
+
+    if (textToAnalyze.trim().length < 8) {
       setErrorMsg('Please enter at least 8 characters describing your symptoms or needs.');
       return;
     }
@@ -154,17 +194,24 @@ const DoctorAiFinder = () => {
       return;
     }
     suggestMutation.mutate(
-      { symptoms: symptoms.trim() },
+      { symptoms: textToAnalyze.trim() },
       {
         onSuccess: (res) => {
           const payload = unwrapAiPayload(res);
           const ids = payload?.specialty_ids ?? payload?.specialtyIds ?? [];
           const extracted = payload?.extracted_symptoms ?? payload?.extractedSymptoms ?? [];
-          
+
           setAiNote(payload?.note ?? '');
           setExtractedSymptoms(extracted);
-          
-          if (Array.isArray(ids) && ids.length) {
+          setClarificationQuestion(payload?.clarification_question || '');
+          setIsEmergency(payload?.is_emergency || false);
+          setEmergencyReason(payload?.emergency_reason || '');
+          setCquData(payload);
+
+          // Do not auto-select specialties if the AI is actively asking for clarification.
+          if (payload?.clarification_question) {
+            setSelectedIds(new Set());
+          } else if (Array.isArray(ids) && ids.length) {
             setSelectedIds(new Set(ids.map(String)));
           } else {
             setSelectedIds(new Set());
@@ -175,6 +222,14 @@ const DoctorAiFinder = () => {
         },
       },
     );
+  };
+
+  const handleAnswerSubmit = () => {
+    if (!userAnswer.trim()) return;
+    const updatedSymptoms = symptoms + '\n\nBổ sung: ' + userAnswer.trim();
+    setSymptoms(updatedSymptoms);
+    setUserAnswer('');
+    applyAiSuggestion(updatedSymptoms);
   };
 
   const findDoctors = () => {
@@ -188,6 +243,7 @@ const DoctorAiFinder = () => {
     const body = {
       symptoms: searchSymptoms,
       topK: 5,
+      cquData,
       ...(specialtyIds.length ? { specialtyIds } : {}),
     };
     recommendMutation.mutate(body, {
@@ -296,6 +352,51 @@ const DoctorAiFinder = () => {
                 <span className='font-semibold'>AI note: </span>
                 {aiNote}
               </p>
+            ) : null}
+
+            {isEmergency ? (
+              <div className='mt-5 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3'>
+                <span className='text-red-600 text-2xl'>🚨</span>
+                <div>
+                  <h3 className='font-AlbertSans font-bold text-red-800 text-base mb-1'>CẢNH BÁO Y TẾ KHẨN CẤP</h3>
+                  <p className='text-sm text-red-700 font-AlbertSans leading-relaxed'>
+                    Dựa trên mô tả của bạn, tình trạng này có thể nguy hiểm đến tính mạng ({emergencyReason}).
+                    <br/><span className='font-semibold'>Vui lòng gọi cấp cứu 115 hoặc đến ngay cơ sở y tế gần nhất!</span>
+                  </p>
+                </div>
+              </div>
+            ) : null}
+
+            {clarificationQuestion && !isEmergency ? (
+              <div className='mt-5 p-5 rounded-2xl bg-PrimaryColor-0/5 border border-PrimaryColor-0/20'>
+                <div className='flex gap-3 mb-3'>
+                  <div className='size-8 rounded-full bg-PrimaryColor-0 text-white flex items-center justify-center shrink-0 font-bold text-xs shadow-sm'>AI</div>
+                  <div>
+                    <p className='text-HeadingColor-0 font-AlbertSans font-semibold text-sm'>Trợ lý Y tế MedicaLink cần thêm thông tin:</p>
+                    <p className='text-TextColor2-0 text-sm mt-1'>{clarificationQuestion}</p>
+                  </div>
+                </div>
+                <div className='flex gap-2 mt-3 pl-11'>
+                  <input
+                    type='text'
+                    className='flex-1 rounded-xl border border-BodyBg2-0 px-4 py-2 font-AlbertSans text-sm text-HeadingColor-0 focus:outline-none focus:ring-2 focus:ring-PrimaryColor-0/50 shadow-sm'
+                    placeholder='Câu trả lời của bạn...'
+                    value={userAnswer}
+                    onChange={(e) => setUserAnswer(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') handleAnswerSubmit();
+                    }}
+                  />
+                  <button
+                    type='button'
+                    className='px-5 py-2 rounded-xl bg-Secondarycolor-0 text-white font-AlbertSans text-sm font-semibold hover:bg-opacity-90 transition-all disabled:opacity-50 shadow-sm'
+                    onClick={handleAnswerSubmit}
+                    disabled={!userAnswer.trim() || suggestMutation.isPending}
+                  >
+                    Trả lời
+                  </button>
+                </div>
+              </div>
             ) : null}
 
             {errorMsg ? (
