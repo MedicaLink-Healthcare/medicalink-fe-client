@@ -187,19 +187,6 @@ const TeamDetailsMain = ({ doctor }) => {
                         </div>
                       </>
                     )}
-
-                    {doctor?.conditions?.length > 0 && (
-                      <>
-                        <h3 className='font-AlbertSans font-bold text-xl text-HeadingColor-0 mb-4 mt-8'>Treated Conditions</h3>
-                        <div className='flex flex-wrap gap-2'>
-                          {doctor.conditions.map((cond, idx) => (
-                            <span key={`cond-${idx}`} className="px-4 py-2 bg-white/50 text-TextColor2-0 border border-white rounded-full text-sm font-medium shadow-sm">
-                              {cond}
-                            </span>
-                          ))}
-                        </div>
-                      </>
-                    )}
                   </div>
                 </div>
               )}

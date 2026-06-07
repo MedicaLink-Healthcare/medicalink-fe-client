@@ -51,7 +51,7 @@ const PatientLookup = () => {
 
   const patient = response?.data;
 
-  // We query all appointments without status filter if 'ALL' or 'CANCELLED' is selected, 
+  // We query all appointments without status filter if 'ALL' or 'CANCELLED' is selected,
   // since 'CANCELLED' requires grouping multiple API statuses.
   const queryParams = { page: 1, limit: 50 };
   if (activeFilter !== 'ALL' && activeFilter !== 'CANCELLED') {
@@ -169,7 +169,14 @@ const PatientLookup = () => {
               {isError && (
                 <div className='mt-8 bg-red-50/80 border border-red-200 text-red-600 px-6 py-4 rounded-xl text-center font-AlbertSans animate-fadeIn'>
                   <p className='font-bold mb-1'>Lookup Failed</p>
-                  <p className='text-sm'>{error?.message || 'Unable to find a patient matching these details.'}</p>
+                  <p className='text-sm'>{error?.message || 'An error occurred while searching for records.'}</p>
+                </div>
+              )}
+
+              {!isLoading && !isError && searchParams && !patient && (
+                <div className='mt-8 bg-amber-50/80 border border-amber-200 text-amber-700 px-6 py-4 rounded-xl text-center font-AlbertSans animate-fadeIn'>
+                  <p className='font-bold mb-1'>No Record Found</p>
+                  <p className='text-sm'>We could not find any medical records matching the provided contact details.</p>
                 </div>
               )}
             </div>
@@ -177,7 +184,7 @@ const PatientLookup = () => {
             {/* DASHBOARD RENDER OVERRIDE */}
             {patient && !isLoading && !isError && (
               <div className='animate-fadeInTop'>
-                
+
                 {/* 1. VITAL CARD */}
                 <div className='bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-8 mb-10 border border-gray-100 flex flex-col md:flex-row items-center gap-8'>
                    <div className='size-24 rounded-full bg-blue-50 border-4 border-blue-100 flex items-center justify-center shrink-0'>
@@ -226,8 +233,8 @@ const PatientLookup = () => {
                         key={filter.value}
                         onClick={() => setActiveFilter(filter.value)}
                         className={`font-AlbertSans text-sm font-semibold px-4 py-2 rounded-md transition-colors whitespace-nowrap ${
-                          activeFilter === filter.value 
-                          ? 'bg-PrimaryColor-0 text-white shadow-md' 
+                          activeFilter === filter.value
+                          ? 'bg-PrimaryColor-0 text-white shadow-md'
                           : 'text-gray-500 hover:text-PrimaryColor-0 hover:bg-blue-50'
                         }`}
                       >
@@ -239,7 +246,7 @@ const PatientLookup = () => {
 
                 {/* 3. HISTORY LIST / TABLE */}
                 <div className='bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl border border-gray-100 overflow-hidden min-h-[300px] relative p-6 sm:p-8'>
-                  
+
                   {isLoadingAppointments ? (
                      <div className='absolute inset-0 bg-white/70 backdrop-blur-sm z-10 flex flex-col items-center justify-center'>
                         <Loading />
@@ -252,8 +259,8 @@ const PatientLookup = () => {
                       </div>
                       <p className='font-AlbertSans font-bold text-lg text-HeadingColor-0'>No Appointments Found</p>
                       <p className='font-DMSans text-TextColor-0 max-w-sm mt-1'>
-                        {activeFilter === 'ALL' 
-                          ? "You haven't booked any appointments yet." 
+                        {activeFilter === 'ALL'
+                          ? "You haven't booked any appointments yet."
                           : `You don't have any appointments marked as ${activeFilter.toLowerCase()}.`}
                       </p>
                     </div>
@@ -261,7 +268,7 @@ const PatientLookup = () => {
                     <div className='grid grid-cols-1 gap-5 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar'>
                       {appointments.map((appt) => (
                          <div key={appt.id} className='bg-gray-50/50 border border-gray-100 rounded-2xl p-5 sm:p-6 flex flex-col lg:flex-row gap-6 items-start lg:items-center hover:shadow-md hover:border-blue-100 transition-all group'>
-                            
+
                             {/* DATE BLOCK */}
                             <div className='flex shrink-0 w-full lg:w-40 border-b lg:border-b-0 lg:border-r border-gray-200 pb-4 lg:pb-0'>
                               <div className='flex flex-col text-left'>

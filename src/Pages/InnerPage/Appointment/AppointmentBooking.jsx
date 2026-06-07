@@ -125,33 +125,33 @@ function todayISODate() {
   return `${y}-${m}-${day}`;
 }
 
-function workLocationEntries(doctor) {
-  const locs = doctor?.workLocations ?? [];
-  return locs
-    .map((w) => {
-      if (w && typeof w === 'object' && w.id) {
-        return { id: w.id, label: w.name || w.address || w.id };
-      }
-      return null;
-    })
-    .filter(Boolean);
-}
+// function workLocationEntries(doctor) {
+//   const locs = doctor?.workLocations ?? [];
+//   return locs
+//     .map((w) => {
+//       if (w && typeof w === 'object' && w.id) {
+//         return { id: w.id, label: w.name || w.address || w.id };
+//       }
+//       return null;
+//     })
+//     .filter(Boolean);
+// }
 
-function doctorMatchesFilters(doctor, locationId, specialtyId) {
-  if (specialtyId) {
-    const specs = doctor?.specialties ?? [];
-    if (!specs.some((s) => s.id === specialtyId)) return false;
-  }
-  if (locationId) {
-    const ids = workLocationEntries(doctor).map((x) => x.id);
-    if (ids.length === 0) return true;
-    if (!ids.includes(locationId)) return false;
-  }
-  return true;
-}
+// function doctorMatchesFilters(doctor, locationId, specialtyId) {
+//   if (specialtyId) {
+//     const specs = doctor?.specialties ?? [];
+//     if (!specs.some((s) => s.id === specialtyId)) return false;
+//   }
+//   if (locationId) {
+//     const ids = workLocationEntries(doctor).map((x) => x.id);
+//     if (ids.length === 0) return true;
+//     if (!ids.includes(locationId)) return false;
+//   }
+//   return true;
+// }
 
 const STEPS = [
-  { id: 1, title: 'Location & Doctor', subtitle: 'Choose your preferred doctor and location' },
+  { id: 1, title: 'Doctor & Specialty', subtitle: 'Choose your preferred doctor and specialty' },
   { id: 2, title: 'Your Information', subtitle: 'Enter your information or retrieve old data' },
   { id: 3, title: 'Confirmation', subtitle: 'Review and confirm booking' },
 ];
@@ -203,27 +203,22 @@ const AppointmentBooking = () => {
     [doctors, doctorId]
   );
 
-  const doctorLocationOptions = useMemo(
-    () => (selectedDoctor ? workLocationEntries(selectedDoctor) : []),
-    [selectedDoctor]
-  );
+  // const doctorLocationOptions = useMemo(
+  //   () => (selectedDoctor ? workLocationEntries(selectedDoctor) : []),
+  //   [selectedDoctor]
+  // );
 
   const filteredDoctors = useMemo(() => {
-    if (bookingMode !== 'filters-first') return doctors;
-    return doctors.filter((d) => doctorMatchesFilters(d, locationId, specialtyId));
-  }, [doctors, bookingMode, locationId, specialtyId]);
+    if (bookingMode === 'doctor-first') return doctors;
+    if (!specialtyId) return doctors;
+    return doctors.filter((d) => d.specialties?.some((s) => s.id === specialtyId));
+  }, [doctors, specialtyId, bookingMode]);
 
   useEffect(() => {
     if (bookingMode !== 'doctor-first' || !selectedDoctor) return;
     const specs = selectedDoctor.specialties ?? [];
-    if (specs[0]?.id) setSpecialtyId(specs[0].id);
-    const entries = workLocationEntries(selectedDoctor);
-    if (entries.length === 1) {
-      setLocationId(entries[0].id);
-    } else if (entries.length > 0) {
-      setLocationId((prev) => (prev && entries.some((e) => e.id === prev) ? prev : entries[0].id));
-    }
-  }, [bookingMode, doctorId, selectedDoctor]);
+    if (specs[0]?.id && !specialtyId) setSpecialtyId(specs[0].id);
+  }, [doctorId, selectedDoctor, specialtyId, bookingMode]);
 
   useEffect(() => {
     setSelectedSlot(null);
@@ -233,14 +228,14 @@ const AppointmentBooking = () => {
   }, [doctorId, serviceDate, locationId]);
 
   useEffect(() => {
-    if (bookingMode === 'filters-first' && doctorId) {
+    if (bookingMode === 'specialty-first' && doctorId && specialtyId) {
       const stillOk = filteredDoctors.some((d) => d.id === doctorId);
       if (!stillOk) setDoctorId('');
     }
-  }, [bookingMode, filteredDoctors, doctorId]);
+  }, [filteredDoctors, doctorId, specialtyId, bookingMode]);
 
   useEffect(() => {
-    if (locations.length === 1 && !locationId) {
+    if (locations.length > 0 && !locationId) {
       setLocationId(locations[0].id);
     }
   }, [locations, locationId]);
@@ -329,10 +324,10 @@ const AppointmentBooking = () => {
   const canContinueToConfirm =
     fullName.trim() && phone.trim() && reason.trim();
 
-  const selectedLocationLabel = useMemo(() => {
-    const loc = locations.find((l) => l.id === effectiveLocationId);
-    return loc?.name || loc?.address || effectiveLocationId || '—';
-  }, [locations, effectiveLocationId]);
+  // const selectedLocationLabel = useMemo(() => {
+  //   const loc = locations.find((l) => l.id === effectiveLocationId);
+  //   return loc?.name || loc?.address || effectiveLocationId || '—';
+  // }, [locations, effectiveLocationId]);
 
   const selectedSpecialtyLabel = useMemo(() => {
     const s = specialties.find((x) => x.id === specialtyId);
@@ -387,7 +382,7 @@ const AppointmentBooking = () => {
           }
         }
       } catch (err) {
-        /* ignore */
+        console.error(err);
       }
 
       const confirmRaw = await confirmMutation.mutateAsync({
@@ -407,7 +402,9 @@ const AppointmentBooking = () => {
       setReason('');
       try {
         sessionStorage.removeItem('mediic:doctor-ai-finder:v1'); // clear triage data on success
-      } catch (err) {}
+      } catch (err) {
+        console.error(err);
+      }
       setStep(1);
     } catch (err) {
       setFormError(
@@ -449,43 +446,7 @@ const AppointmentBooking = () => {
 
       {step === 1 && (
         <div className='space-y-8 rounded-2xl border border-Secondarycolor-0 border-opacity-45 bg-white/30 p-6 md:p-10'>
-          <div>
-            <h3 className='font-AlbertSans text-HeadingColor-0 mb-2 text-lg font-semibold'>
-              Choose your booking method
-            </h3>
-            <p className='font-DMSans text-TextColor2-0 mb-4 text-sm'>
-              Select a doctor first to auto-fill location and specialty, or choose location and
-              specialty first to filter doctors.
-            </p>
-            <div className='flex flex-col gap-3 sm:flex-row'>
-              <label className='font-DMSans flex cursor-pointer items-center gap-2 text-sm'>
-                <input
-                  type='radio'
-                  name='booking-mode'
-                  checked={bookingMode === 'doctor-first'}
-                  onChange={() => {
-                    setBookingMode('doctor-first');
-                    handleClearStep1();
-                  }}
-                />
-                Doctor first
-              </label>
-              <label className='font-DMSans flex cursor-pointer items-center gap-2 text-sm'>
-                <input
-                  type='radio'
-                  name='booking-mode'
-                  checked={bookingMode === 'filters-first'}
-                  onChange={() => {
-                    setBookingMode('filters-first');
-                    setDoctorId('');
-                    setSelectedSlot(null);
-                    setEventId(null);
-                  }}
-                />
-                Location &amp; specialty first
-              </label>
-            </div>
-          </div>
+
 
           {specialtiesError ? (
             <p className='font-DMSans text-sm text-red-600'>
@@ -498,177 +459,151 @@ const AppointmentBooking = () => {
             </p>
           ) : null}
 
-          <div className='grid grid-cols-1 gap-5 md:grid-cols-2'>
-            {bookingMode === 'doctor-first' ? (
-              <>
-                <div>
-                  <label
-                    htmlFor='book-doctor'
-                    className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
-                  >
-                    Select doctor
-                  </label>
-                  <select
-                    id='book-doctor'
-                    value={doctorId}
-                    onChange={(ev) => setDoctorId(ev.target.value)}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
-                  >
-                    <option value=''>Select a doctor</option>
-                    {doctors.map((d) => (
-                      <option key={d.id} value={d.id}>
-                        {d.fullName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor='book-specialty-df'
-                    className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
-                  >
-                    Select specialty
-                  </label>
-                  <select
-                    id='book-specialty-df'
-                    value={specialtyId}
-                    onChange={(ev) => setSpecialtyId(ev.target.value)}
-                    disabled={loadingSpecialties || !selectedDoctor}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
-                  >
-                    <option value=''>Select specialty</option>
-                    {(selectedDoctor?.specialties?.length
-                      ? selectedDoctor.specialties
-                      : specialties
-                    ).map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {s.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor='book-location-df'
-                    className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
-                  >
-                    Select location
-                  </label>
-                  <select
-                    id='book-location-df'
-                    value={locationId}
-                    onChange={(ev) => setLocationId(ev.target.value)}
-                    disabled={loadingLocations || !selectedDoctor || doctorLocationOptions.length === 1}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0 disabled:opacity-75 disabled:bg-gray-100/50'
-                  >
-                    <option value=''>Select location</option>
-                    {doctorLocationOptions.length > 0
-                      ? doctorLocationOptions.map((loc) => (
-                          <option key={loc.id} value={loc.id}>
-                            {loc.label}
-                          </option>
-                        ))
-                      : locations.map((loc) => (
-                          <option key={loc.id} value={loc.id}>
-                            {loc.name || loc.address || loc.id}
-                          </option>
-                        ))}
-                  </select>
-                  {!selectedDoctor ? (
-                    <p className='font-DMSans text-TextColor2-0 mt-1 text-xs'>
-                      Choose a doctor first — we will suggest a site or list all public locations.
-                    </p>
-                  ) : doctorLocationOptions.length === 0 ? (
-                    <p className='font-DMSans text-TextColor2-0 mt-1 text-xs'>
-                      This profile has no linked sites — pick any location for scheduling.
-                    </p>
-                  ) : null}
-                </div>
-              </>
-            ) : (
-              <>
-                <div>
-                  <label
-                    htmlFor='book-location'
-                    className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
-                  >
-                    Select location
-                  </label>
-                  <select
-                    id='book-location'
-                    value={locationId}
-                    onChange={(ev) => setLocationId(ev.target.value)}
-                    disabled={loadingLocations || locations.length === 1}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0 disabled:opacity-75 disabled:bg-gray-100/50'
-                  >
-                    <option value=''>Select location</option>
-                    {locations.map((loc) => (
-                      <option key={loc.id} value={loc.id}>
-                        {loc.name || loc.address || loc.id}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor='book-specialty-filter'
-                    className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
-                  >
-                    Select specialty
-                  </label>
-                  <select
-                    id='book-specialty-filter'
-                    value={specialtyId}
-                    onChange={(ev) => setSpecialtyId(ev.target.value)}
-                    disabled={loadingSpecialties}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
-                  >
-                    <option value=''>Select specialty</option>
-                    {specialties.map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {s.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor='book-doctor'
-                    className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
-                  >
-                    Select doctor
-                  </label>
-                  <select
-                    id='book-doctor'
-                    value={doctorId}
-                    onChange={(ev) => setDoctorId(ev.target.value)}
-                    className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
-                  >
-                    <option value=''>Select a doctor</option>
-                    {filteredDoctors.map((d) => (
-                      <option key={d.id} value={d.id}>
-                        {d.fullName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className='flex flex-wrap gap-3'>
+          <div className='flex items-center justify-between mb-2'>
+            <h3 className='font-AlbertSans text-HeadingColor-0 text-lg font-semibold'>
+              Choose specialty & doctor
+            </h3>
             <button
               type='button'
               onClick={handleClearStep1}
-              className='rounded-xl border border-Secondarycolor-0 border-opacity-45 px-5 py-2 font-AlbertSans text-sm text-HeadingColor-0 hover:bg-white/40'
+              className='text-xs font-DMSans font-semibold text-PrimaryColor-0 hover:text-PrimaryColor-0/80 transition-colors underline underline-offset-2'
             >
-              Clear
+              Clear choices
             </button>
           </div>
 
-          {!effectiveLocationId && selectedDoctor && (
+          <div className='mb-6 flex flex-wrap gap-6'>
+            <label className='flex items-center gap-2 font-DMSans text-sm text-HeadingColor-0 cursor-pointer'>
+              <input
+                type='radio'
+                name='bookingMode'
+                value='doctor-first'
+                checked={bookingMode === 'doctor-first'}
+                onChange={() => {
+                  setBookingMode('doctor-first');
+                  handleClearStep1();
+                }}
+                className='accent-PrimaryColor-0'
+              />
+              Select doctor first
+            </label>
+            <label className='flex items-center gap-2 font-DMSans text-sm text-HeadingColor-0 cursor-pointer'>
+              <input
+                type='radio'
+                name='bookingMode'
+                value='specialty-first'
+                checked={bookingMode === 'specialty-first'}
+                onChange={() => {
+                  setBookingMode('specialty-first');
+                  handleClearStep1();
+                }}
+                className='accent-PrimaryColor-0'
+              />
+              Select specialty first
+            </label>
+          </div>
+
+          {bookingMode === 'doctor-first' ? (
+            <div className='grid grid-cols-1 gap-5 md:grid-cols-2'>
+              <div>
+                <label
+                  htmlFor='book-doctor'
+                  className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
+                >
+                  Select doctor
+                </label>
+                <select
+                  id='book-doctor'
+                  value={doctorId}
+                  onChange={(ev) => setDoctorId(ev.target.value)}
+                  className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
+                >
+                  <option value=''>Select a doctor</option>
+                  {doctors.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.fullName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label
+                  htmlFor='book-specialty'
+                  className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
+                >
+                  Select specialty
+                </label>
+                <select
+                  id='book-specialty'
+                  value={specialtyId}
+                  onChange={(ev) => setSpecialtyId(ev.target.value)}
+                  disabled={!selectedDoctor || loadingSpecialties}
+                  className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
+                >
+                  <option value=''>Select specialty</option>
+                  {(selectedDoctor?.specialties ?? []).map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          ) : (
+            <div className='grid grid-cols-1 gap-5 md:grid-cols-2'>
+              <div>
+                <label
+                  htmlFor='book-specialty'
+                  className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
+                >
+                  Select specialty
+                </label>
+                <select
+                  id='book-specialty'
+                  value={specialtyId}
+                  onChange={(ev) => {
+                    setSpecialtyId(ev.target.value);
+                    setDoctorId('');
+                  }}
+                  disabled={loadingSpecialties}
+                  className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
+                >
+                  <option value=''>All specialties</option>
+                  {specialties.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label
+                  htmlFor='book-doctor'
+                  className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
+                >
+                  Select doctor
+                </label>
+                <select
+                  id='book-doctor'
+                  value={doctorId}
+                  onChange={(ev) => setDoctorId(ev.target.value)}
+                  disabled={!specialtyId}
+                  className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
+                >
+                  <option value=''>Select a doctor</option>
+                  {filteredDoctors.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.fullName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
+
+          {!effectiveLocationId && selectedDoctor && locations.length === 0 && (
             <p className='font-DMSans text-sm text-amber-700'>
-              Choose a location to load available time slots.
+              Loading location...
             </p>
           )}
 
@@ -681,7 +616,7 @@ const AppointmentBooking = () => {
                 <MiniCalendar selectedDate={serviceDate} onDateSelect={setServiceDate} availableDaysOfWeek={availableDaysOfWeek} />
               </div>
             </div>
-            
+
             <div className='w-full flex flex-col'>
               <h4 className='font-AlbertSans text-HeadingColor-0 mb-4 text-base font-semibold'>
                 Available time slots
@@ -860,9 +795,7 @@ const AppointmentBooking = () => {
             <li>
               <strong className='text-HeadingColor-0'>Doctor:</strong> {selectedDoctor?.fullName}
             </li>
-            <li>
-              <strong className='text-HeadingColor-0'>Location:</strong> {selectedLocationLabel}
-            </li>
+            {/* Removed location list item */}
             <li>
               <strong className='text-HeadingColor-0'>Specialty:</strong> {selectedSpecialtyLabel}
             </li>
