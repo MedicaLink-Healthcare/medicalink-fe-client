@@ -53,7 +53,7 @@ const TeamDetailsMain = ({ doctor }) => {
                   <div className="flex flex-wrap items-center gap-3 mt-2">
                      <div className="flex items-center gap-2 px-4 py-1.5 bg-PrimaryColor-0 text-white rounded-full text-xs font-semibold tracking-wide shadow-sm">
                       <FaUser size={12} className="opacity-80" />
-                      <span className="uppercase">{doctor?.degree || 'Specialist'}</span>
+                      <span className="uppercase">{positions[0] || 'Bác sĩ'}</span>
                      </div>
                      {doctor?.workLocations?.length > 0 && (
                        <div className="flex items-center gap-2 px-4 py-1.5 bg-Secondarycolor-0 text-white rounded-full text-xs font-medium shadow-sm">
@@ -269,7 +269,6 @@ TeamDetailsMain.propTypes = {
     id: PropTypes.string,
     fullName: PropTypes.string,
     avatarUrl: PropTypes.string,
-    degree: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,
     position: PropTypes.arrayOf(PropTypes.string),

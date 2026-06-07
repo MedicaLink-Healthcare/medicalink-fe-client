@@ -136,7 +136,7 @@ const TeamInner = () => {
                         {doctor.fullName}
                       </h5>
                       <p className='font-AlbertSans text-TextColor2-0 text-[15px] transition-all duration-500 group-hover:text-white'>
-                        {doctor.specialties?.[0]?.name || doctor.degree || 'Doctor'}
+                        {doctor.specialties?.[0]?.name || doctor.position?.[0] || 'Doctor'}
                       </p>
                     </div>
                     <div className='relative overflow-hidden rounded-3xl before:absolute before:top-0 before:left-0 before:bg-gradient-to-br before:from-PrimaryColor-0 before:from-10% before:via-blue-500/0 before:to-blue-500/0 before:w-0 before:h-0 before:transition-all before:duration-500 before:z-10 group-hover:before:h-full group-hover:before:w-full'>

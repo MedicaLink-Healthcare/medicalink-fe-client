@@ -72,6 +72,7 @@ async function enrichRecommendationsWithProfiles(recs) {
           fullName: d.fullName ?? d.full_name,
           avatarUrl: d.avatarUrl ?? d.avatar_url,
           degree: d.degree,
+          position: d.position,
         },
       };
     });
@@ -459,7 +460,7 @@ const DoctorAiFinder = () => {
                     r.profile?.fullName ||
                     (docId ? `Bác sĩ #${String(docId).slice(0, 8)}…` : 'Bác sĩ');
                   const avatar = r.profile?.avatarUrl;
-                  const degree = r.profile?.degree;
+                  const position = r.profile?.position?.[0] || 'Bác sĩ';
                   return (
                     <li
                       key={docId}
@@ -480,8 +481,8 @@ const DoctorAiFinder = () => {
                             <p className='font-AlbertSans font-bold text-lg text-HeadingColor-0'>
                               {displayName}
                             </p>
-                            {degree ? (
-                              <p className='text-xs text-TextColor2-0 mt-0.5'>{degree}</p>
+                            {position ? (
+                              <p className='text-xs text-TextColor2-0 mt-0.5'>{position}</p>
                             ) : null}
                             <p className='text-TextColor2-0 text-[15px] mt-2 leading-relaxed'>
                               {r.reason}
