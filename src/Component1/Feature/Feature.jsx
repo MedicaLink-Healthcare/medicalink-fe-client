@@ -44,7 +44,7 @@ const Feature = () => {
               />
             </div>
             <h4 className='font-AlbertSans font-semibold text-[30px] text-HeadingColor-0 mt-7 flex items-center gap-2 justify-center transition-all duration-500 group-hover:text-white'>
-              180+{' '}
+              100+{' '}
               <span className='font-AlbertSans font-semibold text-lg text-PrimaryColor-0 transition-all duration-500 group-hover:text-white'>
                 Doctors
               </span>

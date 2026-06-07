@@ -97,7 +97,7 @@ const TeamInner = () => {
                   value={selectedSpecialty}
                   onChange={handleSpecialtyChange}
                 >
-                  <option value=''>Tất cả chuyên khoa</option>
+                  <option value=''>All Specialties</option>
                   {specialties.map(spec => (
                     <option key={spec.id} value={spec.id}>{spec.name}</option>
                   ))}
