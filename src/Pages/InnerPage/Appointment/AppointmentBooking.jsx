@@ -190,6 +190,11 @@ const AppointmentBooking = () => {
     setDoctorId(doctorIdFromUrl);
   }, [doctorIdFromUrl]);
 
+  const [patientType, setPatientType] = useState('new');
+  const [searchIdentifier, setSearchIdentifier] = useState('');
+  const [foundPatient, setFoundPatient] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -322,7 +327,37 @@ const AppointmentBooking = () => {
   );
 
   const canContinueToConfirm =
-    fullName.trim() && phone.trim() && reason.trim();
+    patientType === 'returning'
+      ? Boolean(foundPatient?.id && reason.trim())
+      : Boolean(fullName.trim() && phone.trim() && reason.trim());
+
+  const handleSearchPatient = async () => {
+    if (!searchIdentifier.trim()) {
+      setFormError('Please enter email or phone.');
+      return;
+    }
+    setIsSearching(true);
+    setFormError('');
+    setFoundPatient(null);
+    try {
+      const isEmail = searchIdentifier.includes('@');
+      const params = isEmail ? { email: searchIdentifier.trim() } : { phone: searchIdentifier.trim() };
+      const searchRaw = await patientService.searchPatient(params);
+      const found = pickInnerPayload(searchRaw);
+      if (found?.id) {
+        setFoundPatient(found);
+        setFullName(found.fullName);
+        setPhone(found.phone);
+        setEmail(found.email || '');
+      } else {
+        setFormError('Patient record not found. Please try again or register as a New Patient.');
+      }
+    } catch (e) {
+      setFormError('Error finding patient record. ' + (e?.response?.data?.message || e.message));
+    } finally {
+      setIsSearching(false);
+    }
+  };
 
   // const selectedLocationLabel = useMemo(() => {
   //   const loc = locations.find((l) => l.id === effectiveLocationId);
@@ -347,29 +382,37 @@ const AppointmentBooking = () => {
       setFormError('Please select a specialty.');
       return;
     }
-    if (!fullName.trim() || !phone.trim() || !reason.trim()) {
+    if (patientType === 'new' && (!fullName.trim() || !phone.trim() || !reason.trim())) {
       setFormError('Full name, phone, and reason are required.');
+      return;
+    }
+    if (patientType === 'returning' && (!foundPatient?.id || !reason.trim())) {
+      setFormError('Please find your record and provide a reason.');
       return;
     }
 
     try {
       let patientId;
-      const searchRaw = await patientService.searchPatient({
-        phone: phone.trim(),
-      });
-      const found = pickInnerPayload(searchRaw);
-
-      if (found?.id) {
-        patientId = found.id;
+      if (patientType === 'returning') {
+        patientId = foundPatient.id;
       } else {
-        const createRaw = await patientService.createPatient({
-          fullName: fullName.trim(),
+        const searchRaw = await patientService.searchPatient({
           phone: phone.trim(),
-          ...(email.trim() ? { email: email.trim() } : {}),
         });
-        const created = pickInnerPayload(createRaw);
-        if (!created?.id) throw new Error('Could not create patient profile');
-        patientId = created.id;
+        const found = pickInnerPayload(searchRaw);
+
+        if (found?.id) {
+          patientId = found.id;
+        } else {
+          const createRaw = await patientService.createPatient({
+            fullName: fullName.trim(),
+            phone: phone.trim(),
+            ...(email.trim() ? { email: email.trim() } : {}),
+          });
+          const created = pickInnerPayload(createRaw);
+          if (!created?.id) throw new Error('Could not create patient profile');
+          patientId = created.id;
+        }
       }
 
       let aiTriageData = undefined;
@@ -640,8 +683,11 @@ const AppointmentBooking = () => {
                 </div>
               ) : (
                 <>
-                  <div className='grid grid-cols-3 gap-2 overflow-y-auto max-h-[320px] p-1'>
-                    {slots.map((s, idx) => {
+                  {(() => {
+                    const morningSlots = slots.filter(s => parseInt(s.timeStart.split(':')[0], 10) < 12);
+                    const afternoonSlots = slots.filter(s => parseInt(s.timeStart.split(':')[0], 10) >= 12);
+
+                    const renderSlot = (s, idx) => {
                       const active =
                         selectedSlot?.timeStart === s.timeStart &&
                         selectedSlot?.timeEnd === s.timeEnd;
@@ -661,8 +707,35 @@ const AppointmentBooking = () => {
                           <span className='text-[10px] opacity-80'>to {s.timeEnd}</span>
                         </button>
                       );
-                    })}
-                  </div>
+                    };
+
+                    return (
+                      <div className='overflow-y-auto max-h-[320px] p-1 pr-2 space-y-4'>
+                        {morningSlots.length > 0 && (
+                          <div>
+                            <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 flex items-center gap-1'>
+                              <span className='w-2 h-2 rounded-full bg-amber-400'></span>
+                              Morning
+                            </h5>
+                            <div className='grid grid-cols-3 gap-2'>
+                              {morningSlots.map(renderSlot)}
+                            </div>
+                          </div>
+                        )}
+                        {afternoonSlots.length > 0 && (
+                          <div>
+                            <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 mt-4 flex items-center gap-1'>
+                              <span className='w-2 h-2 rounded-full bg-indigo-400'></span>
+                              Afternoon & Evening
+                            </h5>
+                            <div className='grid grid-cols-3 gap-2'>
+                              {afternoonSlots.map(renderSlot)}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
                   <div className='mt-3 font-DMSans text-xs flex items-center justify-between'>
                     <span className='text-TextColor2-0'>{slots.length} available slots</span>
                     {selectedSlot && eventId && (
@@ -698,86 +771,146 @@ const AppointmentBooking = () => {
 
       {step === 2 && (
         <div className='rounded-2xl border border-Secondarycolor-0 border-opacity-45 bg-white/30 p-6 md:p-10'>
+          <div className='mb-6 flex gap-6 border-b border-Secondarycolor-0/30'>
+            <button
+              onClick={() => { setPatientType('new'); setFormError(''); }}
+              className={`font-AlbertSans pb-3 border-b-2 text-base transition-all ${patientType === 'new' ? 'border-PrimaryColor-0 text-PrimaryColor-0 font-bold' : 'border-transparent text-HeadingColor-0 hover:text-PrimaryColor-0 font-medium'}`}
+            >
+              New Patient
+            </button>
+            <button
+              onClick={() => { setPatientType('returning'); setFormError(''); }}
+              className={`font-AlbertSans pb-3 border-b-2 text-base transition-all ${patientType === 'returning' ? 'border-PrimaryColor-0 text-PrimaryColor-0 font-bold' : 'border-transparent text-HeadingColor-0 hover:text-PrimaryColor-0 font-medium'}`}
+            >
+              Returning Patient
+            </button>
+          </div>
+
           <h3 className='font-AlbertSans text-HeadingColor-0 mb-2 text-lg font-semibold'>
-            Your information
+            {patientType === 'new' ? 'Your information' : 'Find your record'}
           </h3>
           <p className='font-DMSans text-TextColor2-0 mb-6 text-sm'>
-            We look up your record by phone. If you are new, we create a minimal profile before
-            confirming the visit.
+            {patientType === 'new' 
+              ? 'Please enter your information to register as a new patient.' 
+              : 'Enter your email or phone number to retrieve your existing patient record.'}
           </p>
           <form
             className='flex flex-col gap-y-5'
             onSubmit={(e) => {
               e.preventDefault();
               if (!canContinueToConfirm) {
-                setFormError('Full name, phone, and reason are required.');
+                setFormError('Please fill out all required fields.');
                 return;
               }
               setFormError('');
               setStep(3);
             }}
           >
-            <div className='grid grid-cols-1 gap-5 sm:grid-cols-2'>
-              <div className='relative inline-block'>
-                <input
-                  type='text'
-                  placeholder='Full name*'
-                  required
-                  value={fullName}
-                  onChange={(ev) => setFullName(ev.target.value)}
-                  className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
-                />
-                <FaUser
-                  size={14}
-                  className='absolute top-1/2 right-5 -translate-y-1/2 text-PrimaryColor-0'
-                />
-              </div>
-              <div className='relative inline-block'>
-                <input
-                  type='email'
-                  placeholder='Email (optional)'
-                  value={email}
-                  onChange={(ev) => setEmail(ev.target.value)}
-                  className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
-                />
-                <HiOutlineMailOpen
-                  size={16}
-                  className='absolute top-1/2 right-5 -translate-y-1/2 text-PrimaryColor-0'
-                />
-              </div>
-            </div>
-            <div className='relative inline-block'>
-              <input
-                type='tel'
-                placeholder='Phone* (used to find your record)'
+            {patientType === 'new' ? (
+              <>
+                <div className='grid grid-cols-1 gap-5 sm:grid-cols-2'>
+                  <div className='relative inline-block'>
+                    <input
+                      type='text'
+                      placeholder='Full name*'
+                      required
+                      value={fullName}
+                      onChange={(ev) => setFullName(ev.target.value)}
+                      className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
+                    />
+                    <FaUser
+                      size={14}
+                      className='absolute top-1/2 right-5 -translate-y-1/2 text-PrimaryColor-0'
+                    />
+                  </div>
+                  <div className='relative inline-block'>
+                    <input
+                      type='email'
+                      placeholder='Email (optional)'
+                      value={email}
+                      onChange={(ev) => setEmail(ev.target.value)}
+                      className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
+                    />
+                    <HiOutlineMailOpen
+                      size={16}
+                      className='absolute top-1/2 right-5 -translate-y-1/2 text-PrimaryColor-0'
+                    />
+                  </div>
+                </div>
+                <div className='relative inline-block'>
+                  <input
+                    type='tel'
+                    placeholder='Phone*'
+                    required
+                    value={phone}
+                    onChange={(ev) => setPhone(ev.target.value)}
+                    className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
+                  />
+                  <MdCall
+                    size={16}
+                    className='absolute top-1/2 right-5 -translate-y-1/2 text-PrimaryColor-0'
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className='flex gap-3'>
+                  <div className='relative flex-1'>
+                    <input
+                      type='text'
+                      placeholder='Email or Phone*'
+                      value={searchIdentifier}
+                      onChange={(ev) => setSearchIdentifier(ev.target.value)}
+                      className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
+                    />
+                  </div>
+                  <button
+                    type='button'
+                    onClick={handleSearchPatient}
+                    disabled={isSearching}
+                    className='rounded-xl bg-PrimaryColor-0 px-6 font-AlbertSans font-medium text-white hover:bg-PrimaryColor-0/90 transition-colors disabled:opacity-50 h-[60px]'
+                  >
+                    {isSearching ? 'Searching...' : 'Find My Record'}
+                  </button>
+                </div>
+                {foundPatient && (
+                  <div className='rounded-xl bg-green-50/50 p-4 border border-green-200 mt-2'>
+                    <h4 className='font-AlbertSans font-semibold text-green-800 mb-1'>Patient found</h4>
+                    <p className='font-DMSans text-sm text-green-700'>
+                      <strong>Name:</strong> {foundPatient.fullName} <br/>
+                      <strong>Phone:</strong> {foundPatient.phone} <br/>
+                      {foundPatient.email && <><strong>Email:</strong> {foundPatient.email}</>}
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
+
+            {(patientType === 'new' || foundPatient) && (
+              <textarea
+                placeholder='Reason for visit*'
                 required
-                value={phone}
-                onChange={(ev) => setPhone(ev.target.value)}
-                className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
+                maxLength={255}
+                value={reason}
+                onChange={(ev) => setReason(ev.target.value)}
+                className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[120px] w-full resize-none rounded-2xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
               />
-              <MdCall
-                size={16}
-                className='absolute top-1/2 right-5 -translate-y-1/2 text-PrimaryColor-0'
-              />
-            </div>
-            <textarea
-              placeholder='Reason for visit*'
-              required
-              maxLength={255}
-              value={reason}
-              onChange={(ev) => setReason(ev.target.value)}
-              className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[120px] w-full resize-none rounded-2xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
-            />
+            )}
+
             {formError && <p className='font-DMSans text-sm text-red-600'>{formError}</p>}
-            <div className='flex flex-wrap gap-3'>
+            <div className='flex flex-wrap gap-3 mt-2'>
               <button
                 type='button'
                 onClick={() => setStep(1)}
-                className='rounded-xl border border-Secondarycolor-0 border-opacity-45 px-5 py-2 font-AlbertSans text-sm'
+                className='rounded-xl border border-Secondarycolor-0 border-opacity-45 px-5 py-2 font-AlbertSans text-sm hover:bg-black/5 transition-colors'
               >
                 Back
               </button>
-              <button type='submit' className='primary-btn'>
+              <button 
+                type='submit' 
+                disabled={!canContinueToConfirm}
+                className='primary-btn disabled:opacity-50 disabled:cursor-not-allowed'
+              >
                 Continue to confirmation
                 <GoArrowRight size={22} className='-rotate-45' />
               </button>
