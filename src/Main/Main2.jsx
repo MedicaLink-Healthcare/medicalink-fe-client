@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar2 from '../Shared/Navbar/Navbar2';
 import Footer from '../Shared/Footer/Footer';
-import Cursor from '../Shared/Cursor/Cursor';
+// import Cursor from '../Shared/Cursor/Cursor';
 import HelmetChanger from '../Shared/Helmet/Helmet';
 import BackToTop from '../Shared/BackToTop/BackToTop';
 import AOS from 'aos';
@@ -17,7 +17,7 @@ const Main2 = () => {
     AOS.init();
     AOS.refresh();
   }, []);
-  
+
   const lenis = new Lenis();
 
   lenis.on('scroll', ScrollTrigger.update);
@@ -32,7 +32,7 @@ const Main2 = () => {
     <>
       <HelmetChanger title={'Home Two'} />
       <Navbar2 />
-      <Cursor />
+      {/* <Cursor /> */}
       <BackToTop />
       <div>
         <Outlet />

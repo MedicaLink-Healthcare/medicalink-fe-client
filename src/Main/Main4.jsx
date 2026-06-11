@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Footer3 from '../Shared/Footer/Footer3';
-import Cursor from '../Shared/Cursor/Cursor';
+// import Cursor from '../Shared/Cursor/Cursor';
 import HelmetChanger from '../Shared/Helmet/Helmet';
 import BackToTop from '../Shared/BackToTop/BackToTop';
 import AOS from 'aos';
@@ -51,7 +51,7 @@ const Main4 = () => {
     <>
       <HelmetChanger title={getPageTitle(location.pathname)} />
       <Navbar />
-      <Cursor />
+      {/* <Cursor /> */}
       <BackToTop />
       <div>
         <Outlet />

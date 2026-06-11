@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar3 from '../Shared/Navbar/Navbar3';
 import Footer3 from '../Shared/Footer/Footer3';
-import Cursor from '../Shared/Cursor/Cursor';
+// import Cursor from '../Shared/Cursor/Cursor';
 import HelmetChanger from '../Shared/Helmet/Helmet';
 import BackToTop from '../Shared/BackToTop/BackToTop';
 import AOS from 'aos';
@@ -16,7 +16,7 @@ const Main3 = () => {
  useEffect(() => {
    AOS.init();
    AOS.refresh();
- }, []);  
+ }, []);
 
   const lenis = new Lenis();
 
@@ -32,7 +32,7 @@ const Main3 = () => {
     <>
       <HelmetChanger title={'Home Three'} />
       <Navbar3 />
-      <Cursor />
+      {/* <Cursor /> */}
       <BackToTop />
       <div>
         <Outlet />

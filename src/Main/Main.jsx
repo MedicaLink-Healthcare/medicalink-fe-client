@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from '../Shared/Navbar/Navbar';
 import Footer from '../Shared/Footer/Footer';
-import Cursor from '../Shared/Cursor/Cursor';
+// import Cursor from '../Shared/Cursor/Cursor';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import HelmetChanger from '../Shared/Helmet/Helmet';
@@ -30,12 +30,12 @@ const Main = () => {
 
   return (
     <>
-      <HelmetChanger 
-        title="AI Doctor Finder & Online Booking" 
+      <HelmetChanger
+        title="AI Doctor Finder & Online Booking"
         description="Find the right doctor with AI-powered specialty suggestions and RAG-integrated medical management. Experience the future of healthcare booking at Medicalink."
       />
       <Navbar />
-      <Cursor />
+      {/* <Cursor /> */}
       <BackToTop />
       <div>
         <Outlet />
