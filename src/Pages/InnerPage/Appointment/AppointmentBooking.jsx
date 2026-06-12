@@ -700,8 +700,16 @@ const AppointmentBooking = () => {
               ) : (
                 <>
                   {(() => {
-                    const morningSlots = slots.filter(s => parseInt(s.timeStart.split(':')[0], 10) < 12);
-                    const afternoonSlots = slots.filter(s => parseInt(s.timeStart.split(':')[0], 10) >= 12);
+                    const isToday = moment(serviceDate).isSame(moment(), 'day');
+                    const currentTimeStr = moment().format('HH:mm');
+                    
+                    const validSlots = slots.filter(s => {
+                      if (!isToday) return true;
+                      return s.timeStart > currentTimeStr;
+                    });
+
+                    const morningSlots = validSlots.filter(s => parseInt(s.timeStart.split(':')[0], 10) < 12);
+                    const afternoonSlots = validSlots.filter(s => parseInt(s.timeStart.split(':')[0], 10) >= 12);
 
                     const renderSlot = (s, idx) => {
                       const active =
@@ -750,14 +758,14 @@ const AppointmentBooking = () => {
                           </div>
                         )}
                       </div>
-                    );
+                      <div className='mt-3 font-DMSans text-xs flex items-center justify-between'>
+                        <span className='text-TextColor2-0'>{validSlots.length} available slots</span>
+                        {selectedSlot && (
+                          <span className='text-green-700 font-semibold'>Slot held! (expires in 10m)</span>
+                        )}
+                      </div>
+                    </>;
                   })()}
-                  <div className='mt-3 font-DMSans text-xs flex items-center justify-between'>
-                    <span className='text-TextColor2-0'>{slots.length} available slots</span>
-                    {selectedSlot && (
-                      <span className='text-green-700 font-semibold'>Slot held! (expires in 10m)</span>
-                    )}
-                  </div>
                 </>
               )}
               </div>
