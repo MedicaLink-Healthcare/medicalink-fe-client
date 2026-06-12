@@ -734,37 +734,39 @@ const AppointmentBooking = () => {
                     };
 
                     return (
-                      <div className='overflow-y-auto max-h-[320px] p-1 pr-2 space-y-4'>
-                        {morningSlots.length > 0 && (
-                          <div>
-                            <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 flex items-center gap-1'>
-                              <span className='w-2 h-2 rounded-full bg-amber-400'></span>
-                              Morning
-                            </h5>
-                            <div className='grid grid-cols-3 gap-2'>
-                              {morningSlots.map(renderSlot)}
+                      <>
+                        <div className='overflow-y-auto max-h-[320px] p-1 pr-2 space-y-4'>
+                          {morningSlots.length > 0 && (
+                            <div>
+                              <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 flex items-center gap-1'>
+                                <span className='w-2 h-2 rounded-full bg-amber-400'></span>
+                                Morning
+                              </h5>
+                              <div className='grid grid-cols-3 gap-2'>
+                                {morningSlots.map(renderSlot)}
+                              </div>
                             </div>
-                          </div>
-                        )}
-                        {afternoonSlots.length > 0 && (
-                          <div>
-                            <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 mt-4 flex items-center gap-1'>
-                              <span className='w-2 h-2 rounded-full bg-indigo-400'></span>
-                              Afternoon & Evening
-                            </h5>
-                            <div className='grid grid-cols-3 gap-2'>
-                              {afternoonSlots.map(renderSlot)}
+                          )}
+                          {afternoonSlots.length > 0 && (
+                            <div>
+                              <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 mt-4 flex items-center gap-1'>
+                                <span className='w-2 h-2 rounded-full bg-indigo-400'></span>
+                                Afternoon & Evening
+                              </h5>
+                              <div className='grid grid-cols-3 gap-2'>
+                                {afternoonSlots.map(renderSlot)}
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </div>
-                      <div className='mt-3 font-DMSans text-xs flex items-center justify-between'>
-                        <span className='text-TextColor2-0'>{validSlots.length} available slots</span>
-                        {selectedSlot && (
-                          <span className='text-green-700 font-semibold'>Slot held! (expires in 10m)</span>
-                        )}
-                      </div>
-                    </>;
+                          )}
+                        </div>
+                        <div className='mt-3 font-DMSans text-xs flex items-center justify-between'>
+                          <span className='text-TextColor2-0'>{validSlots.length} available slots</span>
+                          {selectedSlot && (
+                            <span className='text-green-700 font-semibold'>Slot held! (expires in 10m)</span>
+                          )}
+                        </div>
+                      </>
+                    );
                   })()}
                 </>
               )}
