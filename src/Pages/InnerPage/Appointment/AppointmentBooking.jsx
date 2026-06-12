@@ -164,7 +164,7 @@ const AppointmentBooking = () => {
   });
   const doctors = useMemo(() => doctorListData?.items ?? [], [doctorListData?.items]);
 
-  const { data: locationsRes, isLoading: loadingLocations, isError: locationsError } =
+  const { data: locationsRes, isError: locationsError } =
     useWorkLocationsQuery({ page: 1, limit: 100 });
   const { data: specialtiesRes, isLoading: loadingSpecialties, isError: specialtiesError } =
     useSpecialtiesQuery({ page: 1, limit: 100 });
@@ -439,16 +439,20 @@ const AppointmentBooking = () => {
       setFormSuccess(
         `Booking confirmed${appt?.id ? ` (reference: ${appt.id})` : ''}.`
       );
+      
+      // Invalidate both doctors list and specific slots query to refresh real-time availability
+      queryClient.invalidateQueries({ queryKey: DOCTOR_KEYS.slots(selectedDoctor?.id, serviceDate, effectiveLocationId) });
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
+      
       setEventId(null);
-      setSelectedSlot(null);
+      // Keep selected slot so it shows in the review, but we clear reason for next time
       setReason('');
       try {
         sessionStorage.removeItem('mediic:doctor-ai-finder:v1'); // clear triage data on success
       } catch (err) {
         console.error(err);
       }
-      setStep(1);
+      // Do NOT setStep(1) here so the user can see the success message in step 3
     } catch (err) {
       setFormError(
         err?.message ||
@@ -953,22 +957,44 @@ const AppointmentBooking = () => {
           )}
 
           <div className='mt-8 flex flex-wrap gap-3'>
-            <button
-              type='button'
-              onClick={() => setStep(2)}
-              className='rounded-xl border border-Secondarycolor-0 border-opacity-45 px-5 py-2 font-AlbertSans text-sm'
-            >
-              Back
-            </button>
-            <button
-              type='button'
-              onClick={handleBook}
-              disabled={confirmMutation.isPending || !eventId}
-              className='primary-btn disabled:opacity-50'
-            >
-              {confirmMutation.isPending ? 'Booking…' : 'Confirm appointment'}
-              <GoArrowRight size={22} className='-rotate-45' />
-            </button>
+            {!formSuccess ? (
+              <>
+                <button
+                  type='button'
+                  onClick={() => setStep(2)}
+                  className='rounded-xl border border-Secondarycolor-0 border-opacity-45 px-5 py-2 font-AlbertSans text-sm'
+                >
+                  Back
+                </button>
+                <button
+                  type='button'
+                  onClick={handleBook}
+                  disabled={confirmMutation.isPending || !eventId}
+                  className='primary-btn disabled:opacity-50'
+                >
+                  {confirmMutation.isPending ? 'Booking…' : 'Confirm appointment'}
+                  <GoArrowRight size={22} className='-rotate-45' />
+                </button>
+              </>
+            ) : (
+              <button
+                type='button'
+                onClick={() => {
+                  setStep(1);
+                  setFormSuccess('');
+                  setSelectedSlot(null);
+                  setFullName('');
+                  setPhone('');
+                  setEmail('');
+                  setFoundPatient(null);
+                  setPatientType('new');
+                }}
+                className='primary-btn'
+              >
+                Book Another Appointment
+                <GoArrowRight size={22} className='-rotate-45' />
+              </button>
+            )}
           </div>
         </div>
       )}
