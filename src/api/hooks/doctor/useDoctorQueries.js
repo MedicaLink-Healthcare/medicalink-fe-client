@@ -49,6 +49,7 @@ export const useDoctorSlotsQuery = (doctorId, serviceDate, locationId, options =
       doctorService.getAvailableSlots(doctorId, {
         serviceDate,
         ...(locationId ? { locationId } : {}),
+        ...(options.sessionId ? { sessionId: options.sessionId } : {}),
       }),
     select: selectSlotsEnvelope,
     enabled:

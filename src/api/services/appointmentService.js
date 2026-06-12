@@ -5,6 +5,10 @@ export const appointmentService = {
     return axiosClient.post('/appointments/hold', data);
   },
 
+  releaseHold: async (data) => {
+    return axiosClient.delete('/appointments/hold', { data });
+  },
+
   confirmBooking: async (data) => {
     return axiosClient.post('/appointments/public', data);
   },

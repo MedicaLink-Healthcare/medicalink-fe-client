@@ -181,7 +181,7 @@ const AppointmentBooking = () => {
 
   const [serviceDate, setServiceDate] = useState(todayISODate);
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const [eventId, setEventId] = useState(null);
+  const [sessionId] = useState(() => crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(7));
 
   const doctorIdFromUrl = searchParams.get('doctorId');
   useEffect(() => {
@@ -227,7 +227,6 @@ const AppointmentBooking = () => {
 
   useEffect(() => {
     setSelectedSlot(null);
-    setEventId(null);
     setFormError('');
     setFormSuccess('');
   }, [doctorId, serviceDate, locationId]);
@@ -254,6 +253,8 @@ const AppointmentBooking = () => {
     error: slotsErr,
   } = useDoctorSlotsQuery(doctorId, serviceDate, effectiveLocationId, {
     enabled: !!doctorId && !!serviceDate && !!effectiveLocationId,
+    sessionId,
+    refetchInterval: step === 1 ? 5000 : false,
   });
 
   const { data: publicOfficeHoursData } = useQuery({
@@ -278,6 +279,10 @@ const AppointmentBooking = () => {
     mutationFn: (body) => appointmentService.holdSlot(body),
   });
 
+  const releaseMutation = useMutation({
+    mutationFn: (body) => appointmentService.releaseHold(body),
+  });
+
   const confirmMutation = useMutation({
     mutationFn: (body) => appointmentService.confirmBooking(body),
   });
@@ -288,19 +293,15 @@ const AppointmentBooking = () => {
       setFormError('');
       setFormSuccess('');
       setSelectedSlot(slot);
-      setEventId(null);
       try {
-        const raw = await holdMutation.mutateAsync({
+        await holdMutation.mutateAsync({
           doctorId: selectedDoctor.id,
           locationId: effectiveLocationId,
           serviceDate,
           timeStart: slot.timeStart,
           timeEnd: slot.timeEnd,
+          sessionId,
         });
-        const ev = pickInnerPayload(raw);
-        const id = ev?.id;
-        if (!id) throw new Error('Hold did not return event id');
-        setEventId(id);
       } catch (e) {
         setFormError(
           e?.message ||
@@ -310,20 +311,27 @@ const AppointmentBooking = () => {
         queryClient.invalidateQueries({ queryKey: DOCTOR_KEYS.slots(selectedDoctor.id, serviceDate, effectiveLocationId) });
       }
     },
-    [selectedDoctor, effectiveLocationId, serviceDate, holdMutation, queryClient]
+    [selectedDoctor, effectiveLocationId, serviceDate, holdMutation, queryClient, sessionId]
   );
 
   const handleClearStep1 = () => {
+    if (selectedSlot) {
+      releaseMutation.mutate({
+        doctorId,
+        serviceDate,
+        timeStart: selectedSlot.timeStart,
+        sessionId,
+      });
+    }
     setLocationId('');
     setSpecialtyId('');
     setDoctorId('');
     setSelectedSlot(null);
-    setEventId(null);
     setFormError('');
   };
 
   const canContinueToPatient = Boolean(
-    eventId && doctorId && effectiveLocationId && specialtyId
+    selectedSlot && doctorId && effectiveLocationId && specialtyId
   );
 
   const canContinueToConfirm =
@@ -374,7 +382,7 @@ const AppointmentBooking = () => {
     setFormError('');
     setFormSuccess('');
 
-    if (!eventId) {
+    if (!selectedSlot) {
       setFormError('Please complete step 1 and hold a time slot.');
       return;
     }
@@ -429,7 +437,12 @@ const AppointmentBooking = () => {
       }
 
       const confirmRaw = await confirmMutation.mutateAsync({
-        eventId,
+        doctorId,
+        locationId: effectiveLocationId,
+        serviceDate,
+        timeStart: selectedSlot.timeStart,
+        timeEnd: selectedSlot.timeEnd,
+        sessionId,
         patientId,
         specialtyId,
         reason: reason.trim(),
@@ -444,7 +457,6 @@ const AppointmentBooking = () => {
       queryClient.invalidateQueries({ queryKey: DOCTOR_KEYS.slots(selectedDoctor?.id, serviceDate, effectiveLocationId) });
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
       
-      setEventId(null);
       // Keep selected slot so it shows in the review, but we clear reason for next time
       setReason('');
       try {
@@ -742,7 +754,7 @@ const AppointmentBooking = () => {
                   })()}
                   <div className='mt-3 font-DMSans text-xs flex items-center justify-between'>
                     <span className='text-TextColor2-0'>{slots.length} available slots</span>
-                    {selectedSlot && eventId && (
+                    {selectedSlot && (
                       <span className='text-green-700 font-semibold'>Slot held! (expires in 10m)</span>
                     )}
                   </div>
@@ -969,7 +981,7 @@ const AppointmentBooking = () => {
                 <button
                   type='button'
                   onClick={handleBook}
-                  disabled={confirmMutation.isPending || !eventId}
+                  disabled={confirmMutation.isPending || !selectedSlot}
                   className='primary-btn disabled:opacity-50'
                 >
                   {confirmMutation.isPending ? 'Booking…' : 'Confirm appointment'}
