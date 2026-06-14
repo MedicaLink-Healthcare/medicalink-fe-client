@@ -303,10 +303,17 @@ const AppointmentBooking = () => {
           sessionId,
         });
       } catch (e) {
-        setFormError(
-          e?.message ||
-            'Could not reserve this time slot. It may have been taken. Pick another.'
-        );
+        let msg = e?.response?.data?.message || e?.message || '';
+        if (
+          msg.includes('Unique constraint failed') || 
+          msg.includes('Selected time is not available') || 
+          msg.includes('reserve')
+        ) {
+          msg = 'Ca khám đang được giữ chỗ bởi người khác. Vui lòng chọn giờ khác.';
+        } else if (!msg) {
+          msg = 'Could not reserve this time slot. It may have been taken. Pick another.';
+        }
+        setFormError(msg);
         setSelectedSlot(null);
         queryClient.invalidateQueries({ queryKey: DOCTOR_KEYS.slots(selectedDoctor.id, serviceDate, effectiveLocationId) });
       }
@@ -450,7 +457,7 @@ const AppointmentBooking = () => {
       });
       const appt = pickInnerPayload(confirmRaw);
       setFormSuccess(
-        `Booking confirmed${appt?.id ? ` (reference: ${appt.id})` : ''}.`
+        `Đặt lịch thành công! Mã ca khám: ${appt?.id || ''}`
       );
       
       // Invalidate both doctors list and specific slots query to refresh real-time availability
@@ -466,11 +473,17 @@ const AppointmentBooking = () => {
       }
       // Do NOT setStep(1) here so the user can see the success message in step 3
     } catch (err) {
-      setFormError(
-        err?.message ||
-          err?.data?.message ||
-          'Booking failed. The hold may have expired — choose a slot again.'
-      );
+      let msg = err?.response?.data?.message || err?.data?.message || err?.message || '';
+      if (
+        msg.includes('Unique constraint failed') || 
+        msg.includes('Selected time is not available') || 
+        msg.includes('expired')
+      ) {
+        msg = 'Ca khám đang được giữ chỗ bởi người khác. Vui lòng chọn giờ khác.';
+      } else if (!msg) {
+        msg = 'Booking failed. The hold may have expired — choose a slot again.';
+      }
+      setFormError(msg);
     }
   };
 
@@ -973,9 +986,16 @@ const AppointmentBooking = () => {
             </li>
           </ul>
 
-          {formError && <p className='mt-4 font-DMSans text-sm text-red-600'>{formError}</p>}
+          {formError && <div className='mt-4 font-DMSans text-sm text-red-600 bg-red-50 border border-red-200 p-4 rounded-xl shadow-sm'>{formError}</div>}
           {formSuccess && (
-            <p className='mt-4 font-DMSans text-sm text-green-700'>{formSuccess}</p>
+            <div className='mt-4 font-DMSans text-sm text-green-700 bg-green-50 border border-green-200 p-4 rounded-xl shadow-sm font-medium'>
+              <span className='flex items-center gap-2'>
+                <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
+                  <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clipRule='evenodd' />
+                </svg>
+                {formSuccess}
+              </span>
+            </div>
           )}
 
           <div className='mt-8 flex flex-wrap gap-3'>
