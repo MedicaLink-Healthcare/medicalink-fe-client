@@ -98,6 +98,7 @@ const DoctorAiFinder = () => {
   const [clarificationQuestion, setClarificationQuestion] = useState(() => persisted.clarificationQuestion ?? '');
   const [isEmergency, setIsEmergency] = useState(() => persisted.isEmergency ?? false);
   const [emergencyReason, setEmergencyReason] = useState(() => persisted.emergencyReason ?? '');
+  const [isOutOfScope, setIsOutOfScope] = useState(() => persisted.isOutOfScope ?? false);
   const [userAnswer, setUserAnswer] = useState('');
 
   const [recommendations, setRecommendations] = useState(() =>
@@ -137,9 +138,10 @@ const DoctorAiFinder = () => {
       clarificationQuestion,
       isEmergency,
       emergencyReason,
+      isOutOfScope,
       recommendations,
     });
-  }, [symptoms, extractedSymptoms, selectedIds, aiNote, cquData, clarificationQuestion, isEmergency, emergencyReason, recommendations]);
+  }, [symptoms, extractedSymptoms, selectedIds, aiNote, cquData, clarificationQuestion, isEmergency, emergencyReason, isOutOfScope, recommendations]);
 
   const scrollToResults = useCallback(() => {
     requestAnimationFrame(() => {
@@ -170,6 +172,7 @@ const DoctorAiFinder = () => {
     setClarificationQuestion('');
     setIsEmergency(false);
     setEmergencyReason('');
+    setIsOutOfScope(false);
     setUserAnswer('');
     setRecommendations(null);
     setErrorMsg('');
@@ -181,6 +184,7 @@ const DoctorAiFinder = () => {
     setClarificationQuestion('');
     setIsEmergency(false);
     setEmergencyReason('');
+    setIsOutOfScope(false);
     setCquData(null);
 
     // Support being called directly from onClick (Event object) or from code (string)
@@ -207,6 +211,7 @@ const DoctorAiFinder = () => {
           setClarificationQuestion(payload?.clarification_question || '');
           setIsEmergency(payload?.is_emergency || false);
           setEmergencyReason(payload?.emergency_reason || '');
+          setIsOutOfScope(payload?.is_fallback && payload?.fallback_reason === 'out_of_scope');
           setCquData(payload);
 
           // Do not auto-select specialties if the AI is actively asking for clarification.
@@ -345,7 +350,7 @@ const DoctorAiFinder = () => {
               </button>
             </div>
 
-            {aiNote ? (
+            {aiNote && !isOutOfScope ? (
               <p
                 className='mt-4 text-sm text-HeadingColor-0 bg-BodyBg-0 rounded-xl px-4 py-3 border border-BodyBg2-0'
                 role='status'
@@ -353,6 +358,18 @@ const DoctorAiFinder = () => {
                 <span className='font-semibold'>AI note: </span>
                 {aiNote}
               </p>
+            ) : null}
+
+            {isOutOfScope ? (
+              <div className='mt-5 p-4 rounded-xl bg-orange-50 border border-orange-200 flex items-start gap-3'>
+                <span className='text-orange-600 text-2xl'>⚠️</span>
+                <div>
+                  <h3 className='font-AlbertSans font-bold text-orange-800 text-base mb-1'>CÂU HỎI NGOÀI LỀ</h3>
+                  <p className='text-sm text-orange-700 font-AlbertSans leading-relaxed'>
+                    {aiNote || "Hệ thống MedicaLink chỉ hỗ trợ tư vấn và gợi ý bác sĩ chuyên khoa. Xin vui lòng đặt các câu hỏi liên quan đến sức khỏe và triệu chứng bệnh."}
+                  </p>
+                </div>
+              </div>
             ) : null}
 
             {isEmergency ? (
