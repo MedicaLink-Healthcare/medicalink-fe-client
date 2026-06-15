@@ -305,8 +305,8 @@ const AppointmentBooking = () => {
       } catch (e) {
         let msg = e?.response?.data?.message || e?.message || '';
         if (
-          msg.includes('Unique constraint failed') || 
-          msg.includes('Selected time is not available') || 
+          msg.includes('Unique constraint failed') ||
+          msg.includes('Selected time is not available') ||
           msg.includes('reserve')
         ) {
           msg = 'Ca khám đang được giữ chỗ bởi người khác. Vui lòng chọn giờ khác.';
@@ -459,11 +459,11 @@ const AppointmentBooking = () => {
       setFormSuccess(
         `Đặt lịch thành công! Mã ca khám: ${appt?.id || ''}`
       );
-      
+
       // Invalidate both doctors list and specific slots query to refresh real-time availability
       queryClient.invalidateQueries({ queryKey: DOCTOR_KEYS.slots(selectedDoctor?.id, serviceDate, effectiveLocationId) });
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
-      
+
       // Keep selected slot so it shows in the review, but we clear reason for next time
       setReason('');
       try {
@@ -475,8 +475,8 @@ const AppointmentBooking = () => {
     } catch (err) {
       let msg = err?.response?.data?.message || err?.data?.message || err?.message || '';
       if (
-        msg.includes('Unique constraint failed') || 
-        msg.includes('Selected time is not available') || 
+        msg.includes('Unique constraint failed') ||
+        msg.includes('Selected time is not available') ||
         msg.includes('expired')
       ) {
         msg = 'Ca khám đang được giữ chỗ bởi người khác. Vui lòng chọn giờ khác.';
@@ -693,7 +693,7 @@ const AppointmentBooking = () => {
               <h4 className='font-AlbertSans text-HeadingColor-0 mb-4 text-base font-semibold'>
                 Available time slots
               </h4>
-              <div className='w-full flex-1 rounded-[1.2rem] border border-Secondarycolor-0 border-opacity-45 bg-white/50 p-5 shadow-sm'>
+              <div className='w-full flex-1 overflow-y-auto rounded-[1.2rem] border border-Secondarycolor-0 border-opacity-45 bg-white/50 p-5 shadow-sm'>
               {!doctorId || !serviceDate || !effectiveLocationId ? (
                 <div className='rounded-xl border border-dashed border-Secondarycolor-0 border-opacity-45 p-6 text-center text-sm font-DMSans text-TextColor2-0'>
                   Please choose a doctor and location first.
@@ -715,7 +715,7 @@ const AppointmentBooking = () => {
                   {(() => {
                     const isToday = moment(serviceDate).isSame(moment(), 'day');
                     const currentTimeStr = moment().format('HH:mm');
-                    
+
                     const validSlots = slots.filter(s => {
                       if (!isToday) return true;
                       return s.timeStart > currentTimeStr;
@@ -748,7 +748,7 @@ const AppointmentBooking = () => {
 
                     return (
                       <>
-                        <div className='overflow-y-auto max-h-[320px] p-1 pr-2 space-y-4'>
+                        <div className='p-1 pr-2 space-y-4'>
                           {morningSlots.length > 0 && (
                             <div>
                               <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 flex items-center gap-1'>
@@ -829,8 +829,8 @@ const AppointmentBooking = () => {
             {patientType === 'new' ? 'Your information' : 'Find your record'}
           </h3>
           <p className='font-DMSans text-TextColor2-0 mb-6 text-sm'>
-            {patientType === 'new' 
-              ? 'Please enter your information to register as a new patient.' 
+            {patientType === 'new'
+              ? 'Please enter your information to register as a new patient.'
               : 'Enter your email or phone number to retrieve your existing patient record.'}
           </p>
           <form
@@ -945,8 +945,8 @@ const AppointmentBooking = () => {
               >
                 Back
               </button>
-              <button 
-                type='submit' 
+              <button
+                type='submit'
                 disabled={!canContinueToConfirm}
                 className='primary-btn disabled:opacity-50 disabled:cursor-not-allowed'
               >
