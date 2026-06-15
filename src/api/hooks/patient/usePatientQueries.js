@@ -10,7 +10,7 @@ export const usePatientSearchQuery = (params, options = {}) => {
   return useQuery({
     queryKey: PATIENT_KEYS.search(params),
     queryFn: () => patientService.searchPatient(params),
-    enabled: !!(params?.phone || params?.email),
+    enabled: !!(params?.phone || params?.email || params?.id),
     ...options,
   });
 };

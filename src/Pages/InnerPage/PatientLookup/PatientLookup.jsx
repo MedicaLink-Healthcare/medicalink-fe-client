@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { FaArrowRightLong, FaPhone, FaUser, FaCalendarDays, FaIdCard, FaBuilding, FaUserDoctor, FaClock, FaLocationDot, FaMoneyBill1 } from 'react-icons/fa6';
 import { HiOutlineMailOpen } from 'react-icons/hi';
 import BreadCrumb from '../../../Shared/BreadCrumb/BreadCrumb';
@@ -40,9 +41,12 @@ const formatStatusText = (status) => {
 }
 
 const PatientLookup = () => {
+  const [urlParams] = useSearchParams();
+  const patientIdFromUrl = urlParams.get('patientId');
+
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [searchParams, setSearchParams] = useState(null);
+  const [searchParams, setSearchParams] = useState(patientIdFromUrl ? { id: patientIdFromUrl } : null);
   const [activeFilter, setActiveFilter] = useState('ALL');
 
   const { data: response, isLoading, isError, error } = usePatientSearchQuery(searchParams, {
@@ -71,6 +75,13 @@ const PatientLookup = () => {
     }
     return list;
   }, [appointmentsResp?.data, activeFilter]);
+
+  useEffect(() => {
+    if (patient) {
+      if (patient.phone) setPhone(patient.phone);
+      if (patient.email) setEmail(patient.email);
+    }
+  }, [patient]);
 
 
   const handleSearch = (e) => {
