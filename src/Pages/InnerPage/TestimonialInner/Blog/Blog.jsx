@@ -12,7 +12,7 @@ const Blog = () => {
 
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('vi-VN', {
       day: '2-digit',
       month: 'long',
       year: 'numeric',
@@ -49,8 +49,8 @@ const Blog = () => {
             data-aos-duration='1000'
           >
             <h1 className='font-AlbertSans font-bold uppercase text-HeadingColor-0 text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[50px] lg:leading-[60px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-              Read Our <br />
-              Latest Blog
+              Đọc bài viết <br />
+              mới nhất
             </h1>
           </div>
           <div
@@ -60,7 +60,7 @@ const Blog = () => {
           >
             <Link to={'/blog_grid'}>
               <button className='primary-btn mt-3'>
-                View all Blog
+                Xem tất cả
                 <GoArrowRight
                   size={'22'}
                   className='-rotate-45'
@@ -79,7 +79,7 @@ const Blog = () => {
               <Loading />
             </div>
           ) : blogs.length === 0 ? (
-            <p className='text-center text-TextColor2-0'>No blogs found.</p>
+            <p className='text-center text-TextColor2-0'>Không tìm thấy bài viết.</p>
           ) : (
             <Swiper {...settings}>
               {blogs.map((blog) => (
@@ -88,7 +88,7 @@ const Blog = () => {
                     <BlogCard
                       blogThumb={blog.thumbnailUrl}
                       blogDate={formatDate(blog.publishedAt)}
-                      blogPostBy={blog.authorName || 'Admin'}
+                      blogPostBy={blog.authorName || 'Quản trị viên'}
                       blogUrl={`/blog_details/${blog.slug}`}
                       blogTitle={blog.title}
                     />

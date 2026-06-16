@@ -38,7 +38,7 @@ const About = () => {
                   />
                 </div>
                 <p className='font-AlbertSans text-white uppercase mt-2'>
-                  Recovered Patients
+                  Bệnh nhân phục hồi
                 </p>
               </div>
               <div>
@@ -51,7 +51,7 @@ const About = () => {
                   />
                 </div>
                 <p className='font-AlbertSans text-white uppercase mt-2'>
-                  Satisfaction Rate
+                  Tỷ lệ hài lòng
                 </p>
               </div>
             </div>
@@ -62,15 +62,13 @@ const About = () => {
             data-aos-duration='1000'
           >
             <h5 className='font-AlbertSans font-medium text-sm sm:text-base text-PrimaryColor-0 uppercase mb-4'>
-              About Company
+              Về chúng tôi
             </h5>
             <h1 className='font-AlbertSans font-bold capitalize text-HeadingColor-0 text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[42px] lg:leading-[52px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-              Best Health Center <br /> Since - 2007
+              Trung tâm chăm sóc sức khỏe <br /> tốt nhất từ 2007
             </h1>
             <p className='font-DMSans text-TextColor2-0 mt-4 mb-5'>
-              Continually evolve professional intellectual capital without
-              enterprise users. Seamlessly matrix value added e-commerce.
-              Uniquely e-enable innovative technologies via team
+              Cam kết mang đến dịch vụ y tế chuyên nghiệp, tận tâm và không ngừng đổi mới công nghệ vì sức khỏe cộng đồng.
             </p>
             <div className='grid items-center grid-cols-1 gap-7 sm:grid-cols-2 pb-[18px] pt-4'>
               <div className='flex items-center gap-3'>
@@ -79,7 +77,7 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    Psychodynamic Therapy
+                    Trị liệu tâm lý
                   </h5>
                 </div>
               </div>
@@ -89,7 +87,7 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    Free Consultants
+                    Tư vấn miễn phí
                   </h5>
                 </div>
               </div>
@@ -101,7 +99,7 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    Mental Problem Therapy
+                    Điều trị tâm lý
                   </h5>
                 </div>
               </div>
@@ -111,14 +109,14 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    Patient Satisfications
+                    Bệnh nhân hài lòng
                   </h5>
                 </div>
               </div>
             </div>
             <Link to={'/about'}>
               <button className='primary-btn mt-3'>
-                More About
+                Tìm hiểu thêm
                 <GoArrowRight
                   size={'22'}
                   className='-rotate-45'

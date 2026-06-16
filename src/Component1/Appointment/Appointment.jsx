@@ -43,7 +43,7 @@ const Appointment = () => {
         data-aos-duration='1000'
       >
         <h1 className='font-AlbertSans font-bold uppercase text-HeadingColor-0 text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[50px] lg:leading-[60px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-          Make Appointment
+          Đặt Lịch Khám
         </h1>
       </div>
       <div className='bg-[url(/images/appoinment.png)] bg-cover bg-no-repeat bg-center grid grid-cols-1 lg:grid-cols-2 pt-[110px] pb-[118px] lg:border-x-2 2xl:border-x-0 border-white rounded-[30px] relative z-10'>
@@ -61,10 +61,10 @@ const Appointment = () => {
             />
           </div>
           <h5 className='font-AlbertSans font-medium text-sm sm:text-base text-PrimaryColor-0 uppercase mb-4'>
-            FINANCE CONSULTING
+            TƯ VẤN Y TẾ
           </h5>
           <h1 className='font-AlbertSans font-bold text-HeadingColor-0 text-[16px] leading-[23px] sm:text-[22px] sm:leading-[35px] md:text-[30px] md:leading-[35px] lg:text-[28px] lg:leading-[35px] xl:text-[32px] xl:leading-[39px] 2xl:text-[32px] 2xl:leading-[39px]'>
-            Make an Online Appoinemnt <br /> Booking For Treatment Patients
+            Đặt Lịch Khám Trực Tuyến <br /> Nhanh Chóng, Tiện Lợi
           </h1>
           <form
             onSubmit={handleSubmit}
@@ -76,7 +76,7 @@ const Appointment = () => {
                   type='text'
                   name='name'
                   id='name'
-                  placeholder='Enter Name*'
+                  placeholder='Nhập Họ Tên*'
                   required
                   className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-xl py-2 px-6 h-[60px] w-full focus:outline-PrimaryColor-0'
                 />
@@ -90,7 +90,7 @@ const Appointment = () => {
                   type='email'
                   name='email'
                   id='email'
-                  placeholder='Enter E-Mail*'
+                  placeholder='Nhập Email*'
                   required
                   className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-xl py-2 px-6 h-[60px] w-full focus:outline-PrimaryColor-0'
                 />
@@ -110,25 +110,25 @@ const Appointment = () => {
                   value='subject'
                   className='text-HeadingColor-0'
                 >
-                  Your Subject
+                  Chuyên Khoa
                 </option>
                 <option
                   value='Cardiology'
                   className='text-HeadingColor-0'
                 >
-                  Cardiology
+                  Tim mạch
                 </option>
                 <option
                   value='Neurology'
                   className='text-HeadingColor-0'
                 >
-                  Neurology
+                  Thần kinh
                 </option>
                 <option
                   value='General Checkup'
                   className='text-HeadingColor-0'
                 >
-                  General Checkup
+                  Khám tổng quát
                 </option>
               </select>
               <div className='relative inline-block'>
@@ -136,7 +136,7 @@ const Appointment = () => {
                   type='text'
                   name='number'
                   id='number'
-                  placeholder='Enter Number*'
+                  placeholder='Nhập Số Điện Thoại*'
                   required
                   className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-xl py-2 px-6 h-[60px] w-full focus:outline-PrimaryColor-0'
                 />
@@ -149,18 +149,18 @@ const Appointment = () => {
             <textarea
               name='message'
               id='message'
-              placeholder='Write a short meassage...'
+              placeholder='Nhập nội dung tin nhắn...'
               className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-2xl py-2 px-6 h-[150px] w-full focus:outline-PrimaryColor-0 resize-none'
             ></textarea>
 
             {status === 'success' && (
               <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-                Message sent successfully!
+                Gửi tin nhắn thành công!
               </div>
             )}
             {status === 'error' && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-                There was an error sending your message. Please try again later.
+                Đã có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau.
               </div>
             )}
 
@@ -170,7 +170,7 @@ const Appointment = () => {
                 className='primary-btn disabled:opacity-50'
                 disabled={status === 'loading'}
               >
-                {status === 'loading' ? 'Sending...' : 'Send Now'}
+                {status === 'loading' ? 'Đang gửi...' : 'Gửi Ngay'}
                 <GoArrowRight
                   size={'22'}
                   className='-rotate-45'

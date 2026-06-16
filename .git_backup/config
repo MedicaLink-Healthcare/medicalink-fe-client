@@ -1,0 +1,44 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://github.com/MedicaLink-Healthcare/medicalink-fe-client.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[branch "feat/implement-api-logic"]
+	vscode-merge-base = origin/main
+	remote = origin
+	merge = refs/heads/feat/implement-api-logic
+[branch "feat/implement-home-page-ui"]
+	vscode-merge-base = origin/main
+	remote = origin
+	merge = refs/heads/feat/implement-home-page-ui
+[branch "feat/implement-service-module"]
+	vscode-merge-base = origin/main
+	remote = origin
+	merge = refs/heads/feat/implement-service-module
+[branch "feat/implement-our-team-page"]
+	vscode-merge-base = origin/main
+	remote = origin
+	merge = refs/heads/feat/implement-our-team-page
+[branch "feat/implement-testimonial-faqs-api"]
+	vscode-merge-base = origin/main
+	remote = origin
+	merge = refs/heads/feat/implement-testimonial-faqs-api
+[branch "feat/implement-appointment-api"]
+	vscode-merge-base = origin/main
+	remote = origin
+	merge = refs/heads/feat/implement-appointment-api
+[branch "fix/booking-appointment-flow"]
+	vscode-merge-base = origin/main
+	vscode-merge-base = origin/main
+	remote = origin
+	merge = refs/heads/fix/booking-appointment-flow
+[branch "fix/booking-form"]
+	vscode-merge-base = origin/main

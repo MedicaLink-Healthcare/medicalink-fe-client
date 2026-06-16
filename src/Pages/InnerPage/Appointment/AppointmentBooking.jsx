@@ -51,14 +51,14 @@ const MiniCalendar = ({ selectedDate, onDateSelect, availableDaysOfWeek }) => {
           <FaChevronLeft size={14} className='text-HeadingColor-0' />
         </button>
         <span className='font-AlbertSans font-semibold text-HeadingColor-0'>
-          {currentMonth.format('MMMM YYYY')}
+          {`Tháng ${currentMonth.format('MM/YYYY')}`}
         </span>
         <button type='button' onClick={nextMonth} className='rounded-full p-2 hover:bg-white/80 transition-colors'>
           <FaChevronRight size={14} className='text-HeadingColor-0' />
         </button>
       </div>
       <div className='mb-2 grid grid-cols-7 gap-1 text-center font-AlbertSans text-xs font-semibold text-TextColor2-0'>
-        <div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div><div>Su</div>
+        <div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div><div>CN</div>
       </div>
       <div className='grid grid-cols-7 gap-1'>
         {days.map(d => {
@@ -151,9 +151,9 @@ function todayISODate() {
 // }
 
 const STEPS = [
-  { id: 1, title: 'Doctor & Specialty', subtitle: 'Choose your preferred doctor and specialty' },
-  { id: 2, title: 'Your Information', subtitle: 'Enter your information or retrieve old data' },
-  { id: 3, title: 'Confirmation', subtitle: 'Review and confirm booking' },
+  { id: 1, title: 'Bác sĩ & Chuyên khoa', subtitle: 'Chọn bác sĩ và chuyên khoa mong muốn' },
+  { id: 2, title: 'Thông tin của bạn', subtitle: 'Nhập thông tin của bạn hoặc lấy lại dữ liệu cũ' },
+  { id: 3, title: 'Xác nhận', subtitle: 'Xem lại và xác nhận lịch khám' },
 ];
 
 const AppointmentBooking = () => {
@@ -508,7 +508,7 @@ const AppointmentBooking = () => {
             }`}
           >
             <p className='font-AlbertSans text-PrimaryColor-0 text-xs font-semibold'>
-              Step {s.id}
+              Bước {s.id}
             </p>
             <p className='font-AlbertSans text-HeadingColor-0 text-sm font-semibold'>{s.title}</p>
             <p className='font-DMSans text-TextColor2-0 text-xs'>{s.subtitle}</p>
@@ -533,14 +533,14 @@ const AppointmentBooking = () => {
 
           <div className='flex items-center justify-between mb-2'>
             <h3 className='font-AlbertSans text-HeadingColor-0 text-lg font-semibold'>
-              Choose specialty & doctor
+              Chọn chuyên khoa & bác sĩ
             </h3>
             <button
               type='button'
               onClick={handleClearStep1}
               className='text-xs font-DMSans font-semibold text-PrimaryColor-0 hover:text-PrimaryColor-0/80 transition-colors underline underline-offset-2'
             >
-              Clear choices
+              Xóa lựa chọn
             </button>
           </div>
 
@@ -557,7 +557,7 @@ const AppointmentBooking = () => {
                 }}
                 className='accent-PrimaryColor-0'
               />
-              Select doctor first
+              Chọn bác sĩ trước
             </label>
             <label className='flex items-center gap-2 font-DMSans text-sm text-HeadingColor-0 cursor-pointer'>
               <input
@@ -571,7 +571,7 @@ const AppointmentBooking = () => {
                 }}
                 className='accent-PrimaryColor-0'
               />
-              Select specialty first
+              Chọn chuyên khoa trước
             </label>
           </div>
 
@@ -582,7 +582,7 @@ const AppointmentBooking = () => {
                   htmlFor='book-doctor'
                   className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
                 >
-                  Select doctor
+                  Chọn bác sĩ
                 </label>
                 <select
                   id='book-doctor'
@@ -590,7 +590,7 @@ const AppointmentBooking = () => {
                   onChange={(ev) => setDoctorId(ev.target.value)}
                   className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
                 >
-                  <option value=''>Select a doctor</option>
+                  <option value=''>Chọn một bác sĩ</option>
                   {doctors.map((d) => (
                     <option key={d.id} value={d.id}>
                       {d.fullName}
@@ -603,7 +603,7 @@ const AppointmentBooking = () => {
                   htmlFor='book-specialty'
                   className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
                 >
-                  Select specialty
+                  Chọn chuyên khoa
                 </label>
                 <select
                   id='book-specialty'
@@ -612,7 +612,7 @@ const AppointmentBooking = () => {
                   disabled={!selectedDoctor || loadingSpecialties}
                   className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
                 >
-                  <option value=''>Select specialty</option>
+                  <option value=''>Chọn chuyên khoa</option>
                   {(selectedDoctor?.specialties ?? []).map((s) => (
                     <option key={s.id} value={s.id}>
                       {s.name}
@@ -628,7 +628,7 @@ const AppointmentBooking = () => {
                   htmlFor='book-specialty'
                   className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
                 >
-                  Select specialty
+                  Chọn chuyên khoa
                 </label>
                 <select
                   id='book-specialty'
@@ -640,7 +640,7 @@ const AppointmentBooking = () => {
                   disabled={loadingSpecialties}
                   className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
                 >
-                  <option value=''>All specialties</option>
+                  <option value=''>Tất cả chuyên khoa</option>
                   {specialties.map((s) => (
                     <option key={s.id} value={s.id}>
                       {s.name}
@@ -653,7 +653,7 @@ const AppointmentBooking = () => {
                   htmlFor='book-doctor'
                   className='mb-2 block font-AlbertSans text-sm font-medium text-HeadingColor-0'
                 >
-                  Select doctor
+                  Chọn bác sĩ
                 </label>
                 <select
                   id='book-doctor'
@@ -662,7 +662,7 @@ const AppointmentBooking = () => {
                   disabled={!specialtyId}
                   className='font-AlbertSans text-HeadingColor-0 h-[52px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent px-4 focus:outline-PrimaryColor-0'
                 >
-                  <option value=''>Select a doctor</option>
+                  <option value=''>Chọn một bác sĩ</option>
                   {filteredDoctors.map((d) => (
                     <option key={d.id} value={d.id}>
                       {d.fullName}
@@ -682,7 +682,7 @@ const AppointmentBooking = () => {
           <div className='mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12'>
             <div className='w-full flex flex-col'>
               <h4 className='font-AlbertSans text-HeadingColor-0 mb-4 text-base font-semibold'>
-                Select appointment date
+                Chọn ngày khám
               </h4>
               <div className='w-full flex-1'>
                 <MiniCalendar selectedDate={serviceDate} onDateSelect={setServiceDate} availableDaysOfWeek={availableDaysOfWeek} />
@@ -691,12 +691,12 @@ const AppointmentBooking = () => {
 
             <div className='w-full flex flex-col'>
               <h4 className='font-AlbertSans text-HeadingColor-0 mb-4 text-base font-semibold'>
-                Available time slots
+                Các khung giờ trống
               </h4>
               <div className='w-full flex-1 overflow-y-auto rounded-[1.2rem] border border-Secondarycolor-0 border-opacity-45 bg-white/50 p-5 shadow-sm'>
               {!doctorId || !serviceDate || !effectiveLocationId ? (
                 <div className='rounded-xl border border-dashed border-Secondarycolor-0 border-opacity-45 p-6 text-center text-sm font-DMSans text-TextColor2-0'>
-                  Please choose a doctor and location first.
+                  Vui lòng chọn bác sĩ và địa điểm trước.
                 </div>
               ) : loadingSlots ? (
                 <div className='flex justify-center py-8'>
@@ -708,7 +708,7 @@ const AppointmentBooking = () => {
                 </p>
               ) : slots.length === 0 ? (
                  <div className='rounded-xl border border-dashed border-Secondarycolor-0 border-opacity-45 p-6 text-center text-sm font-DMSans text-TextColor2-0'>
-                  No open slots for this date. Try another day.
+                  Không có khung giờ trống nào cho ngày này. Vui lòng chọn ngày khác.
                 </div>
               ) : (
                 <>
@@ -741,7 +741,7 @@ const AppointmentBooking = () => {
                           }`}
                         >
                           <span className='font-semibold text-sm'>{s.timeStart}</span>
-                          <span className='text-[10px] opacity-80'>to {s.timeEnd}</span>
+                          <span className='text-[10px] opacity-80'>đến {s.timeEnd}</span>
                         </button>
                       );
                     };
@@ -753,7 +753,7 @@ const AppointmentBooking = () => {
                             <div>
                               <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 flex items-center gap-1'>
                                 <span className='w-2 h-2 rounded-full bg-amber-400'></span>
-                                Morning
+                                Sáng
                               </h5>
                               <div className='grid grid-cols-3 gap-2'>
                                 {morningSlots.map(renderSlot)}
@@ -764,7 +764,7 @@ const AppointmentBooking = () => {
                             <div>
                               <h5 className='text-xs font-semibold text-HeadingColor-0 mb-2 mt-4 flex items-center gap-1'>
                                 <span className='w-2 h-2 rounded-full bg-indigo-400'></span>
-                                Afternoon & Evening
+                                Chiều
                               </h5>
                               <div className='grid grid-cols-3 gap-2'>
                                 {afternoonSlots.map(renderSlot)}
@@ -773,9 +773,9 @@ const AppointmentBooking = () => {
                           )}
                         </div>
                         <div className='mt-3 font-DMSans text-xs flex items-center justify-between'>
-                          <span className='text-TextColor2-0'>{validSlots.length} available slots</span>
+                          <span className='text-TextColor2-0'>{validSlots.length} khung giờ trống</span>
                           {selectedSlot && (
-                            <span className='text-green-700 font-semibold'>Slot held! (expires in 10m)</span>
+                            <span className='text-green-700 font-semibold'>Đã giữ chỗ! (hết hạn trong 10p)</span>
                           )}
                         </div>
                       </>
@@ -801,7 +801,7 @@ const AppointmentBooking = () => {
               }}
               className='primary-btn disabled:opacity-50'
             >
-              Continue to Patient Information
+              Tiếp tục nhập thông tin
               <GoArrowRight size={22} className='-rotate-45' />
             </button>
           </div>
@@ -815,23 +815,23 @@ const AppointmentBooking = () => {
               onClick={() => { setPatientType('new'); setFormError(''); }}
               className={`font-AlbertSans pb-3 border-b-2 text-base transition-all ${patientType === 'new' ? 'border-PrimaryColor-0 text-PrimaryColor-0 font-bold' : 'border-transparent text-HeadingColor-0 hover:text-PrimaryColor-0 font-medium'}`}
             >
-              New Patient
+              Bệnh nhân mới
             </button>
             <button
               onClick={() => { setPatientType('returning'); setFormError(''); }}
               className={`font-AlbertSans pb-3 border-b-2 text-base transition-all ${patientType === 'returning' ? 'border-PrimaryColor-0 text-PrimaryColor-0 font-bold' : 'border-transparent text-HeadingColor-0 hover:text-PrimaryColor-0 font-medium'}`}
             >
-              Returning Patient
+              Bệnh nhân cũ
             </button>
           </div>
 
           <h3 className='font-AlbertSans text-HeadingColor-0 mb-2 text-lg font-semibold'>
-            {patientType === 'new' ? 'Your information' : 'Find your record'}
+            {patientType === 'new' ? 'Thông tin của bạn' : 'Tìm hồ sơ của bạn'}
           </h3>
           <p className='font-DMSans text-TextColor2-0 mb-6 text-sm'>
             {patientType === 'new'
-              ? 'Please enter your information to register as a new patient.'
-              : 'Enter your email or phone number to retrieve your existing patient record.'}
+              ? 'Vui lòng nhập thông tin của bạn để đăng ký bệnh nhân mới.'
+              : 'Nhập email hoặc số điện thoại để lấy lại hồ sơ bệnh nhân hiện có.'}
           </p>
           <form
             className='flex flex-col gap-y-5'
@@ -851,7 +851,7 @@ const AppointmentBooking = () => {
                   <div className='relative inline-block'>
                     <input
                       type='text'
-                      placeholder='Full name*'
+                      placeholder='Họ và tên*'
                       required
                       value={fullName}
                       onChange={(ev) => setFullName(ev.target.value)}
@@ -865,7 +865,7 @@ const AppointmentBooking = () => {
                   <div className='relative inline-block'>
                     <input
                       type='email'
-                      placeholder='Email (optional)'
+                      placeholder='Email (không bắt buộc)'
                       value={email}
                       onChange={(ev) => setEmail(ev.target.value)}
                       className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
@@ -879,7 +879,7 @@ const AppointmentBooking = () => {
                 <div className='relative inline-block'>
                   <input
                     type='tel'
-                    placeholder='Phone*'
+                    placeholder='Số điện thoại*'
                     required
                     value={phone}
                     onChange={(ev) => setPhone(ev.target.value)}
@@ -897,7 +897,7 @@ const AppointmentBooking = () => {
                   <div className='relative flex-1'>
                     <input
                       type='text'
-                      placeholder='Email or Phone*'
+                      placeholder='Email hoặc Số điện thoại*'
                       value={searchIdentifier}
                       onChange={(ev) => setSearchIdentifier(ev.target.value)}
                       className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 h-[60px] w-full rounded-xl border border-Secondarycolor-0 border-opacity-45 bg-transparent py-2 px-6 font-light focus:outline-PrimaryColor-0'
@@ -909,15 +909,15 @@ const AppointmentBooking = () => {
                     disabled={isSearching}
                     className='rounded-xl bg-PrimaryColor-0 px-6 font-AlbertSans font-medium text-white hover:bg-PrimaryColor-0/90 transition-colors disabled:opacity-50 h-[60px]'
                   >
-                    {isSearching ? 'Searching...' : 'Find My Record'}
+                    {isSearching ? 'Đang tìm...' : 'Tìm Hồ Sơ'}
                   </button>
                 </div>
                 {foundPatient && (
                   <div className='rounded-xl bg-green-50/50 p-4 border border-green-200 mt-2'>
-                    <h4 className='font-AlbertSans font-semibold text-green-800 mb-1'>Patient found</h4>
+                    <h4 className='font-AlbertSans font-semibold text-green-800 mb-1'>Đã tìm thấy bệnh nhân</h4>
                     <p className='font-DMSans text-sm text-green-700'>
-                      <strong>Name:</strong> {foundPatient.fullName} <br/>
-                      <strong>Phone:</strong> {foundPatient.phone} <br/>
+                      <strong>Tên:</strong> {foundPatient.fullName} <br/>
+                      <strong>Số ĐT:</strong> {foundPatient.phone} <br/>
                       {foundPatient.email && <><strong>Email:</strong> {foundPatient.email}</>}
                     </p>
                   </div>
@@ -927,7 +927,7 @@ const AppointmentBooking = () => {
 
             {(patientType === 'new' || foundPatient) && (
               <textarea
-                placeholder='Reason for visit*'
+                placeholder='Lý do khám*'
                 required
                 maxLength={255}
                 value={reason}
@@ -943,14 +943,14 @@ const AppointmentBooking = () => {
                 onClick={() => setStep(1)}
                 className='rounded-xl border border-Secondarycolor-0 border-opacity-45 px-5 py-2 font-AlbertSans text-sm hover:bg-black/5 transition-colors'
               >
-                Back
+                Quay lại
               </button>
               <button
                 type='submit'
                 disabled={!canContinueToConfirm}
                 className='primary-btn disabled:opacity-50 disabled:cursor-not-allowed'
               >
-                Continue to confirmation
+                Tiếp tục xác nhận
                 <GoArrowRight size={22} className='-rotate-45' />
               </button>
             </div>
@@ -961,28 +961,28 @@ const AppointmentBooking = () => {
       {step === 3 && (
         <div className='rounded-2xl border border-Secondarycolor-0 border-opacity-45 bg-white/30 p-6 md:p-10'>
           <h3 className='font-AlbertSans text-HeadingColor-0 mb-4 text-lg font-semibold'>
-            Review your booking
+            Xem lại lịch đặt của bạn
           </h3>
           <ul className='font-DMSans text-TextColor2-0 space-y-2 text-sm'>
             <li>
-              <strong className='text-HeadingColor-0'>Doctor:</strong> {selectedDoctor?.fullName}
+              <strong className='text-HeadingColor-0'>Bác sĩ:</strong> {selectedDoctor?.fullName}
             </li>
             {/* Removed location list item */}
             <li>
-              <strong className='text-HeadingColor-0'>Specialty:</strong> {selectedSpecialtyLabel}
+              <strong className='text-HeadingColor-0'>Chuyên khoa:</strong> {selectedSpecialtyLabel}
             </li>
             <li>
-              <strong className='text-HeadingColor-0'>Date:</strong> {serviceDate}
+              <strong className='text-HeadingColor-0'>Ngày:</strong> {serviceDate}
             </li>
             <li>
-              <strong className='text-HeadingColor-0'>Time:</strong>{' '}
+              <strong className='text-HeadingColor-0'>Giờ:</strong>{' '}
               {selectedSlot ? `${selectedSlot.timeStart} – ${selectedSlot.timeEnd}` : '—'}
             </li>
             <li>
-              <strong className='text-HeadingColor-0'>Patient:</strong> {fullName} · {phone}
+              <strong className='text-HeadingColor-0'>Bệnh nhân:</strong> {fullName} · {phone}
             </li>
             <li>
-              <strong className='text-HeadingColor-0'>Reason:</strong> {reason}
+              <strong className='text-HeadingColor-0'>Lý do:</strong> {reason}
             </li>
           </ul>
 
@@ -1006,7 +1006,7 @@ const AppointmentBooking = () => {
                   onClick={() => setStep(2)}
                   className='rounded-xl border border-Secondarycolor-0 border-opacity-45 px-5 py-2 font-AlbertSans text-sm'
                 >
-                  Back
+                  Quay lại
                 </button>
                 <button
                   type='button'
@@ -1014,7 +1014,7 @@ const AppointmentBooking = () => {
                   disabled={confirmMutation.isPending || !selectedSlot}
                   className='primary-btn disabled:opacity-50'
                 >
-                  {confirmMutation.isPending ? 'Booking…' : 'Confirm appointment'}
+                  {confirmMutation.isPending ? 'Đang đặt…' : 'Xác nhận đặt lịch'}
                   <GoArrowRight size={22} className='-rotate-45' />
                 </button>
               </>
@@ -1033,7 +1033,7 @@ const AppointmentBooking = () => {
                 }}
                 className='primary-btn'
               >
-                Book Another Appointment
+                Đặt Lịch Khám Khác
                 <GoArrowRight size={22} className='-rotate-45' />
               </button>
             )}

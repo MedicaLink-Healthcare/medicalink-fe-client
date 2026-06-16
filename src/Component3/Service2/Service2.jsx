@@ -77,7 +77,7 @@ const Service2 = () => {
               serviceTitle='Health issues'
               serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
               serviceUrl='/service_details'
-              btnContent='Read More'
+              btnContent='Xem thêm'
               btnIcon={btnIcon}
             />
           </div>
@@ -92,7 +92,7 @@ const Service2 = () => {
               serviceTitle='Ophthalmology'
               serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
               serviceUrl='/service_details'
-              btnContent='Read More'
+              btnContent='Xem thêm'
               btnIcon={btnIcon}
             />
           </div>
@@ -107,7 +107,7 @@ const Service2 = () => {
               serviceTitle='Dental Services'
               serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
               serviceUrl='/service_details'
-              btnContent='Read More'
+              btnContent='Xem thêm'
               btnIcon={btnIcon}
             />
           </div>
@@ -122,7 +122,7 @@ const Service2 = () => {
               serviceTitle='Neurology Care'
               serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
               serviceUrl='/service_details'
-              btnContent='Read More'
+              btnContent='Xem thêm'
               btnIcon={btnIcon}
             />
           </div>
@@ -137,7 +137,7 @@ const Service2 = () => {
               serviceTitle='Adult medicine'
               serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
               serviceUrl='/service_details'
-              btnContent='Read More'
+              btnContent='Xem thêm'
               btnIcon={btnIcon}
             />
           </div>
@@ -155,7 +155,7 @@ const Service2 = () => {
                 serviceTitle='Health issues'
                 serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
                 serviceUrl='/service_details'
-                btnContent='Read More'
+                btnContent='Xem thêm'
                 btnIcon={btnIcon}
               />
             </div>
@@ -170,7 +170,7 @@ const Service2 = () => {
                 serviceTitle='Ophthalmology'
                 serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
                 serviceUrl='/service_details'
-                btnContent='Read More'
+                btnContent='Xem thêm'
                 btnIcon={btnIcon}
               />
             </div>
@@ -187,7 +187,7 @@ const Service2 = () => {
                 serviceTitle='Dental Services'
                 serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
                 serviceUrl='/service_details'
-                btnContent='Read More'
+                btnContent='Xem thêm'
                 btnIcon={btnIcon}
               />
             </div>
@@ -202,7 +202,7 @@ const Service2 = () => {
                 serviceTitle='Neurology Care'
                 serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
                 serviceUrl='/service_details'
-                btnContent='Read More'
+                btnContent='Xem thêm'
                 btnIcon={btnIcon}
               />
             </div>
@@ -218,7 +218,7 @@ const Service2 = () => {
               serviceTitle='Adult medicine'
               serviceDesc='Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development'
               serviceUrl='/service_details'
-              btnContent='Read More'
+              btnContent='Xem thêm'
               btnIcon={btnIcon}
             />
           </div>
@@ -230,7 +230,7 @@ const Service2 = () => {
         >
           <span className='flex-1 w-full h-[1px] bg-TextColor-0'></span>
           <p className='font-AlbertSans text-TextColor2-0'>
-            Click any of the avobe services to learn more View{' '}
+            Nhấp vào bất kỳ dịch vụ nào ở trên để xem chi tiết{' '}
             <Link
               to={'/service_details'}
               className='underline text-PrimaryColor-0'

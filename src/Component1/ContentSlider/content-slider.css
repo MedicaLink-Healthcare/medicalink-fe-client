@@ -57,7 +57,7 @@
   color: #002570;
   transition: 0.5s;
   text-transform: uppercase;
-  font-family: 'Albert Sans', 'sans-serif';
+  font-family: 'Open Sans', sans-serif;
 }
 
 @-webkit-keyframes scroll {
@@ -95,3 +95,4 @@
     font-size: 30px;
   }
 }
+

@@ -31,19 +31,18 @@ const Main4 = () => {
   gsap.ticker.lagSmoothing(0);
 
   const getPageTitle = (pathname) => {
-    if (pathname === '/') return 'Home';
-    if (pathname.includes('/about')) return 'About Us';
-    if (pathname.includes('/service')) return 'Services';
-    if (pathname.includes('/project')) return 'Projects';
-    if (pathname.includes('/testimonial')) return 'Testimonials';
-    if (pathname.includes('/team')) return 'Our Team';
-    if (pathname.includes('/doctor-ai')) return 'AI Doctor Finder';
-    if (pathname.includes('/blog')) return 'Blog';
-    if (pathname.includes('/appointment')) return 'Book Appointment';
-    if (pathname.includes('/faqs')) return 'FAQs';
-    if (pathname.includes('/community-qa')) return 'Community Q&A';
-    if (pathname.includes('/contact')) return 'Contact Us';
-    if (pathname.includes('/patient_lookup')) return 'Patient Lookup';
+    if (pathname === '/') return 'Trang chủ';
+    if (pathname.includes('/about')) return 'Về chúng tôi';
+    if (pathname.includes('/service')) return 'Chuyên khoa';
+    if (pathname.includes('/testimonial')) return 'Đánh giá';
+    if (pathname.includes('/team')) return 'Đội ngũ bác sĩ';
+    if (pathname.includes('/doctor-ai')) return 'AI Tìm Bác sĩ';
+    if (pathname.includes('/blog')) return 'Tin tức';
+    if (pathname.includes('/appointment')) return 'Đặt lịch khám';
+    if (pathname.includes('/faqs')) return 'Câu hỏi thường gặp';
+    if (pathname.includes('/community-qa')) return 'Cộng đồng Q&A';
+    if (pathname.includes('/contact')) return 'Liên hệ';
+    if (pathname.includes('/patient_lookup')) return 'Tra cứu hồ sơ';
     return 'Medicalink';
   };
 

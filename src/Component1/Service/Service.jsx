@@ -18,8 +18,8 @@ const ServiceData = [
     id: 1,
     serviceThumb: serviceThumb,
     serviceShape: serviceShape,
-    serviceSubTitle: 'X-Ray',
-    serviceTitle: 'Digital X-Ray',
+    serviceSubTitle: 'X-Quang',
+    serviceTitle: 'Chụp X-Quang Kỹ Thuật Số',
     serviceUrl: '/',
     btnIcon: <LuArrowUpRight />,
   },
@@ -27,8 +27,8 @@ const ServiceData = [
     id: 2,
     serviceThumb: serviceThumb2,
     serviceShape: serviceShape,
-    serviceSubTitle: 'Dental',
-    serviceTitle: 'Dentel Fixing',
+    serviceSubTitle: 'Nha Khoa',
+    serviceTitle: 'Chăm Sóc Răng Miệng',
     serviceUrl: '/',
     btnIcon: <LuArrowUpRight />,
   },
@@ -36,8 +36,8 @@ const ServiceData = [
     id: 3,
     serviceThumb: serviceThumb3,
     serviceShape: serviceShape,
-    serviceSubTitle: 'Surgery',
-    serviceTitle: 'Human Brain Surgery',
+    serviceSubTitle: 'Phẫu Thuật',
+    serviceTitle: 'Phẫu Thuật Não',
     serviceUrl: '/',
     btnIcon: <LuArrowUpRight />,
   },
@@ -45,8 +45,8 @@ const ServiceData = [
     id: 4,
     serviceThumb: serviceThumb4,
     serviceShape: serviceShape,
-    serviceSubTitle: 'Vacchine',
-    serviceTitle: 'Vacchine Services',
+    serviceSubTitle: 'Tiêm Chủng',
+    serviceTitle: 'Dịch Vụ Tiêm Chủng',
     serviceUrl: '/',
     btnIcon: <LuArrowUpRight />,
   },
@@ -54,8 +54,8 @@ const ServiceData = [
     id: 5,
     serviceThumb: serviceThumb3,
     serviceShape: serviceShape,
-    serviceSubTitle: 'Surgery',
-    serviceTitle: 'Human Brain Surgery',
+    serviceSubTitle: 'Phẫu Thuật',
+    serviceTitle: 'Phẫu Thuật Não',
     serviceUrl: '/',
     btnIcon: <LuArrowUpRight />,
   },
@@ -99,8 +99,8 @@ const Service = () => {
           data-aos-duration='1000'
         >
           <h1 className='font-AlbertSans font-bold uppercase text-white text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[34px] lg:leading-[44px] xl:text-[48px] xl:leading-[58px] 2xl:text-[60px] 2xl:leading-[70px]'>
-            Provide <br />
-            Best Services
+            Cung Cấp <br />
+            Dịch Vụ Tốt Nhất
           </h1>
         </div>
         <div
@@ -109,11 +109,9 @@ const Service = () => {
           data-aos-duration='1000'
         >
           <p className='font-DMSans text-lg text-TextColor-0'>
-            Enthusiastically orchestrate competitive e-services whereas superior{' '}
+            Cam kết mang đến dịch vụ y tế chất lượng cao, ứng dụng công nghệ hiện đại{' '}
             <br className='hidden 2xl:block' />
-            Conveniently disintermediate innovative solutions through impactfuls{' '}
-            <br className='hidden 2xl:block' />
-            tailers without seamless markets network .
+            nhằm tối ưu hóa trải nghiệm và quá trình điều trị cho bệnh nhân.
           </p>
         </div>
         <div
@@ -123,7 +121,7 @@ const Service = () => {
         >
           <Link to={'/service'}>
             <button className='primary-btn mt-3 px-8'>
-              View All Services
+              Tất Cả Dịch Vụ
               <GoArrowRight
                 size={'22'}
                 className='-rotate-45'

@@ -79,7 +79,7 @@ const Testimonial = () => {
         data-aos-duration='1000'
       >
         <h1 className='font-AlbertSans font-bold uppercase text-white text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[50px] lg:leading-[60px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-          Testimonials
+          Đánh giá từ khách hàng
         </h1>
       </div>
       <div className='px-2 xl:px-5 2xl:px-20'>
@@ -97,11 +97,11 @@ const Testimonial = () => {
               />
               <div className='hidden sm:block absolute top-7 left-7 px-8 pb-10 pt-7 border-2 border-white bg-white bg-opacity-15 backdrop-filter backdrop-blur-md rounded-2xl'>
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-5'>
-                  Get Free Consultation
+                  Nhận tư vấn miễn phí
                 </h4>
                 <Link to={'/appointment'}>
                   <button className='primary-btn'>
-                    Appointment
+                    Đặt lịch khám
                     <GoArrowRight
                       size={'22'}
                       className='-rotate-45'

@@ -35,7 +35,7 @@ const Blog = () => {
   };
 
   const formatDate = (dateString) => {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat('vi-VN', {
       year: 'numeric',
       month: 'long',
       day: '2-digit',
@@ -61,8 +61,8 @@ const Blog = () => {
             data-aos-duration='1000'
           >
             <h1 className='font-AlbertSans font-bold uppercase text-HeadingColor-0 text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[50px] lg:leading-[60px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-              Read Our <br />
-              Latest Blog
+              Đọc Bài Viết <br />
+              Mới Nhất
             </h1>
           </div>
           <div
@@ -72,7 +72,7 @@ const Blog = () => {
           >
             <Link to={'/blog_grid'}>
               <button className='primary-btn mt-3'>
-                View all Blog
+                Tất Cả Bài Viết
                 <GoArrowRight
                   size={'22'}
                   className='-rotate-45'
@@ -94,7 +94,7 @@ const Blog = () => {
                       blogThumb={blog.thumbnailUrl || blogThumb}
                       blogDateIcon={<FaCircle />}
                       blogDate={formatDate(blog.createdAt)}
-                      blogPostBy={"Admin"}
+                      blogPostBy={"Quản trị viên"}
                       blogPostByIcon={<FaCircle />}
                       blogUrl={`/blog_details/${blog.slug}`}
                       blogTitle={blog.title}

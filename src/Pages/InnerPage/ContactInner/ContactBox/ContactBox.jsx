@@ -7,22 +7,22 @@ const processData = [
   {
     id: 1,
     contactBoxIcon: contactBoxIcon,
-    contactBoxSubTitle: 'Send Now',
-    contactBoxTitle: 'E-Mail Address',
+    contactBoxSubTitle: 'Gửi ngay',
+    contactBoxTitle: 'Địa chỉ Email',
     contactBoxDesc: 'medicalink@example.com',
   },
   {
     id: 2,
     contactBoxIcon: contactBoxIcon2,
-    contactBoxSubTitle: 'Call us',
-    contactBoxTitle: 'Phone Number',
+    contactBoxSubTitle: 'Gọi cho chúng tôi',
+    contactBoxTitle: 'Số điện thoại',
     contactBoxDesc: '+123 (4547) 563',
   },
   {
     id: 3,
     contactBoxIcon: contactBoxIcon3,
-    contactBoxSubTitle: 'Meet Us',
-    contactBoxTitle: 'Location',
+    contactBoxSubTitle: 'Gặp chúng tôi',
+    contactBoxTitle: 'Địa chỉ',
     contactBoxDesc: '123 Medical Street, Da Nang, Vietnam',
   },
 ];

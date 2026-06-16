@@ -17,7 +17,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>GYNOCLOGIST</h1>
+          <h1>SẢN PHỤ KHOA</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -27,7 +27,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>CARDIOLOGIST</h1>
+          <h1>TIM MẠCH</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -37,7 +37,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>NUEROLOGIST</h1>
+          <h1>THẦN KINH</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -47,7 +47,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>GYNOCLOGIST</h1>
+          <h1>SẢN PHỤ KHOA</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -57,7 +57,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>CARDIOLOGIST</h1>
+          <h1>TIM MẠCH</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -67,7 +67,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>NUEROLOGIST</h1>
+          <h1>THẦN KINH</h1>
         </div>
       </div>
       <div className='content-slider'>
@@ -79,7 +79,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>GYNOCLOGIST</h1>
+          <h1>SẢN PHỤ KHOA</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -89,7 +89,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>CARDIOLOGIST</h1>
+          <h1>TIM MẠCH</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -99,7 +99,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>NUEROLOGIST</h1>
+          <h1>THẦN KINH</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -109,7 +109,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>GYNOCLOGIST</h1>
+          <h1>SẢN PHỤ KHOA</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -119,7 +119,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>CARDIOLOGIST</h1>
+          <h1>TIM MẠCH</h1>
         </div>
         <div className='content-slider-content'>
           <img
@@ -129,7 +129,7 @@ const ContentSlider = () => {
           />
         </div>
         <div className='content-slider-content'>
-          <h1>NUEROLOGIST</h1>
+          <h1>THẦN KINH</h1>
         </div>
       </div>
     </div>

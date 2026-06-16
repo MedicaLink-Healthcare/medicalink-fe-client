@@ -34,14 +34,14 @@ const DoctorReviews = ({ doctorId }) => {
   return (
     <div className='max-w-3xl mx-auto py-4'>
       <div className='text-center mb-10'>
-        <h3 className='font-AlbertSans font-bold text-3xl text-HeadingColor-0 mb-3'>Share Your Experience</h3>
-        <p className='text-TextColor2-0 font-AlbertSans'>Your feedback helps others find the right care.</p>
+        <h3 className='font-AlbertSans font-bold text-3xl text-HeadingColor-0 mb-3'>Chia sẻ trải nghiệm</h3>
+        <p className='text-TextColor2-0 font-AlbertSans'>Phản hồi của bạn giúp người khác tìm được dịch vụ phù hợp.</p>
       </div>
 
       <form onSubmit={handleSubmit} className='bg-white/60 border-2 border-white rounded-[40px] p-8 sm:p-12 shadow-xl'>
         {/* Rating Selection */}
         <div className='flex flex-col items-center gap-3 mb-10'>
-          <span className='font-AlbertSans font-semibold text-HeadingColor-0'>How would you rate your visit?</span>
+          <span className='font-AlbertSans font-semibold text-HeadingColor-0'>Đánh giá trải nghiệm của bạn:</span>
           <div className='flex gap-2 text-3xl'>
             {[1, 2, 3, 4, 5].map((star) => (
               <button
@@ -63,7 +63,7 @@ const DoctorReviews = ({ doctorId }) => {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-6'>
           <input
             type='text'
-            placeholder='Full Name*'
+            placeholder='Họ và tên*'
             required
             className='font-AlbertSans text-HeadingColor-0 bg-white/80 border-2 border-white rounded-2xl py-2 px-6 h-[60px] focus:outline-none focus:border-PrimaryColor-0 shadow-sm'
             value={formData.authorName}
@@ -71,7 +71,7 @@ const DoctorReviews = ({ doctorId }) => {
           />
           <input
             type='email'
-            placeholder='Email Address*'
+            placeholder='Địa chỉ Email*'
             required
             className='font-AlbertSans text-HeadingColor-0 bg-white/80 border-2 border-white rounded-2xl py-2 px-6 h-[60px] focus:outline-none focus:border-PrimaryColor-0 shadow-sm'
             value={formData.authorEmail}
@@ -81,7 +81,7 @@ const DoctorReviews = ({ doctorId }) => {
 
         <input
           type='text'
-          placeholder='Subject / Title*'
+          placeholder='Tiêu đề*'
           required
           className='font-AlbertSans text-HeadingColor-0 bg-white/80 border-2 border-white rounded-2xl py-2 px-6 h-[60px] w-full mb-6 focus:outline-none focus:border-PrimaryColor-0 shadow-sm'
           value={formData.title}
@@ -89,7 +89,7 @@ const DoctorReviews = ({ doctorId }) => {
         />
 
         <textarea
-          placeholder='Your detailed review...'
+          placeholder='Đánh giá chi tiết của bạn...'
           required
           className='font-AlbertSans text-HeadingColor-0 bg-white/80 border-2 border-white rounded-[30px] p-6 h-[180px] w-full mb-8 focus:outline-none focus:border-PrimaryColor-0 resize-none shadow-sm'
           value={formData.body}
@@ -102,13 +102,13 @@ const DoctorReviews = ({ doctorId }) => {
             disabled={isPending}
             className='primary-btn w-full md:w-auto px-12 group disabled:opacity-50'
           >
-            {isPending ? 'SUBMITTING...' : 'SUBMIT REVIEW'}
+            {isPending ? 'ĐANG GỬI...' : 'GỬI ĐÁNH GIÁ'}
             <GoArrowRight size='22' className='-rotate-45 group-hover:rotate-0 transition-transform' />
           </button>
-          
+
           {isSuccess && (
             <p className="text-green-600 font-AlbertSans font-semibold animate-fadeIn">
-              Thank you! Your review has been submitted successfully.
+              Cảm ơn! Đánh giá của bạn đã được gửi thành công.
             </p>
           )}
         </div>

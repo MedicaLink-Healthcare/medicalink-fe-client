@@ -191,11 +191,11 @@ const DoctorAiFinder = () => {
     const textToAnalyze = typeof overrideSymptoms === 'string' ? overrideSymptoms : symptoms;
 
     if (textToAnalyze.trim().length < 8) {
-      setErrorMsg('Please enter at least 8 characters describing your symptoms or needs.');
+      setErrorMsg('Vui lòng nhập ít nhất 8 ký tự mô tả triệu chứng hoặc nhu cầu của bạn.');
       return;
     }
     if (!catalog.length) {
-      setErrorMsg('Specialty list is still loading. Try again in a moment.');
+      setErrorMsg('Danh sách chuyên khoa đang tải. Vui lòng thử lại sau.');
       return;
     }
     suggestMutation.mutate(
@@ -224,7 +224,7 @@ const DoctorAiFinder = () => {
           }
         },
         onError: (e) => {
-          setErrorMsg(e?.message || 'Could not analyze specialties. Please try again.');
+          setErrorMsg(e?.message || 'Không thể phân tích chuyên khoa. Vui lòng thử lại.');
         },
       },
     );
@@ -241,7 +241,7 @@ const DoctorAiFinder = () => {
   const findDoctors = () => {
     setErrorMsg('');
     if (symptoms.trim().length < 8) {
-      setErrorMsg('Please enter at least 8 characters describing your symptoms or needs.');
+      setErrorMsg('Vui lòng nhập ít nhất 8 ký tự mô tả triệu chứng hoặc nhu cầu của bạn.');
       return;
     }
     const specialtyIds = Array.from(selectedIds);
@@ -267,7 +267,7 @@ const DoctorAiFinder = () => {
         }
       },
       onError: (e) => {
-        setErrorMsg(e?.message || 'Could not get recommendations. Please try again.');
+        setErrorMsg(e?.message || 'Không thể lấy gợi ý bác sĩ. Vui lòng thử lại.');
       },
     });
   };
@@ -275,14 +275,14 @@ const DoctorAiFinder = () => {
   return (
     <>
       <HelmetChanger
-        title="AI Doctor Finder - Smart Healthcare Suggestions"
-        description="Describe your symptoms and let our AI suggest the most suitable medical specialties and doctors for you. Powered by RAG technology for accurate medical matching."
+        title="Tìm kiếm bác sĩ AI - Gợi ý chuyên khoa thông minh"
+        description="Mô tả triệu chứng và để AI gợi ý chuyên khoa, bác sĩ phù hợp nhất cho bạn. Công nghệ RAG hàng đầu cho y tế"
         url="/doctor-ai-finder"
       />
       <BreadCrumb
-        breadCrumbTitle={'AI Doctor Finder'}
+        breadCrumbTitle={'Trợ Lý AI'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'AI Doctor Finder'}
+        breadCrumbLink={'Trợ Lý AI'}
       />
       <section className='bg-BodyBg-0 py-24 md:py-28 transition-opacity duration-300'>
         <div className='Container max-w-5xl'>
@@ -290,12 +290,12 @@ const DoctorAiFinder = () => {
             <div className='flex items-center gap-3'>
               <div>
                 <h1 className='font-AlbertSans font-bold text-3xl text-HeadingColor-0'>
-                  Find a doctor with AI
+                  Tìm Bác Sĩ Cùng Trợ Lý AI
                 </h1>
-                <p className='text-TextColor2-0 text-[15px] mt-1 max-w-2xl leading-relaxed'>
-                  Describe how you feel. AI suggests relevant specialties—you confirm or adjust the
-                  tags, then we search our directory. Suggestions are informational only and do not
-                  replace medical advice.
+                <p className='text-TextColor2-0 text-[15px] mt-1 max-w-2xl leading-relaxed '>
+                  Mô tả triệu chứng hoặc vấn đề sức khỏe của bạn. AI sẽ phân tích và gợi ý chuyên khoa, bác sĩ phù hợp nhất từ hệ thống của chúng tôi.
+                  <br />
+                  <span className='font-bold'> Lưu ý:</span> Lời khuyên của AI chỉ mang tính chất tham khảo, không thay thế chỉ định y khoa chuyên môn.
                 </p>
               </div>
             </div>
@@ -304,34 +304,34 @@ const DoctorAiFinder = () => {
               onClick={clearSavedSession}
               className='self-start text-sm font-AlbertSans text-TextColor2-0 underline underline-offset-2 hover:text-HeadingColor-0'
             >
-              Reset form & saved results
+              Xóa dữ liệu & làm lại
             </button>
           </div>
 
-          <div className='bg-white rounded-3xl border border-BodyBg2-0 shadow-sm p-6 md:p-10 transition-shadow duration-300 hover:shadow-md'>
+          <div className='bg-white rounded-3xl border border-BodyBg2-0 shadow-sm p-6 md:p-8 transition-shadow duration-300 hover:shadow-md'>
             <label
               htmlFor='doctor-ai-symptoms'
               className='block font-AlbertSans font-semibold text-HeadingColor-0 mb-2'
             >
-              Symptoms or reason for visit
+              Triệu chứng hoặc lý do khám bệnh
             </label>
             <textarea
               id='doctor-ai-symptoms'
-              className='w-full min-h-[140px] rounded-2xl border border-BodyBg2-0 px-4 py-3 font-AlbertSans text-TextColor2-0 focus:outline-none focus:ring-2 focus:ring-PrimaryColor-0 transition-shadow duration-200'
-              placeholder='e.g. I have upper abdominal pain and nausea for several days…'
+              className='w-full min-h-[120px] rounded-2xl border border-BodyBg2-0 px-4 py-3 font-AlbertSans text-TextColor2-0 focus:outline-none focus:ring-2 focus:ring-PrimaryColor-0 transition-shadow duration-200'
+              placeholder='VD: Tôi bị đau bụng vùng thượng vị và buồn nôn đã vài ngày...'
               value={symptoms}
               onChange={(e) => setSymptoms(e.target.value)}
               autoComplete='off'
             />
 
-            <div className='flex flex-wrap gap-3 mt-5'>
+            <div className='flex flex-wrap items-center gap-3 mt-4'>
               <button
                 type='button'
                 className='px-5 py-2.5 rounded-full bg-Secondarycolor-0 text-white font-AlbertSans text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity duration-200'
                 disabled={suggestMutation.isPending || specLoading}
                 onClick={applyAiSuggestion}
               >
-                {suggestMutation.isPending ? 'Analyzing…' : 'Suggest specialties (AI)'}
+                {suggestMutation.isPending ? 'Đang phân tích...' : 'Phân Tích Bằng AI'}
               </button>
               <button
                 type='button'
@@ -342,10 +342,10 @@ const DoctorAiFinder = () => {
                 {recommendMutation.isPending ? (
                   <>
                     <span className='inline-block size-4 border-2 border-white border-t-transparent rounded-full animate-spin' />
-                    Searching…
+                    Đang tìm kiếm...
                   </>
                 ) : (
-                  'Find doctors'
+                  'Tìm Bác Sĩ'
                 )}
               </button>
             </div>
@@ -355,7 +355,7 @@ const DoctorAiFinder = () => {
                 className='mt-4 text-sm text-HeadingColor-0 bg-BodyBg-0 rounded-xl px-4 py-3 border border-BodyBg2-0'
                 role='status'
               >
-                <span className='font-semibold'>AI note: </span>
+                <span className='font-semibold'>Ghi chú từ AI: </span>
                 {aiNote}
               </p>
             ) : null}
@@ -424,13 +424,13 @@ const DoctorAiFinder = () => {
             ) : null}
 
             <div className='mt-10'>
-              <h2 className='font-AlbertSans font-bold text-xl text-HeadingColor-0 mb-3'>
-                Specialties (tap to toggle — used as filters when you click Find doctors)
+              <h2 className='font-AlbertSans font-semibold text-lg text-HeadingColor-0 mb-3'>
+                Chuyên khoa (chọn để lọc kết quả khi nhấn Tìm Bác Sĩ)
               </h2>
               {specLoading ? (
                 <Loading />
               ) : (
-                <div className='flex flex-wrap gap-2 max-h-64 overflow-y-auto p-1 scroll-smooth'>
+                <div className='flex flex-wrap gap-2 max-h-48 overflow-y-auto p-1 scroll-smooth'>
                   {catalog.map((s) => {
                     const on = selectedIds.has(s.id);
                     return (
@@ -451,9 +451,7 @@ const DoctorAiFinder = () => {
                 </div>
               )}
               <p className='text-xs text-TextColor2-0 mt-2 leading-relaxed'>
-                Leave none selected to search across all active doctors (no hard specialty filter).
-                Select one or more to narrow results to those specialties—ideal after you confirm AI
-                suggestions.
+                Nếu không chọn, hệ thống sẽ tìm trên toàn bộ danh sách bác sĩ. Bạn có thể chọn một hoặc nhiều chuyên khoa dựa trên gợi ý của AI để thu hẹp kết quả tìm kiếm.
               </p>
             </div>
           </div>
@@ -464,10 +462,10 @@ const DoctorAiFinder = () => {
             <div className='mt-12'>
               <div className='flex flex-wrap items-center gap-2 mb-6'>
                 <span className='inline-flex items-center rounded-full bg-amber-50 text-amber-900 text-xs font-semibold px-3 py-1 border border-amber-200'>
-                  AI suggestion based on your description
+                  Gợi ý của AI dựa trên mô tả của bạn
                 </span>
                 {recommendMutation.isPending ? (
-                  <span className='text-xs text-TextColor2-0'>Updating list…</span>
+                  <span className='text-xs text-TextColor2-0'>Đang cập nhật danh sách...</span>
                 ) : null}
               </div>
               <ul className='space-y-4'>
@@ -511,14 +509,14 @@ const DoctorAiFinder = () => {
                             to={`/appointment?doctorId=${encodeURIComponent(docId)}`}
                             className='inline-flex items-center justify-center px-4 py-2 rounded-full bg-PrimaryColor-0 text-white text-sm font-semibold hover:opacity-90 transition-opacity text-center'
                           >
-                              Book Appointment
+                              Đặt Lịch Khám
                           </Link>
                           <Link
                             to={`/team_details/${docId}`}
                             state={{ fromAiFinder: true }}
                             className='inline-flex items-center justify-center px-4 py-2 rounded-full bg-Secondarycolor-0 text-white text-sm font-semibold hover:opacity-90 transition-opacity text-center'
                           >
-                            View Profile
+                            Xem Hồ Sơ
                           </Link>
                         </div>
                       </div>
@@ -529,8 +527,7 @@ const DoctorAiFinder = () => {
             </div>
           ) : recommendations && recommendations.length === 0 ? (
             <p className='mt-10 text-center text-TextColor2-0 font-AlbertSans'>
-              No matching doctors in the directory. Try a different description or clear specialty
-              filters.
+              Không tìm thấy bác sĩ phù hợp trong hệ thống. Vui lòng thử mô tả khác hoặc bỏ lọc chuyên khoa.
             </p>
           ) : null}
         </div>

@@ -11,14 +11,14 @@ import DoctorReviews from './DoctorReviews';
 
 const TeamDetailsMain = ({ doctor }) => {
   const [activeTab, setActiveTab] = useState('intro');
-  const specialtyName = doctor?.specialties?.[0]?.name || 'Specialist';
+  const specialtyName = doctor?.specialties?.[0]?.name || 'Chuyên khoa';
   const positions = Array.isArray(doctor?.position) ? doctor.position : [];
 
   const tabs = [
-    { id: 'intro', label: 'Biography', icon: <FaUser />, show: !!doctor?.introduction },
-    { id: 'expertise', label: 'Expertise & Clinical', icon: <FaFlask />, show: doctor?.expertise?.length > 0 || doctor?.procedures?.length > 0 || doctor?.conditions?.length > 0 },
-    { id: 'education', label: 'Education & Experience', icon: <FaGraduationCap />, show: doctor?.education?.length > 0 || doctor?.experience?.length > 0 },
-    { id: 'reviews', label: 'Feedback', icon: <FaCommentDots />, show: true },
+    { id: 'intro', label: 'Tiểu sử', icon: <FaUser />, show: !!doctor?.introduction },
+    { id: 'expertise', label: 'Chuyên môn & Lâm sàng', icon: <FaFlask />, show: doctor?.expertise?.length > 0 || doctor?.procedures?.length > 0 || doctor?.conditions?.length > 0 },
+    { id: 'education', label: 'Học vấn & Kinh nghiệm', icon: <FaGraduationCap />, show: doctor?.education?.length > 0 || doctor?.experience?.length > 0 },
+    { id: 'reviews', label: 'Đánh giá', icon: <FaCommentDots />, show: true },
   ].filter(t => t.show);
 
   const currentTab = tabs.find(t => t.id === activeTab) ? activeTab : tabs[0]?.id;
@@ -50,7 +50,7 @@ const TeamDetailsMain = ({ doctor }) => {
               <div className='md:col-span-7 lg:col-span-8 p-6 lg:p-10 flex flex-col justify-center' data-aos='fade-left'>
                 <div className='flex flex-col xl:flex-row xl:items-start justify-between gap-6 mb-8'>
                   <div className='flex flex-col gap-3'>
-                    <h2 className='font-AlbertSans font-bold text-3xl sm:text-4xl text-HeadingColor-0 leading-tight'>
+                    <h2 className='font-AlbertSans font-bold text-2xl sm:text-4xl text-HeadingColor-0 leading-tight'>
                       {doctor?.fullName}
                     </h2>
 
@@ -85,7 +85,7 @@ const TeamDetailsMain = ({ doctor }) => {
                       to={doctor?.id ? `/appointment?doctorId=${encodeURIComponent(doctor.id)}` : '/appointment'}
                       className='inline-flex items-center justify-center rounded-xl bg-Secondarycolor-0 px-8 py-3.5 font-AlbertSans text-[15px] font-bold text-white shadow-md transition-all hover:bg-Secondarycolor-0/90 hover:shadow-lg hover:-translate-y-0.5 w-full sm:w-auto whitespace-nowrap'
                     >
-                      Get appointment
+                      Đặt lịch khám
                     </Link>
                   </div>
                 </div>
@@ -96,7 +96,7 @@ const TeamDetailsMain = ({ doctor }) => {
                       <FaPhoneAlt size={16} />
                     </div>
                     <div>
-                      <h6 className='font-AlbertSans font-medium text-[11px] text-TextColor2-0 uppercase tracking-widest mb-0.5'>Contact</h6>
+                      <h6 className='font-AlbertSans font-medium text-[11px] text-TextColor2-0 uppercase tracking-widest mb-0.5'>Liên hệ</h6>
                       <p className='font-AlbertSans text-HeadingColor-0 font-bold text-sm'>{doctor?.phone || '+84 (024) 3872 3872'}</p>
                     </div>
                   </div>
@@ -143,9 +143,9 @@ const TeamDetailsMain = ({ doctor }) => {
               {currentTab === 'intro' && (
                 <div className="flex flex-col gap-8">
                   <div className='bg-white/40 border-2 rounded-[30px] border-white p-6 sm:p-10 relative overflow-hidden'>
-                    <h2 className='font-AlbertSans font-bold text-3xl text-HeadingColor-0 mb-8 flex items-center gap-3'>
-                      <span className="p-2 bg-PrimaryColor-0 text-white rounded-lg"><FaUser size={20} /></span>
-                      Biography
+                    <h2 className='font-AlbertSans font-bold text-2xl text-HeadingColor-0 mb-4 flex items-center gap-3'>
+
+                      Thông tin của tôi
                     </h2>
                     <ExpandableContent
                       htmlContent={sanitizeHtml(doctor.introduction?.replace(/xem thêm\s*$/i, '').trim(), {
@@ -167,11 +167,11 @@ const TeamDetailsMain = ({ doctor }) => {
                 <div className="flex flex-col gap-8">
                   {/* Expertise & Procedures */}
                   <div className='bg-white/40 border-2 rounded-[30px] border-white p-6 sm:p-10'>
-                    <h2 className='font-AlbertSans font-bold text-3xl text-HeadingColor-0 mb-8 flex items-center gap-3'>
+                    <h2 className='font-AlbertSans font-bold text-2xl text-HeadingColor-0 mb-4 flex items-center gap-3'>
 
 
-                      <span className="p-2 bg-PrimaryColor-0 text-white rounded-lg"><FaBriefcase size={20} /></span>
-                      Areas of Expertise
+
+                      Lĩnh vực chuyên môn
                     </h2>
                     <div className='flex flex-wrap gap-3 mb-8'>
                       {doctor?.expertise?.map((item, idx) => (
@@ -186,7 +186,7 @@ const TeamDetailsMain = ({ doctor }) => {
 
                     {doctor?.procedures?.length > 0 && (
                       <>
-                        <h3 className='font-AlbertSans font-bold text-xl text-HeadingColor-0 mb-4 mt-6'>Clinical Procedures</h3>
+                        <h3 className='font-AlbertSans font-bold text-2xl text-HeadingColor-0 mb-4 mt-6'>Các dịch vụ thực hiện</h3>
                         <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
 
 
@@ -252,13 +252,13 @@ const TeamDetailsMain = ({ doctor }) => {
                   {/* Experience */}
                   <div className='bg-white/40 border-2 rounded-[30px] border-white p-6 sm:p-10'>
                     <div className='flex justify-between items-center mb-8'>
-                      <h2 className='font-AlbertSans font-bold text-3xl text-HeadingColor-0 flex items-center gap-3'>
-                        <span className="p-2 bg-PrimaryColor-0 text-white rounded-lg"><FaBriefcase size={20} /></span>
-                        Professional Experience
+                      <h2 className='font-AlbertSans font-bold text-2xl text-HeadingColor-0 flex items-center gap-3'>
+
+                        Kinh nghiệm chuyên môn
                       </h2>
                       {doctor?.experienceYears > 0 && (
                         <span className='px-4 py-2 bg-PrimaryColor-0/10 text-PrimaryColor-0 rounded-full font-bold text-sm'>
-                          {doctor.experienceYears} Years
+                          {doctor.experienceYears} Năm
                         </span>
                       )}
                     </div>
@@ -279,7 +279,7 @@ const TeamDetailsMain = ({ doctor }) => {
                             </div>
                           </div>
                         )) : (
-                          <p className='font-AlbertSans text-TextColor2-0 italic'>No experience data available.</p>
+                          <p className='font-AlbertSans text-TextColor2-0 italic'>Không có dữ liệu kinh nghiệm.</p>
                         )}
                       </div>
                     </ExpandableContent>
@@ -287,9 +287,9 @@ const TeamDetailsMain = ({ doctor }) => {
 
                   {/* Education */}
                   <div className='bg-white/40 border-2 rounded-[30px] border-white p-6 sm:p-10'>
-                    <h2 className='font-AlbertSans font-bold text-3xl text-HeadingColor-0 mb-8 flex items-center gap-3'>
-                      <span className="p-2 bg-PrimaryColor-0 text-white rounded-lg"><FaGraduationCap size={20} /></span>
-                      Education & Training
+                    <h2 className='font-AlbertSans font-bold text-2xl text-HeadingColor-0 mb-4 flex items-center gap-3'>
+
+                      Học vấn & Đào tạo
                     </h2>
                     <div className='grid grid-cols-1 gap-4'>
                       {doctor?.education?.length > 0 ? doctor.education.map((train, idx) => (
@@ -298,7 +298,7 @@ const TeamDetailsMain = ({ doctor }) => {
                           <p className='font-AlbertSans text-TextColor2-0 text-[16px] font-medium'>{train}</p>
                         </div>
                       )) : (
-                        <p className='font-AlbertSans text-TextColor2-0 italic'>No education info available.</p>
+                        <p className='font-AlbertSans text-TextColor2-0 italic'>Không có dữ liệu học vấn.</p>
                       )}
                     </div>
                   </div>

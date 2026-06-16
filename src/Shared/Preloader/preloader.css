@@ -57,7 +57,7 @@
 }
 
 .loading-screen .animation-preloader .txt-loading {
-  font: bold 6em 'Albert Sans', sans-serif;
+  font: bold 6em 'Inter', sans-serif;
   letter-spacing: 0.2em;
   text-align: center;
   -webkit-user-select: none;
@@ -78,7 +78,7 @@
   content: attr(data-text-preloader);
   left: 0;
   opacity: 0;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   position: absolute;
   top: -3px;
   -webkit-transform: rotateY(-90deg);
@@ -196,7 +196,7 @@
   }
 
   .loading-screen .animation-preloader .txt-loading {
-    font: bold 3.5em 'Albert Sans', sans-serif;
+    font: bold 3.5em 'Inter', sans-serif;
   }
 }
 
@@ -207,7 +207,7 @@
   }
 
   .loading-screen .animation-preloader .txt-loading {
-    font: bold 2em 'Albert Sans', sans-serif;
+    font: bold 2em 'Inter', sans-serif;
   }
 }
 
@@ -234,10 +234,10 @@
     calc(-6 * var(--w)) 0 #fff, calc(-7 * var(--w)) 0 #fff,
     calc(-8 * var(--w)) 0 #fff, calc(-9 * var(--w)) 0 #fff;
   animation: l20 2s infinite linear;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .loader:before {
-  content: 'Loading...';
+  content: 'Đang tải..';
 }
 
 @keyframes l20 {
@@ -380,3 +380,4 @@
       -0.5em -1em rgba(233, 169, 32, 0.75);
   }
 }
+

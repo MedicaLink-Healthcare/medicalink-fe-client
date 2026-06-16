@@ -227,14 +227,13 @@ const Navbar = () => {
           </div>
           <div className='offcanvas_title'>
             <p>
-              Stay healthy with a balanced diet, regular exercise, and enough
-              sleep. Manage stress and get regular check-ups.
+              Hãy giữ gìn sức khỏe bằng chế độ ăn uống cân bằng, tập thể dục thường xuyên và ngủ đủ giấc. Quản lý căng thẳng và khám sức khỏe định kỳ.
             </p>
           </div>
           <div className='main-menu-mobile lg:none'></div>
           <div className='offcanvas_contact-info'>
             <div className='offcanvas_contact-title'>
-              <h5>Contact Us</h5>
+              <h5>Liên hệ</h5>
             </div>
             <ul>
               <li>
@@ -253,7 +252,7 @@ const Navbar = () => {
           </div>
           <div className='offcanvas_input'>
             <div className='offcanvas_input-title'>
-              <h4>Get Update</h4>
+              <h4>Nhận thông báo</h4>
             </div>
             <form
               action='#'
@@ -263,7 +262,7 @@ const Navbar = () => {
                 <input
                   type='email'
                   name='email'
-                  placeholder='Enter E-Mail'
+                  placeholder='Nhập Email'
                   required
                 />
                 <button type='submit'>
@@ -317,7 +316,7 @@ const Navbar = () => {
                         to={'/'}
                         className='active'
                       >
-                        Home
+                        Trang chủ
                       </Link>
                       {/* <div className='submenu has-homemenu mega-menu !hidden lg:!block'>
                         <div className='grid grid-cols-1 lg:grid-cols-4 lg:gap-3'>
@@ -371,58 +370,51 @@ const Navbar = () => {
                       </ul> */}
                     </li>
                     <li>
-                      <Link to={'/about'}>About</Link>
+                      <Link to={'/about'}>Giới thiệu</Link>
                     </li>
                     <li className='has-dropdown'>
-                      <Link to={'/'}>Pages</Link>
+                      <Link to={'/'}>Chức năng</Link>
                       <ul className='submenu'>
                         <li>
-                          <Link to={'/team'}>team member</Link>
+                          <Link to={'/team'}>Đội ngũ</Link>
                         </li>
                         <li>
-                          <Link to={'/doctor-ai'}>AI Doctor Finder</Link>
+                      <Link to={'/service'}>Chuyên khoa</Link>
+                    </li>
+
+                        <li>
+                          <Link to={'/appointment'}>Đặt lịch</Link>
                         </li>
                         <li>
-                          <Link to={'/project'}>Project</Link>
+                          <Link to={'/patient_lookup'}>Tra cứu hồ sơ</Link>
                         </li>
                         <li>
-                          <Link to={'/appointment'}>appointment</Link>
+                          <Link to={'/faqs'}>Hỏi đáp</Link>
                         </li>
                         <li>
-                          <Link to={'/patient_lookup'}>Patient Lookup</Link>
+                          <Link to={'/community-qa'}>Cộng đồng Q&A</Link>
                         </li>
                         <li>
-                          <Link to={'/testimonial'}>testimonial</Link>
-                        </li>
-                        <li>
-                          <Link to={'/faqs'}>faqs</Link>
-                        </li>
-                        <li>
-                          <Link to={'/community-qa'}>Q&A</Link>
-                        </li>
-                        <li>
-                          <Link to={'/contact'}>Contact Us</Link>
+                          <Link to={'/contact'}>Liên hệ</Link>
                         </li>
                       </ul>
                     </li>
                     <li>
-                      <Link to={'/service'}>Services</Link>
-                    </li>
+                          <Link to={'/doctor-ai'}>AI Tìm Bác sĩ</Link>
+                        </li>
+
                     <li className='has-dropdown'>
-                      <Link to={'/blog_grid'}>Blog</Link>
+                      <Link to={'/blog_grid'}>Tin tức</Link>
                       <ul className='submenu'>
                         <li>
-                          <Link to={'/blog_grid'}>blog grid</Link>
+                          <Link to={'/blog_grid'}>Bài viết</Link>
                         </li>
                         <li>
                           <Link to={'/blog_right_sidebar'}>
-                            blog right sidebar
+                            Danh mục
                           </Link>
                         </li>
                       </ul>
-                    </li>
-                    <li>
-                      <Link to={'/contact'}>Contact</Link>
                     </li>
                   </ul>
                 </nav>
@@ -437,7 +429,7 @@ const Navbar = () => {
                 </div>
                 <div className='header-btn hidden lg:block'>
                   <Link to={'/appointment'}>
-                    get Appointment<span></span>
+                    Đặt lịch khám<span></span>
                     <span></span>
                     <span></span>
                     <span></span>
@@ -492,55 +484,54 @@ const Navbar = () => {
             </div>
             <div className='sidebar_title'>
               <p>
-                Stay healthy with a balanced diet, regular exercise, and enough
-                sleep. Manage stress and get regular check-ups.
+                Hãy giữ gìn sức khỏe bằng chế độ ăn uống cân bằng, tập thể dục thường xuyên và ngủ đủ giấc. Quản lý căng thẳng và khám sức khỏe định kỳ.
               </p>
             </div>
             <div>
               <div className='sidebar_service-title'>
-                <h5>What Services We Provide?</h5>
+                <h5>Chuyên khoa của chúng tôi</h5>
               </div>
               <ul className='service_list'>
                 <li>
                   <Link to={'/'}>
-                    <button>General Health Check-ups</button>
+                    <button>Khám sức khỏe tổng quát</button>
                   </Link>
                 </li>
                 <li>
                   <Link to={'/'}>
-                    <button>Cardiology Services</button>
+                    <button>Chuyên khoa tim mạch</button>
                   </Link>
                 </li>
                 <li>
                   <Link to={'/'}>
-                    <button>Mental Health Support</button>
+                    <button>Hỗ trợ sức khỏe tinh thần</button>
                   </Link>
                 </li>
                 <li>
                   <Link to={'/'}>
-                    <button>Pediatric Care</button>
+                    <button>Chăm sóc nhi khoa</button>
                   </Link>
                 </li>
                 <li>
                   <Link to={'/'}>
-                    <button>Vaccination Programs</button>
+                    <button>Chương trình tiêm chủng</button>
                   </Link>
                 </li>
                 <li>
                   <Link to={'/'}>
-                    <button>Physical Therapy</button>
+                    <button>Vật lý trị liệu</button>
                   </Link>
                 </li>
                 <li>
                   <Link to={'/'}>
-                    <button>Chronic Disease Management</button>
+                    <button>Quản lý bệnh mãn tính</button>
                   </Link>
                 </li>
               </ul>
             </div>
             <div className='sidebar_contact-info'>
               <div className='sidebar_contact-title'>
-                <h5>Have Questions? Contact Our Team!</h5>
+                <h5>Bạn có câu hỏi? Hãy liên hệ!</h5>
               </div>
               <ul>
                 <li>
@@ -559,7 +550,7 @@ const Navbar = () => {
             </div>
             <div className='sidebar_input'>
               <div className='offcanvas_input-title'>
-                <h4>Get Update</h4>
+                <h4>Nhận thông báo</h4>
               </div>
               <form
                 action='#'
@@ -569,7 +560,7 @@ const Navbar = () => {
                   <input
                     type='email'
                     name='email'
-                    placeholder='Enter E-Mail'
+                    placeholder='Nhập Email'
                     required
                   />
                   <button type='submit'>
@@ -627,7 +618,7 @@ const Navbar = () => {
               <input
                 type='search'
                 name='search-field'
-                placeholder='Search Here'
+                placeholder='Tìm kiếm'
                 required
                 ref={searchInputRef}
               />
@@ -636,7 +627,7 @@ const Navbar = () => {
                 disabled={isSubmitting} // Disable button if submitting
               >
                 {isSubmitting ? (
-                  <span>Loading...</span> // Show loading text
+                  <span>Đang tải...</span> // Show loading text
                 ) : (
                   <IoSearch />
                 )}

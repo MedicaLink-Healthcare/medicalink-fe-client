@@ -2,15 +2,12 @@ import { Link } from 'react-router-dom';
 import BreadCrumb from '../../../Shared/BreadCrumb/BreadCrumb';
 import serviceDetailsThumb from '/images/service.jpg';
 import {
-  FaArrowRight,
   FaArrowRightLong,
   FaRegFolderOpen,
   FaUserDoctor,
 } from 'react-icons/fa6';
-import { MdEmail } from 'react-icons/md';
 import icon from '/images/dtls-icn.png';
 import icon2 from '/images/dtls-icn2.png';
-import callIcon from '/images/call3..png';
 import Faq from './Accordion/Faq';
 import { BsFileEarmarkPdf } from 'react-icons/bs';
 import { HiDownload } from 'react-icons/hi';
@@ -20,9 +17,9 @@ const ServiceDetails5 = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Service Details'}
+        breadCrumbTitle={'Dịch vụ'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Service Details'}
+        breadCrumbLink={'Chi tiết dịch vụ'}
       />
       <section className='py-[120px] bg-BodyBg-0'>
         <div className='Container'>
@@ -45,7 +42,7 @@ const ServiceDetails5 = () => {
                   data-aos='fade-up'
                   data-aos-duration='1000'
                 >
-                  Delivering world class medical care
+                  Khám và điều trị bệnh lý tiêu hóa
                 </h2>
                 <p
                   className='font-AlbertSans text-TextColor2-0 mt-5'
@@ -366,7 +363,7 @@ const ServiceDetails5 = () => {
                   </li>
                 </ul>
               </div>
-              <div
+              {/* <div
                 className="rounded-2xl px-4 sm:px-9 lg:px-4 xl:px-9 overflow-hidden bg-[url('/images/company-bg.png')] bg-cover bg-no-repeat bg-center py-[50px]"
                 data-aos='fade-up'
                 data-aos-duration='1000'
@@ -393,11 +390,11 @@ const ServiceDetails5 = () => {
                 </Link>
                 <Link to={'/contact'}>
                   <button className='font-AlbertSans text-white flex gap-2 items-center bg-PrimaryColor-0 w-full h-[58px] rounded-md justify-center z-10 relative before:absolute before:top-0 before:right-0 before:scale-0 before:-z-10 before:w-full before:h-full before:bg-SecondaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:scale-100 hover:text-white'>
-                    Contact Us
+                    Liên hệ
                     <FaArrowRight />
                   </button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

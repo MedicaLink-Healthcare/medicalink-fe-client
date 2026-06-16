@@ -146,7 +146,7 @@
   font-size: 24px;
   color: #ffffff;
   font-weight: 400;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin-bottom: 30px;
   display: inline-block;
 }
@@ -158,7 +158,7 @@
 
 .offcanvas_contact-info ul li a {
   color: #ffffff;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .offcanvas_contact-info ul li svg {
@@ -169,7 +169,7 @@
   font-size: 24px;
   color: #ffffff;
   font-weight: 400;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin-bottom: 30px;
   display: inline-block;
 }
@@ -393,8 +393,8 @@ nav.main-menu-content > ul > li > a {
   padding: 17px 18px;
   transition: 0.5s;
   color: #002570;
-  font-weight: 500;
-  font-family: 'Albert Sans';
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
   position: relative;
 }
 
@@ -436,9 +436,9 @@ nav.main-menu-content > ul > li > a:hover > span {
 
 .header-btn a {
   font-size: 15px;
-  font-family: 'Albert Sans';
+  font-family: 'Open Sans', sans-serif;
   padding: 14px 30px;
-  font-weight: 500;
+  font-weight: 600;
   color: #fff;
   background: #002570;
   text-transform: uppercase;
@@ -511,7 +511,7 @@ nav.main-menu-content > ul > li > a:hover > span {
 
   .header-btn a {
     padding: 14px 18px;
-    font-weight: 500;
+    font-weight: 600;
     gap: 2px;
   }
 }
@@ -571,7 +571,7 @@ nav.main-menu-content > ul > li > a:hover > span {
   z-index: 1;
   font-size: 15px;
   transition: 0.5s;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .header-main-menu nav ul li .submenu > li a::after {
@@ -619,7 +619,7 @@ nav.main-menu-content > ul > li > a:hover > span {
   margin-bottom: 0;
   color: #000000;
   display: inline-block;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .homemenu-title:hover {
@@ -741,7 +741,7 @@ nav.main-menu-content > ul > li > a:hover > span {
   position: relative;
   padding: 10px 0;
   padding-right: 20px;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .main-menu-mobile ul li > a svg {
@@ -996,8 +996,8 @@ nav.main-menu-content > ul > li > a:hover > span {
 .sidebar_service-title h5 {
   font-size: 24px;
   color: #ffffff;
-  font-weight: 500;
-  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
   margin-bottom: 20px;
   display: inline-block;
 }
@@ -1011,8 +1011,8 @@ nav.main-menu-content > ul > li > a:hover > span {
 .service_list li button {
   font-size: 18px;
   color: #a3b7b7;
-  font-weight: 500;
-  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
   transition: all 0.5s;
   margin: 6px 0;
 }
@@ -1024,8 +1024,8 @@ nav.main-menu-content > ul > li > a:hover > span {
 .sidebar_contact-title h5 {
   font-size: 24px;
   color: #ffffff;
-  font-weight: 500;
-  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
   margin-bottom: 30px;
   display: inline-block;
   margin-top: 20px;
@@ -1038,7 +1038,7 @@ nav.main-menu-content > ul > li > a:hover > span {
 
 .sidebar_contact-info ul li a {
   color: #ffffff;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .sidebar_contact-info ul li svg {
@@ -1049,7 +1049,7 @@ nav.main-menu-content > ul > li > a:hover > span {
   font-size: 24px;
   color: #ffffff;
   font-weight: 400;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin-bottom: 30px;
   display: inline-block;
 }
@@ -1324,7 +1324,7 @@ nav.main-menu-content > ul > li > a:hover > span {
   width: 100%;
   padding: 10px 30px;
   background-color: #ffffff;
-  font-family: 'Albert Sans';
+  font-family: 'Open Sans', sans-serif;
   transition: all 500ms ease;
   border: 2px solid #007eff;
   border-radius: 5px;
@@ -1356,3 +1356,4 @@ nav.main-menu-content > ul > li > a:hover > span {
 .form-group input::placeholder {
   color: #000000;
 }
+

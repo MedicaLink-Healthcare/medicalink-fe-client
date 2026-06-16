@@ -24,7 +24,7 @@ const Counter = () => {
                   data-aos='fade-up'
                   data-aos-duration='1000'
                 >
-                  Medical Achivement <br /> Health Protection
+                  Thành Tựu Y Tế <br /> Bảo Vệ Sức Khỏe
                 </h2>
               </div>
             </div>
@@ -43,7 +43,7 @@ const Counter = () => {
                     />
                   </div>
                   <p className='font-AlbertSans font-medium text-xl lg:text-lg xl:text-xl text-white pt-3 mt-3 border-t-2 border-BorderColor-0 border-opacity-25'>
-                    Satisfied Patients
+                    Bệnh Nhân Hài Lòng
                   </p>
                 </div>
                 <div
@@ -59,7 +59,7 @@ const Counter = () => {
                     />
                   </div>
                   <p className='font-AlbertSans font-medium text-xl lg:text-lg xl:text-xl text-white pt-3 mt-3 border-t-2 border-BorderColor-0 border-opacity-25'>
-                    Satisfaction Rates
+                    Tỷ Lệ Hài Lòng
                   </p>
                 </div>
               </div>

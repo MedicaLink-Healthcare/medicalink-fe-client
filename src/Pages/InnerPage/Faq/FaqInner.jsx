@@ -22,9 +22,9 @@ const FaqInner = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={"F.A.Q's"}
+        breadCrumbTitle={"Câu hỏi thường gặp"}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'F.a.q'}
+        breadCrumbLink={'Câu hỏi thường gặp'}
       />
       <section className='bg-BodyBg-0 py-28'>
         <div className='Container'>
@@ -36,12 +36,12 @@ const FaqInner = () => {
           {isError && (
             <p className='font-AlbertSans text-red-600 text-center text-lg'>
               {error?.message ||
-                'Failed to load list. Please try again later.'}
+                'Không tải được danh sách. Vui lòng thử lại.'}
             </p>
           )}
           {!isLoading && !isError && faqs.length === 0 && (
             <p className='font-AlbertSans text-TextColor2-0 text-center text-lg'>
-              No frequently asked questions yet.
+              Hiện tại chưa có câu hỏi nào.
             </p>
           )}
           {!isLoading && !isError && faqs.length > 0 && (
@@ -53,11 +53,12 @@ const FaqInner = () => {
                 >
                   <div>
                     <h3 className='font-AlbertSans text-HeadingColor-0 font-bold text-[28px]'>
-                      Frequently asked questions
+                      Các câu hỏi thường gặp
                     </h3>
                     <p className='font-DMSans font-medium text-TextColor2-0 pt-5 pb-12'>
-                      Common questions from patients and customers — updated from
-                      the system.
+                      Các câu hỏi thường gặp từ bệnh nhân và khách hàng — được
+                      cập nhật từ
+                      hệ thống.
                     </p>
                   </div>
                   {leftCol.map((faq, index) => (
@@ -77,10 +78,10 @@ const FaqInner = () => {
                 >
                   <div>
                     <h3 className='font-AlbertSans text-HeadingColor-0 font-bold text-[28px]'>
-                      Additional information
+                      Các câu hỏi bổ sung
                     </h3>
                     <p className='font-DMSans font-medium text-TextColor2-0 pt-5 pb-12'>
-                      Additional questions and detailed guidance.
+                      Các câu hỏi bổ sung và hướng dẫn chi tiết.
                     </p>
                   </div>
                   {rightCol.map((faq, index) => (
@@ -102,17 +103,17 @@ const FaqInner = () => {
               >
                 <div className='rounded-3xl border-2 border-white bg-white bg-opacity-20 px-6 py-10 md:px-12 text-center'>
                   <h3 className='font-AlbertSans text-HeadingColor-0 font-bold text-[28px]'>
-                    Need to ask more?
+                    Còn câu hỏi khác chưa tìm thấy?
                   </h3>
                   <p className='font-DMSans font-medium text-TextColor2-0 pt-5 max-w-2xl mx-auto'>
-                    Send question to community — doctors and experts can answer
-                    when appropriate.
+                    Gửi câu hỏi đến cộng đồng — bác sĩ và chuyên gia sẽ trả lời
+                    khi cần.
                   </p>
                   <Link
                     to='/community-qa'
                     className='inline-flex mt-8 primary-btn'
                   >
-                    Go to Community Q&A
+                    Đến trang Hỏi đáp Cộng đồng
                   </Link>
                 </div>
               </div>

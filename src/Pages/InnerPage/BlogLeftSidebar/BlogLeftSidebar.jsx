@@ -1,19 +1,16 @@
 import { Link } from 'react-router-dom';
 import BreadCrumb from '../../../Shared/BreadCrumb/BreadCrumb';
 import {
-  FaArrowRight,
   FaArrowRightLong,
   FaCircle,
   FaRegFolderOpen,
 } from 'react-icons/fa6';
-import { MdEmail } from 'react-icons/md';
 import blogThumb from '/images/blog.jpg';
 import blogThumb2 from '/images/blog2.jpg';
 import blogThumb3 from '/images/blog3.jpg';
 import blogThumb4 from '/images/blog4.jpg';
 import blogThumb5 from '/images/blog5.jpg';
 import blogThumb6 from '/images/blog6.jpg';
-import callIcon from '/images/call3..png';
 import itemthumb from '/images/blog4.jpg';
 import itemthumb2 from '/images/blog5.jpg';
 import itemthumb3 from '/images/blog6.jpg';
@@ -32,7 +29,7 @@ const BlogSidebarData = [
     blogPostBy: 'Admin',
     blogUrl: '/blog_details',
     blogTitle: 'Top 10 Popular Equipments for Medical Industre',
-    blogGridContent: 'Read More',
+    blogGridContent: 'Xem thêm',
     blogGridIcon: <GoArrowRight />,
   },
   {
@@ -44,7 +41,7 @@ const BlogSidebarData = [
     blogPostBy: 'Admin',
     blogUrl: '/blog_details',
     blogTitle: 'How to maintain Patient for Better Surgery',
-    blogGridContent: 'Read More',
+    blogGridContent: 'Xem thêm',
     blogGridIcon: <GoArrowRight />,
   },
   {
@@ -56,7 +53,7 @@ const BlogSidebarData = [
     blogPostBy: 'Admin',
     blogUrl: '/blog_details',
     blogTitle: 'Most Popular Advises for Kids Happy & Smile Life',
-    blogGridContent: 'Read More',
+    blogGridContent: 'Xem thêm',
     blogGridIcon: <GoArrowRight />,
   },
   {
@@ -68,7 +65,7 @@ const BlogSidebarData = [
     blogPostBy: 'Admin',
     blogUrl: '/blog_details',
     blogTitle: 'How to maintain Patient for Better Surgery',
-    blogGridContent: 'Read More',
+    blogGridContent: 'Xem thêm',
     blogGridIcon: <GoArrowRight />,
   },
   {
@@ -80,7 +77,7 @@ const BlogSidebarData = [
     blogPostBy: 'Admin',
     blogUrl: '/blog_details',
     blogTitle: 'How to maintain Patient for Better Surgery',
-    blogGridContent: 'Read More',
+    blogGridContent: 'Xem thêm',
     blogGridIcon: <GoArrowRight />,
   },
   {
@@ -92,7 +89,7 @@ const BlogSidebarData = [
     blogPostBy: 'Admin',
     blogUrl: '/blog_details',
     blogTitle: 'How to maintain Patient for Better Surgery',
-    blogGridContent: 'Read More',
+    blogGridContent: 'Xem thêm',
     blogGridIcon: <GoArrowRight />,
   },
 ];
@@ -122,7 +119,7 @@ const BlogLeftSidebar = () => {
                     type='text'
                     name='search'
                     id='search'
-                    placeholder='Search here...'
+                    placeholder='Tìm kiếm...'
                     required
                     className='w-full h-[60px] p-6 bg-white bg-opacity-30 border-2 border-white border-opacity-80 rounded-full font-AlbertSans'
                   />
@@ -319,7 +316,7 @@ const BlogLeftSidebar = () => {
                   </li>
                 </ul>
               </div>
-              <div
+              {/* <div
                 className="rounded-2xl px-4 sm:px-9 lg:px-4 xl:px-9 overflow-hidden bg-[url('/images/company-bg.png')] bg-cover bg-no-repeat bg-center py-[50px]"
                 data-aos='fade-up'
                 data-aos-duration='1000'
@@ -346,11 +343,11 @@ const BlogLeftSidebar = () => {
                 </Link>
                 <Link to={'/contact'}>
                   <button className='font-AlbertSans text-white flex gap-2 items-center bg-PrimaryColor-0 w-full h-[58px] rounded-md justify-center z-10 relative before:absolute before:top-0 before:right-0 before:scale-0 before:-z-10 before:w-full before:h-full before:bg-SecondaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:scale-100 hover:text-white'>
-                    Contact Us
+                    Liên hệ
                     <FaArrowRight />
                   </button>
                 </Link>
-              </div>
+              </div> */}
             </div>
             <div className='col-span-3 lg:col-span-2'>
               <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-7'>

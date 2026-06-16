@@ -6,18 +6,18 @@ const MissionData = [
   {
     id: 1,
     missionIcon: missionIcon,
-    missionTitle: 'Our Mission',
-    missionDesc: 'Professional mision capital without enterp medical users pros value added e-enable creative technology via team.',
+    missionTitle: 'Sứ mệnh',
+    missionDesc: 'Cam kết mang đến dịch vụ y tế chuyên nghiệp, tận tâm và không ngừng đổi mới công nghệ vì sức khỏe cộng đồng.',
   },  {
     id: 2,
     missionIcon: missionIcon2,
-    missionTitle: 'Our Planning',
-    missionDesc: 'Professional mision capital without enterp medical users pros value added e-enable creative technology via team.',
+    missionTitle: 'Kế hoạch',
+    missionDesc: 'Cam kết mang đến dịch vụ y tế chuyên nghiệp, tận tâm và không ngừng đổi mới công nghệ vì sức khỏe cộng đồng.',
   },  {
     id: 3,
     missionIcon: missionIcon,
-    missionTitle: 'Our Vission',
-    missionDesc: 'Professional mision capital without enterp medical users pros value added e-enable creative technology via team.',
+    missionTitle: 'Tầm nhìn',
+    missionDesc: 'Cam kết mang đến dịch vụ y tế chuyên nghiệp, tận tâm và không ngừng đổi mới công nghệ vì sức khỏe cộng đồng.',
   },
 ];
 

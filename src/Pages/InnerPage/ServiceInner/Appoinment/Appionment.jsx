@@ -47,7 +47,7 @@ const Appoinment = () => {
                   type='text'
                   name='name'
                   id='name'
-                  placeholder='Enter Name*'
+                  placeholder='Nhập Họ Tên*'
                   required
                   className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-xl py-2 px-6 h-[60px] w-full focus:outline-PrimaryColor-0'
                 />
@@ -61,7 +61,7 @@ const Appoinment = () => {
                   type='email'
                   name='email'
                   id='email'
-                  placeholder='Enter E-Mail*'
+                  placeholder='Nhập Email*'
                   required
                   className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-xl py-2 px-6 h-[60px] w-full focus:outline-PrimaryColor-0'
                 />
@@ -107,7 +107,7 @@ const Appoinment = () => {
                   type='text'
                   name='number'
                   id='number'
-                  placeholder='Enter Number*'
+                  placeholder='Nhập Số điện thoại*'
                   required
                   className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-xl py-2 px-6 h-[60px] w-full focus:outline-PrimaryColor-0'
                 />
@@ -120,7 +120,7 @@ const Appoinment = () => {
             <textarea
               name='message'
               id='message'
-              placeholder='Write a short meassage...'
+              placeholder='Nhập tin nhắn...'
               className='font-AlbertSans text-HeadingColor-0 placeholder:text-HeadingColor-0 font-light bg-transparent border border-Secondarycolor-0 border-opacity-45 rounded-2xl py-2 px-6 h-[150px] w-full focus:outline-PrimaryColor-0 resize-none'
             ></textarea>
             <div className='inline-block mt-2'>
@@ -128,7 +128,7 @@ const Appoinment = () => {
                 type='submit'
                 className='primary-btn'
               >
-                Send Now
+                Đặt lịch hẹn
                 <GoArrowRight
                   size={'22'}
                   className='-rotate-45'

@@ -111,7 +111,7 @@ const Footer2 = () => {
                   type='email'
                   name='email'
                   id='email'
-                  placeholder='Enter Your E-Mail*'
+                  placeholder='Nhập Email của bạn*'
                   required
                   className='w-full h-[56px] outline-none font-AlbertSans border-b border-BorderColor2-0 bg-transparent py-4 text-white placeholder:text-white mb-4'
                 />

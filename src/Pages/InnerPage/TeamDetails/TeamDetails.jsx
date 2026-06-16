@@ -25,14 +25,14 @@ const TeamDetails = () => {
     return (
       <>
         <BreadCrumb
-          breadCrumbTitle={'Team Details'}
+          breadCrumbTitle={'Thông tin chi tiết'}
           breadCrumbIcon={<FaArrowRightLong />}
-          breadCrumbLink={'Team Details'}
+          breadCrumbLink={'Thông tin chi tiết'}
         />
         <section className='py-28 bg-BodyBg-0'>
           <div className='Container'>
             <p className='font-AlbertSans text-TextColor2-0 text-center text-xl'>
-              Doctor not found or failed to load.
+              Không tìm thấy bác sĩ hoặc không tải được.
             </p>
           </div>
         </section>
@@ -43,14 +43,14 @@ const TeamDetails = () => {
   return (
     <>
       <HelmetChanger
-        title={doctor.fullName || 'Doctor Details'}
-        description={`${doctor.fullName} - ${doctor.specialty?.name || 'Healthcare Professional'} at Medicalink. Smart medical appointment booking integrated with RAG technology.`}
+        title={doctor.fullName || 'Thông tin chi tiết'}
+        description={`${doctor.fullName} - ${doctor.specialty?.name || 'Bác sĩ'}`}
         image={doctor.imageUrl}
         url={`/team-details/${id}`}
         type="profile"
       />
       <BreadCrumb
-        breadCrumbTitle={'Team Details'}
+        breadCrumbTitle={'Thông tin chi tiết'}
         breadCrumbIcon={<FaArrowRightLong />}
         breadCrumbLink={doctor.fullName || 'Chi tiết bác sĩ'}
         url={`/team-details/${id}`}

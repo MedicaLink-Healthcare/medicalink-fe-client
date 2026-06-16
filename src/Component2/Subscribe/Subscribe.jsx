@@ -29,7 +29,7 @@ const Subscribe = () => {
             >
               <Link to={'/contact'}>
                 <button className='primary-btn mt-3 !border-white'>
-                  Contact Us
+                  Liên h?
                   <GoArrowRight
                     size={'22'}
                     className='-rotate-45'

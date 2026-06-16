@@ -32,10 +32,9 @@ const Footer = () => {
               </Link>
             </div>
             <p className='font-AlbertSans text-white mt-7 mb-11'>
-              Evolve professional intellectual capital from
-              <br className='hidden sm:block' /> professional capital without
-              pros users tod
-              <br className='hidden sm:block' /> need and clean development.
+              Cung cấp nền tảng y tế chất lượng cao,
+              <br className='hidden sm:block' /> mang lại trải nghiệm tiện lợi và
+              <br className='hidden sm:block' /> an toàn cho người dùng.
             </p>
             <Link to={'/'}>
               <button className='font-AlbertSans text-xl text-white font-bold'>
@@ -43,7 +42,7 @@ const Footer = () => {
               </button>
             </Link>
             <div className='font-DMSans text-white mt-2'>
-              E-Mail Us:{' '}
+              Email cho chúng tôi:{' '}
               <Link to={'/'}>
                 <button className='text-PrimaryColor-0'>
                   medicalink@example.com
@@ -53,7 +52,7 @@ const Footer = () => {
           </div>
           <div className='col-span-12 md:col-span-6 lg:col-span-2'>
             <h4 className='font-AlbertSans text-2xl text-white font-semibold mb-[42px]'>
-              Useful Links
+              Liên kết
             </h4>
             <ul className='overflow-hidden'>
               <li>
@@ -64,7 +63,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      About Company
+                      Về chúng tôi
                     </span>
                   </button>
                 </Link>
@@ -77,7 +76,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      Meet Our Team
+                      Đội ngũ bác sĩ
                     </span>
                   </button>
                 </Link>
@@ -90,7 +89,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      Latest Blog
+                      Tin tức mới nhất
                     </span>
                   </button>
                 </Link>
@@ -103,7 +102,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      Testimonial
+                      Đánh giá
                     </span>
                   </button>
                 </Link>
@@ -116,7 +115,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      Contact Us
+                      Liên hệ
                     </span>
                   </button>
                 </Link>
@@ -125,7 +124,7 @@ const Footer = () => {
           </div>
           <div className='col-span-12 md:col-span-6 lg:col-span-3'>
             <h4 className='font-AlbertSans text-2xl text-white font-semibold mb-[42px]'>
-              Services
+              Chuyên khoa
             </h4>
             <ul className='overflow-hidden'>
               <li>
@@ -136,7 +135,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      Our Service
+                      Chuyên khoa của chúng tôi
                     </span>
                   </button>
                 </Link>
@@ -149,7 +148,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      Privacy
+                      Bảo mật
                     </span>
                   </button>
                 </Link>
@@ -162,7 +161,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      Appointment
+                      Đặt lịch khám
                     </span>
                   </button>
                 </Link>
@@ -175,7 +174,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      Partners
+                      Đối tác
                     </span>
                   </button>
                 </Link>
@@ -188,7 +187,7 @@ const Footer = () => {
                   <button className='flex items-center gap-2 font-AlbertSans font-medium text-white transition-all duration-500 hover:text-PrimaryColor-0 hover:gap-1 mb-[14px] group'>
                     <IoStar className='text-xs text-TextColor-0 relative -top-[1px] transition-all duration-500 group-hover:text-PrimaryColor-0' />
                     <span className='relative z-10 before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[1px] before:bg-PrimaryColor-0 before:transition-all before:duration-500 group-hover:before:w-full'>
-                      F.A.Q
+                      Hỏi đáp
                     </span>
                   </button>
                 </Link>
@@ -197,15 +196,11 @@ const Footer = () => {
           </div>
           <div className='col-span-12 md:col-span-6 lg:col-span-3'>
             <h4 className='font-AlbertSans text-2xl text-white font-semibold mb-[42px]'>
-              Opening Hours
+              Giờ làm việc
             </h4>
             <p className='font-DMSans text-white flex justify-between pb-4 border-b-2 border-BorderColor2-0'>
-              <span>Monday to Friday</span>
-              <span>09:00 - 16:00</span>
-            </p>
-            <p className='font-DMSans text-white flex justify-between pb-6 pt-3'>
-              <span>Satarday & Sunday</span>
-              <span>Closed</span>
+              <span>Thứ Hai - Chủ Nhật</span>
+              <span>08:00 - 17:00</span>
             </p>
             <form
               action='#'
@@ -220,7 +215,7 @@ const Footer = () => {
                   type='email'
                   name='email'
                   id='email'
-                  placeholder='Enter Your E-Mail*'
+                  placeholder='Nhập Email của bạn*'
                   required
                   className='w-full h-[54px] outline-none text-lg font-DMSans border-b-2 border-BorderColor2-0 bg-transparent py-3 text-white placeholder:text-TextColor-0 mb-4'
                 />
@@ -243,7 +238,7 @@ const Footer = () => {
                   name='checkbox'
                   className='mr-2'
                 />
-                Agree Terms & Conditions
+                Đồng ý với Điều khoản & Điều kiện
               </label>
             </form>
           </div>
@@ -275,7 +270,7 @@ const Footer = () => {
           </div>
           <div>
             <p className='font-DMSans flex items-center text-TextColor-0'>
-              Medicalink © 2026 - All Rights Reserved
+              Medicalink © 2026 - Bảo lưu mọi quyền
             </p>
           </div>
         </div>

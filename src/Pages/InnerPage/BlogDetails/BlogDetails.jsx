@@ -35,9 +35,9 @@ const BlogDetails = () => {
     return (
       <>
         <BreadCrumb
-          breadCrumbTitle={'Blog Details'}
+          breadCrumbTitle={'Bài viết'}
           breadCrumbIcon={<FaArrowRightLong />}
-          breadCrumbLink={'Blog Details'}
+          breadCrumbLink={'Bài viết'}
         />
         <section className='py-28 bg-BodyBg-0'>
           <div className='Container'>
@@ -60,9 +60,9 @@ const BlogDetails = () => {
         type="article"
       />
       <BreadCrumb
-        breadCrumbTitle={'Blog Details'}
+        breadCrumbTitle={'Bài viết'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Blog Details'}
+        breadCrumbLink={'Bài viết'}
       />
       <section className='py-28 bg-BodyBg-0'>
         <div className='Container'>
@@ -149,24 +149,24 @@ const BlogDetails = () => {
                   data-aos-duration='1000'
                 >
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-4 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
-                  Article Information
+                  Thông tin bài viết
                 </h4>
                 <ul className='mt-6 space-y-3'>
                   {blog.authorName && (
                     <li className='font-AlbertSans text-TextColor2-0'>
-                      <span className='font-semibold text-HeadingColor-0'>Author:</span>{' '}
+                      <span className='font-semibold text-HeadingColor-0'>Tác giả:</span>{' '}
                       {blog.authorName}
                     </li>
                   )}
                   {blog.publishedAt && (
                     <li className='font-AlbertSans text-TextColor2-0'>
-                      <span className='font-semibold text-HeadingColor-0'>Published Date:</span>{' '}
+                      <span className='font-semibold text-HeadingColor-0'>Ngày đăng:</span>{' '}
                       {formatDate(blog.publishedAt)}
                     </li>
                   )}
                   {blog.category?.name && (
                     <li className='font-AlbertSans text-TextColor2-0'>
-                      <span className='font-semibold text-HeadingColor-0'>Category:</span>{' '}
+                      <span className='font-semibold text-HeadingColor-0'>Danh mục:</span>{' '}
                       {blog.category.name}
                     </li>
                   )}

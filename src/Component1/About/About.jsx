@@ -25,7 +25,7 @@ const About = () => {
             data-aos-duration='1000'
           >
             <h1 className='font-AlbertSans font-bold uppercase text-HeadingColor-0 text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[42px] lg:leading-[52px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-              About Medical
+              Về Medicalink
             </h1>
             <img
               src={aboutShape}
@@ -47,8 +47,8 @@ const About = () => {
                   className='font-AlbertSans text-3xl sm:text-4xl md:text-[60px] leading-[50px] text-HeadingColor-0 font-bold'
                 />
               </div>
-              <p className='font-AlbertSans font-medium text-lg text-HeadingColor-0 uppercase'>
-                Years Of <br /> Experiences
+              <p className='font-AlbertSans text-HeadingColor-0 font-medium text-lg sm:text-[22px]'>
+                Năm <br /> Kinh Nghiệm
               </p>
             </div>
           </div>
@@ -83,7 +83,7 @@ const About = () => {
                       startOffset='0%'
                       className='fill-white'
                     >
-                      NEOROLOGIST * GYNOCLOGIST * HEALTHCARE *
+                      CHUYÊN KHOA THẦN KINH * PHỤ KHOA * CHĂM SÓC SỨC KHỎE *
                     </textPath>
                   </text>
                 </svg>
@@ -103,14 +103,13 @@ const About = () => {
             data-aos-duration='1000'
           >
             <h5 className='font-AlbertSans font-medium text-sm sm:text-base text-PrimaryColor-0 uppercase mb-4'>
-              FINANCE CONSULTING
+              TƯ VẤN Y TẾ
             </h5>
             <h1 className='font-AlbertSans font-bold text-HeadingColor-0 text-[16px] leading-[23px] sm:text-[22px] sm:leading-[35px] md:text-[30px] md:leading-[35px] lg:text-[26px] lg:leading-[33px] xl:text-[32px] xl:leading-[39px] 2xl:text-[32px] 2xl:leading-[39px]'>
-              Since 2007 We’re working Medical group of more than 1200+ Patients
-              help from our medical
+              Chúng tôi tự hào đồng hành và chăm sóc cho hơn 100+ bệnh nhân
             </h1>
             <h5 className='font-AlbertSans font-semibold text-lg sm:text-[22px] text-HeadingColor-0 mt-10 mb-6'>
-              We’re Putting your Comfort List
+              Sự thoải mái của bạn là ưu tiên hàng đầu
             </h5>
             <div className='grid items-center grid-cols-1 gap-7 sm:grid-cols-2 border-t border-dashed border-HeadingColor-0 border-opacity-25 pb-[18px] pt-4'>
               <div className='flex items-center gap-2'>
@@ -119,7 +118,7 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    Completely to syndicate
+                    Quy trình khám chữa bệnh tối ưu
                   </h5>
                 </div>
               </div>
@@ -129,7 +128,7 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    24 Hrs Aumbulance Service
+                    Dịch vụ xe cấp cứu 24/7
                   </h5>
                 </div>
               </div>
@@ -141,7 +140,7 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    Medical Surgical Services
+                    Dịch vụ ngoại khoa
                   </h5>
                 </div>
               </div>
@@ -151,7 +150,7 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    100% Satisfaction Rate
+                    Tỷ lệ hài lòng 100%
                   </h5>
                 </div>
               </div>
@@ -163,7 +162,7 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    Instant Operations System
+                    Hệ thống vận hành hiện đại
                   </h5>
                 </div>
               </div>
@@ -173,14 +172,14 @@ const About = () => {
                 </div>
                 <div className='flex-1'>
                   <h5 className='font-DMSans text-HeadingColor-0'>
-                    Professional Doctors
+                    Đội ngũ bác sĩ chuyên môn cao
                   </h5>
                 </div>
               </div>
             </div>
             <Link to={'/about'}>
               <button className='primary-btn mt-3'>
-                More About
+                Xem thêm
                 <GoArrowRight
                   size={'22'}
                   className='-rotate-45'

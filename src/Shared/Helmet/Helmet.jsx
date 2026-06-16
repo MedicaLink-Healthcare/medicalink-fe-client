@@ -2,8 +2,8 @@
 import { Helmet } from 'react-helmet-async';
 
 const HelmetChanger = ({ title, description, image, url, type = 'website' }) => {
-  const siteTitle = title ? `Medicalink - ${title}` : 'Medicalink - AI Doctor Finder & Online Booking';
-  const siteDescription = description || 'Find the right doctor with AI-powered specialty suggestions, RAG-integrated medical management, and smart appointment booking.';
+  const siteTitle = title ? `Medicalink - ${title}` : 'Medicalink - Đặt lịch khám bác sĩ AI & tư vấn sức khỏe';
+  const siteDescription = description || 'Tìm kiếm bác sĩ AI với gợi ý chuyên khoa thông minh và đặt lịch hẹn trực tuyến. Nền tảng y tế RAG hàng đầu cho người Việt';
   const siteImage = image ? (image.startsWith('http') ? image : `https://medicalink.online${image}`) : 'https://medicalink.online/og-image.png';
   const siteUrl = url ? (url.startsWith('http') ? url : `https://medicalink.online${url}`) : 'https://medicalink.online/';
 

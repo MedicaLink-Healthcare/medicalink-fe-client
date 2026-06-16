@@ -9,9 +9,9 @@ import {
 } from '@/api/hooks/qa/useQAQueries';
 
 const statusLabel = {
-  PENDING: 'Pending',
-  ANSWERED: 'Answered',
-  CLOSED: 'Closed',
+  PENDING: 'Đang chờ',
+  ANSWERED: 'Trả lời',
+  CLOSED: 'Đã đóng',
 };
 
 const extractCompositeData = (payload) => payload?.data ?? null;
@@ -56,7 +56,7 @@ const CommunityQADetailInner = () => {
             to='/community-qa'
             className='inline-flex items-center gap-2 font-DMSans text-PrimaryColor-0 mb-8 hover:underline'
           >
-            ← Back to list
+            ← Quay lại danh sách
           </Link>
 
           {loading && <Loading />}
@@ -96,21 +96,21 @@ const CommunityQADetailInner = () => {
                   {question.body}
                 </p>
                 <div className='mt-6 flex flex-wrap gap-6 text-sm font-DMSans text-TextColor2-0 border-t border-white border-opacity-40 pt-6'>
-                  <span>Views: {question.viewCount ?? 0}</span>
-                  <span>Total answers: {question.answersCount ?? 0}</span>
+                  <span>Lượt xem: {question.viewCount ?? 0}</span>
+                  <span>Tổng số câu trả lời: {question.answersCount ?? 0}</span>
                   {question.authorName && (
-                    <span>Questioner: {question.authorName}</span>
+                    <span>Người hỏi: {question.authorName}</span>
                   )}
                 </div>
               </article>
 
               <div data-aos='fade-up' data-aos-delay='100'>
                 <h2 className='font-AlbertSans font-bold text-HeadingColor-0 text-2xl mb-6'>
-                  Accepted answers
+                    Các câu trả lời
                 </h2>
                 {answers.length === 0 ? (
                   <p className='font-DMSans text-TextColor2-0'>
-                    No accepted answers yet. Please try again later.
+                    Không có câu trả lời nào.
                   </p>
                 ) : (
                   <ul className='space-y-5'>
@@ -125,8 +125,8 @@ const CommunityQADetailInner = () => {
                         <div className='mt-4 flex flex-wrap justify-between gap-2 text-sm font-DMSans text-TextColor2-0'>
                           <span>
                             {a.authorFullName
-                              ? `Doctor / Expert: ${a.authorFullName}`
-                              : 'Expert'}
+                              ? `Chuyên gia: ${a.authorFullName}`
+                              : 'Chuyên gia'}
                           </span>
                           <span>
                             {a.createdAt

@@ -70,9 +70,9 @@ const TeamInner = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Team Member'}
+        breadCrumbTitle={'Đội ngũ bác sĩ'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Team Member'}
+        breadCrumbLink={'Đội ngũ bác sĩ'}
       />
       <section className='bg-BodyBg-0 bg-no-repeat bg-cover bg-center py-20 relative'>
         <div className='Container'>
@@ -82,7 +82,7 @@ const TeamInner = () => {
               <div className='md:col-span-6 relative'>
                 <input
                   type='text'
-                  placeholder='Search Doctor...'
+                  placeholder='Tìm kiếm Bác sĩ...'
                   className='w-full pl-5 pr-12 py-3.5 bg-BodyBg-0 rounded-2xl border border-transparent focus:border-PrimaryColor-0 focus:outline-none font-AlbertSans text-HeadingColor-0 transition-all'
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -97,7 +97,7 @@ const TeamInner = () => {
                   value={selectedSpecialty}
                   onChange={handleSpecialtyChange}
                 >
-                  <option value=''>All Specialties</option>
+                  <option value=''>Tất cả chuyên khoa</option>
                   {specialties.map(spec => (
                     <option key={spec.id} value={spec.id}>{spec.name}</option>
                   ))}
@@ -117,7 +117,7 @@ const TeamInner = () => {
             </div>
           ) : doctors.length === 0 ? (
             <p className='font-AlbertSans text-TextColor2-0 text-center text-xl'>
-              No doctor information available.
+              Không có thông tin bác sĩ.
             </p>
           ) : (
             <>
@@ -136,7 +136,7 @@ const TeamInner = () => {
                         {doctor.fullName}
                       </h5>
                       <p className='font-AlbertSans text-TextColor2-0 text-[15px] transition-all duration-500 group-hover:text-white'>
-                        {doctor.specialties?.[0]?.name || doctor.position?.[0] || 'Doctor'}
+                        {doctor.specialties?.[0]?.name || doctor.position?.[0] || 'Bác sĩ'}
                       </p>
                     </div>
                     <div className='relative overflow-hidden rounded-3xl before:absolute before:top-0 before:left-0 before:bg-gradient-to-br before:from-PrimaryColor-0 before:from-10% before:via-blue-500/0 before:to-blue-500/0 before:w-0 before:h-0 before:transition-all before:duration-500 before:z-10 group-hover:before:h-full group-hover:before:w-full'>

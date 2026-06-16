@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        AlbertSans: ['Albert Sans', 'sans-serif'],
-        DMSans: ['DM Sans', 'sans-serif'],
+        AlbertSans: ['"Open Sans"', 'sans-serif'],
+        DMSans: ['Roboto', 'sans-serif'],
       },
       colors: {
         PrimaryColor: ['#007eff'],

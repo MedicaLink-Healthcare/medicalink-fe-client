@@ -41,7 +41,7 @@ const BlogGrid = () => {
 
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('vi-VN', {
       day: '2-digit',
       month: 'long',
       year: 'numeric',
@@ -51,9 +51,9 @@ const BlogGrid = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Blog Grid'}
+        breadCrumbTitle={'Tin tức'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Blog Grid'}
+        breadCrumbLink={'Tin tức'}
       />
       <section className='py-28 bg-BodyBg-0'>
         <div className='Container'>
@@ -63,7 +63,7 @@ const BlogGrid = () => {
             </div>
           ) : blogs.length === 0 ? (
             <p className='font-AlbertSans text-TextColor2-0 text-center text-xl'>
-              Blog not found or failed to load.
+              Không có tin tức.
             </p>
           ) : (
             <>
@@ -121,7 +121,7 @@ const BlogGrid = () => {
                         <div className='inline-block mt-8 mb-5'>
                           <Link to={`/blog_details/${blog.slug}`}>
                             <button className='primary-btn !py-[11px] !px-8'>
-                              Read More
+                              Xem thêm
                               <span className='text-[22px] -rotate-45'>
                                 <GoArrowRight />
                               </span>

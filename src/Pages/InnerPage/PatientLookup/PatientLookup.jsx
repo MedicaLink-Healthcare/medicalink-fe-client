@@ -8,12 +8,12 @@ import { usePatientAppointmentsQuery } from '../../../api/hooks/appointment/useA
 import Loading from '../../../Shared/Loading/Loading';
 
 const STATUS_FILTERS = [
-  { value: 'ALL', label: 'All History' },
-  { value: 'BOOKED', label: 'Booked' },
-  { value: 'CONFIRMED', label: 'Confirmed' },
-  { value: 'COMPLETED', label: 'Completed' },
-  { value: 'RESCHEDULED', label: 'Rescheduled' },
-  { value: 'CANCELLED', label: 'Cancelled' }
+  { value: 'ALL', label: 'Tất cả' },
+  { value: 'BOOKED', label: 'Đã đặt' },
+  { value: 'CONFIRMED', label: 'Đã xác nhận' },
+  { value: 'COMPLETED', label: 'Đã hoàn thành' },
+  { value: 'RESCHEDULED', label: 'Đã đổi lịch' },
+  { value: 'CANCELLED', label: 'Đã hủy' }
 ];
 
 const getStatusBadge = (status) => {
@@ -35,8 +35,12 @@ const getStatusBadge = (status) => {
 };
 
 const formatStatusText = (status) => {
-  if (status === 'CANCELLED_BY_PATIENT' || status === 'CANCELLED_BY_STAFF') return 'CANCELLED';
-  if (status === 'NO_SHOW') return 'MISSED';
+  if (status === 'CANCELLED_BY_PATIENT' || status === 'CANCELLED_BY_STAFF') return 'ĐÃ HỦY';
+  if (status === 'NO_SHOW') return 'BỎ LỠ';
+  if (status === 'BOOKED') return 'ĐÃ ĐẶT';
+  if (status === 'CONFIRMED') return 'ĐÃ XÁC NHẬN';
+  if (status === 'COMPLETED') return 'ĐÃ HOÀN THÀNH';
+  if (status === 'RESCHEDULED') return 'ĐÃ ĐỔI LỊCH';
   return status;
 }
 
@@ -98,9 +102,9 @@ const PatientLookup = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Patient Lookup'}
+        breadCrumbTitle={'Tra Cứu Hồ Sơ'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Patient Lookup'}
+        breadCrumbLink={'Tra Cứu Hồ Sơ'}
       />
       <section className='py-24 bg-BodyBg-0'>
         <div className='Container'>
@@ -113,10 +117,10 @@ const PatientLookup = () => {
               {!patient && (
                 <div className='text-center mb-8'>
                   <h2 className='font-AlbertSans font-bold text-3xl sm:text-4xl text-HeadingColor-0 mb-3'>
-                    Find Your Medical Records
+                    Tra Cứu Hồ Sơ Bệnh Án
                   </h2>
                   <p className='font-AlbertSans text-TextColor2-0 text-lg max-w-md mx-auto'>
-                    Enter your contact details to retrieve your patient profile and appointment history.
+                    Nhập thông tin liên lạc để tra cứu hồ sơ và lịch sử khám bệnh của bạn.
                   </p>
                 </div>
               )}
@@ -125,7 +129,7 @@ const PatientLookup = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                   <div className='flex flex-col'>
                     <label className='font-AlbertSans text-sm font-bold text-HeadingColor-0 mb-2 ml-1 opacity-80 uppercase tracking-wide'>
-                      Phone Number
+                      Số Điện Thoại
                     </label>
                     <div className='relative group'>
                       <input
@@ -142,14 +146,14 @@ const PatientLookup = () => {
                   </div>
                   <div className='flex flex-col'>
                     <label className='font-AlbertSans text-sm font-bold text-HeadingColor-0 mb-2 ml-1 opacity-80 uppercase tracking-wide'>
-                      Email Address
+                      Địa Chỉ Email
                     </label>
                     <div className='relative group'>
                       <input
                         type='email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder='your.email@example.com'
+                        placeholder='email.cua.ban@example.com'
                         className='font-AlbertSans text-HeadingColor-0 placeholder:text-gray-400 font-medium bg-white/60 border-2 border-white focus:border-PrimaryColor-0 rounded-xl py-2 px-5 h-[55px] w-full focus:outline-none transition-all duration-300'
                       />
                       <div className='absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-md bg-PrimaryColor-0/10 text-PrimaryColor-0 group-focus-within:bg-PrimaryColor-0 group-focus-within:text-white transition-all'>
@@ -165,7 +169,7 @@ const PatientLookup = () => {
                     className='primary-btn h-[55px] px-12 w-full md:w-max min-w-[200px] shadow-lg shadow-PrimaryColor-0/20 active:scale-95 transition-transform'
                     disabled={isLoading}
                   >
-                    {isLoading ? 'Searching...' : 'Find Records'}
+                    {isLoading ? 'Đang tìm kiếm...' : 'Tra Cứu'}
                   </button>
                 </div>
               </form>
@@ -173,21 +177,21 @@ const PatientLookup = () => {
               {isLoading && (
                 <div className='mt-10 flex flex-col items-center justify-center py-8 gap-4'>
                   <Loading />
-                  <p className='font-AlbertSans text-PrimaryColor-0 animate-pulse text-sm'>Accessing structured databases...</p>
+                  <p className='font-AlbertSans text-PrimaryColor-0 animate-pulse text-sm'>Đang truy xuất dữ liệu...</p>
                 </div>
               )}
 
               {isError && (
                 <div className='mt-8 bg-red-50/80 border border-red-200 text-red-600 px-6 py-4 rounded-xl text-center font-AlbertSans animate-fadeIn'>
-                  <p className='font-bold mb-1'>Lookup Failed</p>
-                  <p className='text-sm'>{error?.message || 'An error occurred while searching for records.'}</p>
+                  <p className='font-bold mb-1'>Tra Cứu Thất Bại</p>
+                  <p className='text-sm'>{error?.message || 'Đã xảy ra lỗi trong quá trình tra cứu.'}</p>
                 </div>
               )}
 
               {!isLoading && !isError && searchParams && !patient && (
                 <div className='mt-8 bg-amber-50/80 border border-amber-200 text-amber-700 px-6 py-4 rounded-xl text-center font-AlbertSans animate-fadeIn'>
-                  <p className='font-bold mb-1'>No Record Found</p>
-                  <p className='text-sm'>We could not find any medical records matching the provided contact details.</p>
+                  <p className='font-bold mb-1'>Không Tìm Thấy Hồ Sơ</p>
+                  <p className='text-sm'>Chúng tôi không tìm thấy hồ sơ bệnh án nào khớp với thông tin đã cung cấp.</p>
                 </div>
               )}
             </div>
@@ -203,27 +207,27 @@ const PatientLookup = () => {
                    </div>
                    <div className='flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full text-center md:text-left'>
                       <div>
-                        <p className='text-xs uppercase tracking-wider text-gray-400 font-bold mb-1'>Legal Name</p>
+                        <p className='text-xs uppercase tracking-wider text-gray-400 font-bold mb-1'>Họ và Tên</p>
                         <p className='font-AlbertSans font-extrabold text-HeadingColor-0 text-lg truncate'>
                           {patient.fullName}
                         </p>
                       </div>
                       <div>
-                        <p className='text-xs uppercase tracking-wider text-gray-400 font-bold mb-1'>Gender</p>
+                        <p className='text-xs uppercase tracking-wider text-gray-400 font-bold mb-1'>Giới Tính</p>
                         <p className='font-AlbertSans font-bold text-HeadingColor-0 text-lg flex items-center justify-center md:justify-start gap-2'>
                           <FaIdCard className='text-PrimaryColor-0 opacity-50' size={14}/>
-                          {patient.isMale ? 'Male' : 'Female'}
+                          {patient.isMale ? 'Nam' : 'Nữ'}
                         </p>
                       </div>
                       <div>
-                        <p className='text-xs uppercase tracking-wider text-gray-400 font-bold mb-1'>Date of Birth</p>
+                        <p className='text-xs uppercase tracking-wider text-gray-400 font-bold mb-1'>Ngày Sinh</p>
                         <p className='font-AlbertSans font-bold text-HeadingColor-0 text-lg flex items-center justify-center md:justify-start gap-2'>
                           <FaCalendarDays className='text-PrimaryColor-0 opacity-50' size={14}/>
                           {patient.birthday ? new Date(patient.birthday).toLocaleDateString('en-GB') : '--/--/----'}
                         </p>
                       </div>
                       <div>
-                        <p className='text-xs uppercase tracking-wider text-gray-400 font-bold mb-1'>Phone</p>
+                        <p className='text-xs uppercase tracking-wider text-gray-400 font-bold mb-1'>Số Điện Thoại</p>
                         <p className='font-AlbertSans font-bold text-HeadingColor-0 text-lg flex items-center justify-center md:justify-start gap-2'>
                           <FaPhone className='text-PrimaryColor-0 opacity-50' size={14} />
                           {patient.phone}
@@ -236,7 +240,7 @@ const PatientLookup = () => {
                 <div className='flex flex-col sm:flex-row items-center justify-between mb-6'>
                   <h3 className='font-AlbertSans font-extrabold text-2xl text-HeadingColor-0 flex items-center gap-3'>
                     <FaClock className='text-PrimaryColor-0' />
-                    Appointment History
+                    Lịch Sử Đặt Lịch
                   </h3>
                   <div className='mt-4 sm:mt-0 bg-white shadow-sm border border-gray-100 rounded-lg p-1 flex overflow-x-auto w-full sm:w-max hide-scroll'>
                     {STATUS_FILTERS.map(filter => (
@@ -261,18 +265,18 @@ const PatientLookup = () => {
                   {isLoadingAppointments ? (
                      <div className='absolute inset-0 bg-white/70 backdrop-blur-sm z-10 flex flex-col items-center justify-center'>
                         <Loading />
-                        <span className='mt-4 font-AlbertSans text-sm text-gray-500 font-medium'>Syncing history...</span>
+                        <span className='mt-4 font-AlbertSans text-sm text-gray-500 font-medium'>Đang đồng bộ...</span>
                      </div>
                   ) : appointments.length === 0 ? (
                     <div className='flex flex-col items-center justify-center h-full text-center py-16 opacity-70'>
                       <div className='size-20 rounded-full bg-blue-50 flex items-center justify-center mb-4'>
                         <FaCalendarDays className='text-blue-200 text-3xl' />
                       </div>
-                      <p className='font-AlbertSans font-bold text-lg text-HeadingColor-0'>No Appointments Found</p>
+                      <p className='font-AlbertSans font-bold text-lg text-HeadingColor-0'>Không Có Lịch Khám</p>
                       <p className='font-DMSans text-TextColor-0 max-w-sm mt-1'>
                         {activeFilter === 'ALL'
-                          ? "You haven't booked any appointments yet."
-                          : `You don't have any appointments marked as ${activeFilter.toLowerCase()}.`}
+                          ? "Bạn chưa đặt bất kỳ lịch khám nào."
+                          : `Bạn không có lịch khám nào ở trạng thái này.`}
                       </p>
                     </div>
                   ) : (
@@ -283,7 +287,7 @@ const PatientLookup = () => {
                             {/* DATE BLOCK */}
                             <div className='flex shrink-0 w-full lg:w-40 border-b lg:border-b-0 lg:border-r border-gray-200 pb-4 lg:pb-0'>
                               <div className='flex flex-col text-left'>
-                                <span className='text-xs uppercase tracking-widest text-gray-400 font-bold mb-1'>Date & Time</span>
+                                <span className='text-xs uppercase tracking-widest text-gray-400 font-bold mb-1'>Ngày & Giờ</span>
                                 <span className='font-AlbertSans font-bold text-HeadingColor-0 text-lg'>
                                   {appt.event?.serviceDate ? new Date(appt.event.serviceDate).toLocaleDateString('en-GB') : '--'}
                                 </span>
@@ -305,8 +309,8 @@ const PatientLookup = () => {
                                      )}
                                   </div>
                                   <div className='flex flex-col'>
-                                     <span className='font-AlbertSans font-bold text-HeadingColor-0'>{appt.doctor?.fullName || 'Assigned Specialist'}</span>
-                                     <span className='font-DMSans text-sm text-gray-500'>{appt.specialty?.name || 'General Checkup'}</span>
+                                     <span className='font-AlbertSans font-bold text-HeadingColor-0'>{appt.doctor?.fullName || 'Bác sĩ chỉ định'}</span>
+                                     <span className='font-DMSans text-sm text-gray-500'>{appt.specialty?.name || 'Khám tổng quát'}</span>
                                   </div>
                                </div>
 
@@ -316,7 +320,7 @@ const PatientLookup = () => {
                                   </div>
                                   <div className='flex flex-col'>
                                      <span className='font-AlbertSans font-bold text-HeadingColor-0 truncate max-w-[200px]'>
-                                       {appt.location?.name || 'Main Medical Center'}
+                                       {appt.location?.name || 'Trung tâm Y tế'}
                                      </span>
                                      <span className='font-DMSans text-sm text-gray-500 flex items-center gap-1 mt-0.5'>
                                        <FaLocationDot size={12} className='opacity-60'/>

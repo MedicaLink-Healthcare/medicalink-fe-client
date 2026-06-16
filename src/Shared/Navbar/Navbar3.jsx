@@ -232,7 +232,7 @@ const Navbar3 = () => {
           <div className='main-menu-mobile lg:none'></div>
           <div className='offcanvas_contact-info'>
             <div className='offcanvas_contact-title'>
-              <h5>Contact Us</h5>
+              <h5>Liên h?</h5>
             </div>
             <ul>
               <li>
@@ -261,7 +261,7 @@ const Navbar3 = () => {
                 <input
                   type='email'
                   name='email'
-                  placeholder='Enter E-Mail'
+                  placeholder='Nhập Email'
                   required
                 />
                 <button type='submit'>
@@ -371,7 +371,7 @@ const Navbar3 = () => {
                       </ul> */}
                     </li>
                     <li>
-                      <Link to={'/about'}>About</Link>
+                      <Link to={'/about'}>Giới thiệu</Link>
                     </li>
                     <li className='has-dropdown'>
                       <Link to={'/'}>Pages</Link>
@@ -407,7 +407,7 @@ const Navbar3 = () => {
                           <Link to={'/community-qa'}>Q&A</Link>
                         </li>
                         <li>
-                          <Link to={'/contact'}>Contact Us</Link>
+                          <Link to={'/contact'}>Liên h?</Link>
                         </li>
                       </ul>
                     </li>
@@ -423,7 +423,7 @@ const Navbar3 = () => {
                       </ul>
                     </li>
                     <li className='has-dropdown'>
-                      <Link to={'/'}>Blog</Link>
+                      <Link to={'/'}>Tin tức</Link>
                       <ul className='submenu'>
                         <li>
                           <Link to={'/blog_grid'}>blog grid</Link>
@@ -444,7 +444,7 @@ const Navbar3 = () => {
                       </ul>
                     </li>
                     <li>
-                      <Link to={'/contact'}>Contact</Link>
+                      <Link to={'/contact'}>Liên hệ</Link>
                     </li>
                   </ul>
                 </nav>
@@ -459,7 +459,7 @@ const Navbar3 = () => {
                 </div>
                 <div className='header-btn hidden lg:block'>
                   <Link to={'/appointment'}>
-                    get Appointment<span></span>
+                    Đặt lịch khám<span></span>
                     <span></span>
                     <span></span>
                     <span></span>
@@ -594,7 +594,7 @@ const Navbar3 = () => {
                   <input
                     type='email'
                     name='email'
-                    placeholder='Enter E-Mail'
+                    placeholder='Nhập Email'
                     required
                   />
                   <button type='submit'>
@@ -652,7 +652,7 @@ const Navbar3 = () => {
               <input
                 type='search'
                 name='search-field'
-                placeholder='Search Here'
+                placeholder='Tìm kiếm'
                 required
                 ref={searchInputRef}
               />

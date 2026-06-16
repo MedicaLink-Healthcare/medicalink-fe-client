@@ -45,9 +45,9 @@ const ServiceInner = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Our Services'}
+        breadCrumbTitle={'Danh sách chuyên khoa'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Our Services'}
+        breadCrumbLink={'Danh sách chuyên khoa'}
       />
       <section className='pt-[120px] relative z-10 bg-BodyBg-0'>
         <div className='Container'>
@@ -57,7 +57,7 @@ const ServiceInner = () => {
             </div>
           ) : specialties.length === 0 ? (
             <p className='font-AlbertSans text-TextColor2-0 text-center text-xl pb-10'>
-              No services available.
+              Không có chuyên khoa nào.
             </p>
           ) : (
             <>
@@ -72,7 +72,7 @@ const ServiceInner = () => {
                       serviceIcon={specialty.iconUrl || '/images/srvce-icn.png'}
                       serviceIcon2={specialty.iconUrl || '/images/srvce-icn-1.png'}
                       serviceUrl={`/service_details/${specialty.slug}`}
-                      serviceButton='Read More'
+                      serviceButton='Xem thêm'
                       serviceTitle={specialty.name}
                       serviceDesc={
                         specialty.description

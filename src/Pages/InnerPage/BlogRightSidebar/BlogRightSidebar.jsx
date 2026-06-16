@@ -1,27 +1,24 @@
 import { Link } from 'react-router-dom';
 import BreadCrumb from '../../../Shared/BreadCrumb/BreadCrumb';
 import {
-  FaArrowRight,
   FaArrowRightLong,
   FaRegFolderOpen,
 } from 'react-icons/fa6';
-import { MdEmail } from 'react-icons/md';
-import callIcon from '/images/call3..png';
-import { IoSearch } from 'react-icons/io5';
+// import { IoSearch } from 'react-icons/io5';
 // import Subscribe from '../../../Component1/Subscribe/Subscribe';
 import { GoArrowRight } from 'react-icons/go';
 import BlogSidebarCard from './BlogSidebarCard';
 import { useBlogsQuery, useBlogCategoriesQuery } from '../../../api/hooks/blog/useBlogQueries';
 import Loading from '../../../Shared/Loading/Loading';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { GoArrowDown, GoArrowUp } from 'react-icons/go';
 
 
 
 const BlogRightSidebar = () => {
-  const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
+  // const navigate = useNavigate();
+  // const [searchTerm, setSearchTerm] = useState('');
   const [showAllCategories, setShowAllCategories] = useState(false);
 
   const { data: blogResponse, isLoading: isBlogsLoading } = useBlogsQuery({
@@ -41,12 +38,12 @@ const BlogRightSidebar = () => {
     : categoriesPayload?.data ?? [];
   const categories = showAllCategories ? allCategories : allCategories.slice(0, 10);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/blog_grid?search=${encodeURIComponent(searchTerm.trim())}`);
-    }
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   if (searchTerm.trim()) {
+  //     navigate(`/blog_grid?search=${encodeURIComponent(searchTerm.trim())}`);
+  //   }
+  // };
 
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
@@ -60,9 +57,9 @@ const BlogRightSidebar = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Blog Right Sidebar'}
+        breadCrumbTitle={'Danh sách bài viết'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Blog Right Sidebar'}
+        breadCrumbLink={'Danh sách bài viết'}
       />
       <section className='py-[120px] bg-BodyBg-0'>
         <div className='Container'>
@@ -74,7 +71,7 @@ const BlogRightSidebar = () => {
                 </div>
               ) : blogs.length === 0 ? (
                 <p className='font-AlbertSans text-TextColor2-0 text-center text-xl'>
-                  No blogs found.
+                  Không tìm thấy bài viết.
                 </p>
               ) : (
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center gap-7'>
@@ -90,7 +87,7 @@ const BlogRightSidebar = () => {
                         blogPostBy={blog.authorName || 'Admin'}
                         blogUrl={`/blog_details/${blog.slug}`}
                         blogTitle={blog.title}
-                        blogGridContent='Read More'
+                        blogGridContent='Xem thêm'
                         blogGridIcon={<GoArrowRight />}
                       />
                     </div>
@@ -99,7 +96,7 @@ const BlogRightSidebar = () => {
               )}
             </div>
             <div className='col-span-3 lg:col-span-1'>
-              <div
+              {/* <div
                 className='rounded-2xl px-4 sm:px-7 lg:px-4 xl:px-7 pt-7 pb-9 overflow-hidden bg-white bg-opacity-20 border-2 border-white border-opacity-80 mb-7'
                 data-aos='fade-up'
                 data-aos-duration='1000'
@@ -112,7 +109,7 @@ const BlogRightSidebar = () => {
                     type='text'
                     name='search'
                     id='search'
-                    placeholder='Search here...'
+                    placeholder='Tìm kiếm...'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className='w-full h-[60px] p-6 bg-white bg-opacity-30 border-2 border-white border-opacity-80 rounded-full font-AlbertSans focus:outline-PrimaryColor-0'
@@ -124,14 +121,14 @@ const BlogRightSidebar = () => {
                     <IoSearch />
                   </button>
                 </form>
-              </div>
+              </div> */}
               <div
                 className='rounded-2xl px-4 sm:px-7 lg:px-4 xl:px-7 pt-7 pb-6 overflow-hidden bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-7'
                 data-aos='fade-up'
                 data-aos-duration='1000'
               >
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
-                  Categories
+                  Chuyên mục
                 </h4>
                 <ul className='mt-8'>
                   {categories.map((cat) => (
@@ -155,18 +152,18 @@ const BlogRightSidebar = () => {
                       >
                         {showAllCategories ? (
                           <>
-                            Show Less <GoArrowUp size={18} />
+                            Ẩn bớt <GoArrowUp size={18} />
                           </>
                         ) : (
                           <>
-                            Show More ({allCategories.length - 10} more) <GoArrowDown size={18} />
+                            Xem thêm ({allCategories.length - 10}) <GoArrowDown size={18} />
                           </>
                         )}
                       </button>
                     </div>
                   )}
                   {allCategories.length === 0 && (
-                    <p className='text-TextColor2-0 italic text-sm text-center'>No categories found</p>
+                    <p className='text-TextColor2-0 italic text-sm text-center'>Không tìm thấy chuyên mục.</p>
                   )}
                 </ul>
               </div>
@@ -176,7 +173,7 @@ const BlogRightSidebar = () => {
                 data-aos-duration='1000'
               >
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
-                  Popular Post
+                  Bài viết phổ biến
                 </h4>
                 {popularPosts.map((post) => (
                   <Link key={post.id} to={`/blog_details/${post.slug}`}>
@@ -205,7 +202,7 @@ const BlogRightSidebar = () => {
                   </Link>
                 ))}
                 {popularPosts.length === 0 && (
-                  <p className='text-TextColor2-0 italic text-sm text-center'>No popular posts found</p>
+                  <p className='text-TextColor2-0 italic text-sm text-center'>Không tìm thấy bài viết phổ biến</p>
                 )}
               </div>
               <div
@@ -214,54 +211,40 @@ const BlogRightSidebar = () => {
                 data-aos-duration='1000'
               >
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
-                  Tags
+                  Danh mục bài viết
                 </h4>
                 <ul className='inline-block'>
                   <li className='inline-block mr-[10px] mb-[10px]'>
                     <Link to={'/'}>
                       <button className='bg-white bg-opacity-20 border-2 border-white border-opacity-80 rounded flex items-center justify-center text-HeadingColor-0 transition-all duration-500 font-medium px-5 py-2 font-AlbertSans text-sm relative z-[1] before:absolute before:top-0 before:left-0 before:rounded before:w-full before:h-full before:bg-PrimaryColor-0 before:transition-all before:duration-500 before:scale-0 before:-z-[1] hover:before:scale-100 hover:text-white'>
-                        Medical Care
+                        Nha khoa
                       </button>
                     </Link>
                   </li>
                   <li className='inline-block mr-[10px] mb-[10px]'>
                     <Link to={'/'}>
                       <button className='bg-white bg-opacity-20 border-2 border-white border-opacity-80 rounded flex items-center justify-center text-HeadingColor-0 transition-all duration-500 font-medium px-5 py-2 font-AlbertSans text-sm relative z-[1] before:absolute before:top-0 before:left-0 before:rounded before:w-full before:h-full before:bg-PrimaryColor-0 before:transition-all before:duration-500 before:scale-0 before:-z-[1] hover:before:scale-100 hover:text-white'>
-                        Dentist
+                        Phòng khám
                       </button>
                     </Link>
                   </li>
                   <li className='inline-block mr-[10px] mb-[10px]'>
                     <Link to={'/'}>
                       <button className='bg-white bg-opacity-20 border-2 border-white border-opacity-80 rounded flex items-center justify-center text-HeadingColor-0 transition-all duration-500 font-medium px-5 py-2 font-AlbertSans text-sm relative z-[1] before:absolute before:top-0 before:left-0 before:rounded before:w-full before:h-full before:bg-PrimaryColor-0 before:transition-all before:duration-500 before:scale-0 before:-z-[1] hover:before:scale-100 hover:text-white'>
-                        Psychologist
+                        Thuốc
                       </button>
                     </Link>
                   </li>
                   <li className='inline-block mr-[10px] mb-[10px]'>
                     <Link to={'/'}>
                       <button className='bg-white bg-opacity-20 border-2 border-white border-opacity-80 rounded flex items-center justify-center text-HeadingColor-0 transition-all duration-500 font-medium px-5 py-2 font-AlbertSans text-sm relative z-[1] before:absolute before:top-0 before:left-0 before:rounded before:w-full before:h-full before:bg-PrimaryColor-0 before:transition-all before:duration-500 before:scale-0 before:-z-[1] hover:before:scale-100 hover:text-white'>
-                        Health Care
-                      </button>
-                    </Link>
-                  </li>
-                  <li className='inline-block mr-[10px] mb-[10px]'>
-                    <Link to={'/'}>
-                      <button className='bg-white bg-opacity-20 border-2 border-white border-opacity-80 rounded flex items-center justify-center text-HeadingColor-0 transition-all duration-500 font-medium px-5 py-2 font-AlbertSans text-sm relative z-[1] before:absolute before:top-0 before:left-0 before:rounded before:w-full before:h-full before:bg-PrimaryColor-0 before:transition-all before:duration-500 before:scale-0 before:-z-[1] hover:before:scale-100 hover:text-white'>
-                        Medicine
-                      </button>
-                    </Link>
-                  </li>
-                  <li className='inline-block mr-[10px] mb-[10px]'>
-                    <Link to={'/'}>
-                      <button className='bg-white bg-opacity-20 border-2 border-white border-opacity-80 rounded flex items-center justify-center text-HeadingColor-0 transition-all duration-500 font-medium px-5 py-2 font-AlbertSans text-sm relative z-[1] before:absolute before:top-0 before:left-0 before:rounded before:w-full before:h-full before:bg-PrimaryColor-0 before:transition-all before:duration-500 before:scale-0 before:-z-[1] hover:before:scale-100 hover:text-white'>
-                        Therapist
+                        Phục hồi chức năng
                       </button>
                     </Link>
                   </li>
                 </ul>
               </div>
-              <div
+              {/* <div
                 className="rounded-2xl px-4 sm:px-9 lg:px-4 xl:px-9 overflow-hidden bg-[url('/images/company-bg.png')] bg-cover bg-no-repeat bg-center py-[50px]"
                 data-aos='fade-up'
                 data-aos-duration='1000'
@@ -288,11 +271,11 @@ const BlogRightSidebar = () => {
                 </Link>
                 <Link to={'/contact'}>
                   <button className='font-AlbertSans text-white flex gap-2 items-center bg-PrimaryColor-0 w-full h-[58px] rounded-md justify-center z-10 relative before:absolute before:top-0 before:right-0 before:scale-0 before:-z-10 before:w-full before:h-full before:bg-SecondaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:scale-100 hover:text-white'>
-                    Contact Us
+                    Liên hệ
                     <FaArrowRight />
                   </button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

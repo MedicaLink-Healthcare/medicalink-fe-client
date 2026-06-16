@@ -31,7 +31,7 @@ const Footer = () => {
               </Link>
             </div>
             <p className='font-AlbertSans xl:text-lg 2xl:text-xl font-medium text-white mt-[52px] mb-7'>
-              Completely promote interdependent systems for{' '}
+              Thúc đẩy hệ thống phụ thuộc lẫn nhau cho{' '}
               <br className='hidden sm:block' /> Latest update news this
               Medical.
             </p>
@@ -48,7 +48,7 @@ const Footer = () => {
                   type='email'
                   name='email'
                   id='email'
-                  placeholder='Enter Your E-Mail*'
+                  placeholder='Nhập Email của bạn*'
                   required
                   className='w-full h-[54px] outline-none text-lg font-DMSans border-b-2 border-BorderColor2-0 bg-transparent py-3 text-white placeholder:text-TextColor-0 mb-4'
                 />
@@ -71,7 +71,7 @@ const Footer = () => {
                   name='checkbox'
                   className='mr-2'
                 />
-                Agree Terms & Conditions
+                Đồng ý Điều khoản & Điều kiện
               </label>
             </form>
           </div>
@@ -252,7 +252,7 @@ const Footer = () => {
           </div>
           <div>
             <p className='font-DMSans flex items-center text-TextColor-0'>
-              Medicalink © 2026 - All Rights Reserved
+              Medicalink © 2026 - Đã đăng ký bản quyền
             </p>
           </div>
         </div>

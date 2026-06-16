@@ -14,14 +14,27 @@ const staticSlides = [
     id: 's1',
     testiQuote,
     rating: 5,
-    testiDesc: `Commerce end interfaces with collaborative growth
-                strategies wireless recaptiualize one-to-one
-                potentialities through client-focused medicalink of
-                web-readiness. Appropriately enhance seamless
-                alignments after team solutions forward growth for
-                corporate web-readiness.`,
-    testiName: 'Jisan Khan',
-    testiDesignation: 'Satisfied Patient',
+    testiDesc: `Tôi rất hài lòng với chất lượng dịch vụ tại Bệnh viện Đa khoa Quốc tế Vinmec. Từ khâu đăng ký khám, quá trình xét nghiệm đến tư vấn điều trị đều diễn ra nhanh chóng, chuyên nghiệp và chu đáo. Đội ngũ y bác sĩ tận tâm, giàu kinh nghiệm cùng hệ thống trang thiết bị hiện đại giúp tôi hoàn toàn yên tâm khi chăm sóc sức khỏe tại đây.`,
+    testiName: 'Bệnh viện Đa khoa Quốc tế Vinmec',
+    testiDesignation: 'Hệ thống y tế',
+    testiProfile: testiProfileFallback,
+  },
+  {
+    id: 's2',
+    testiQuote,
+    rating: 5,
+    testiDesc: `Tôi rất hài lòng với chất lượng dịch vụ tại Bệnh viện Đa khoa Quốc tế Vinmec. Từ khâu đăng ký khám, quá trình xét nghiệm đến tư vấn điều trị đều diễn ra nhanh chóng, chuyên nghiệp và chu đáo. Đội ngũ y bác sĩ tận tâm, giàu kinh nghiệm cùng hệ thống trang thiết bị hiện đại giúp tôi hoàn toàn yên tâm khi chăm sóc sức khỏe tại đây.`,
+    testiName: 'Bệnh viện Đa khoa Quốc tế Vinmec',
+    testiDesignation: 'Hệ thống y tế',
+    testiProfile: testiProfileFallback,
+  },
+  {
+    id: 's3',
+    testiQuote,
+    rating: 5,
+    testiDesc: `Tôi rất hài lòng với chất lượng dịch vụ tại Bệnh viện Đa khoa Quốc tế Vinmec. Từ khâu đăng ký khám, quá trình xét nghiệm đến tư vấn điều trị đều diễn ra nhanh chóng, chuyên nghiệp và chu đáo. Đội ngũ y bác sĩ tận tâm, giàu kinh nghiệm cùng hệ thống trang thiết bị hiện đại giúp tôi hoàn toàn yên tâm khi chăm sóc sức khỏe tại đây.`,
+    testiName: 'Bệnh viện Đa khoa Quốc tế Vinmec',
+    testiDesignation: 'Hệ thống y tế',
     testiProfile: testiProfileFallback,
   },
 ];
@@ -82,15 +95,13 @@ const Testimonial = () => {
             >
               <div>
                 <h5 className='font-AlbertSans font-medium text-sm sm:text-base text-PrimaryColor-0 uppercase mb-4'>
-                  Our Testimonial
+                  Đánh giá của bệnh nhân
                 </h5>
                 <h1 className='font-AlbertSans font-bold capitalize text-HeadingColor-0 text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[42px] lg:leading-[52px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-                  Our Happy Patients
+                  Bệnh nhân hài lòng
                 </h1>
                 <p className='font-DMSans text-TextColor2-0 mt-4 mb-9'>
-                  Professional without enterprisee-commerce. Uniquely happy
-                  clinets <br className='lg:hidden xl:block' />
-                  innovative technologies via team member.
+                  Cam kết mang đến trải nghiệm chăm sóc sức khỏe toàn diện, chuyên nghiệp với đội ngũ y bác sĩ tận tâm và công nghệ tiên tiến.
                 </p>
               </div>
               <div>
@@ -101,7 +112,7 @@ const Testimonial = () => {
                 )}
                 {isError && !isLoading && (
                   <p className='text-TextColor2-0 font-DMSans pb-4'>
-                    Failed to load testimonials. Displaying fallback content.
+                    Không tải được đánh giá. Hiển thị nội dung dự phòng.
                   </p>
                 )}
                 {!isLoading && (

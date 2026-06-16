@@ -1,6 +1,5 @@
 import bannerThumb from '/images/hero-img.png';
 import bannerHeart from '/images/banner-heart.png';
-import bannerTeam from '/images/team-img.png';
 import bannerCheck from '/images/tick.png';
 import bannerPlus from '/images/plus.png';
 import bannerShape from '/images/banner-arrow.png';
@@ -20,7 +19,7 @@ const Banner = () => {
         <div className='absolute top-1/2 -translate-y-1/2 -left-14 xl:-left-10 hidden md:block'>
           <Link to={'/'}>
             <button className='font-AlbertSans font-medium inline-block text-lg text-white rotate-90 relative before:absolute before:-left-[72px] before:-bottom-[35px] before:rotate-90 before:w-[2px] before:h-[100px] before:bg-[linear-gradient(_180deg,_rgba(255,_255,_255,_0.9999999999999999)_0%,_rgba(27,_31,_73,_0)_100%_)]'>
-              +980 123 (4567) 890
+              1900 1234
             </button>
           </Link>
         </div>
@@ -34,14 +33,14 @@ const Banner = () => {
                   className='animate-rotational'
                 />
               </div>
-              <div className='flex items-center justify-center sm:gap-5'>
-                <h1 className='font-AlbertSans font-extrabold text-3xl sm:text-5xl md:text-[70px] xl:text-[110px] text-white uppercase'>
-                  HealthCare
+              <div className='flex items-center justify-center gap-3 sm:gap-6'>
+                <h1 className='font-AlbertSans font-extrabold text-4xl sm:text-5xl md:text-[80px] xl:text-[120px] text-white uppercase tracking-wide drop-shadow-sm'>
+                  Chăm sóc
                 </h1>
                 <img
                   src={bannerHeart}
                   draggable='false'
-                  className='animate-rotateX w-10 sm:w-[inherit]'
+                  className='animate-rotateX w-10 sm:w-16 md:w-auto object-contain'
                 />
               </div>
               <div className='absolute z-10 left-1/2 -translate-x-1/2 -top-28 hidden lg:block'>
@@ -51,18 +50,9 @@ const Banner = () => {
                   className='max-w-[inherit]'
                 />
               </div>
-              <div className='flex items-center justify-center gap-6 w-full relative z-20 lg:mt-8 2xl:mt-5'>
-                <div className='bg-white bg-opacity-20 backdrop-filter filter-blur-[5px] backdrop-blur-lg hidden sm:flex items-center gap-[15px] rounded-full py-[14px] px-5'>
-                  <img
-                    src={bannerTeam}
-                    draggable='false'
-                  />
-                  <h5 className='font-AlbertSans font-semibold text-white text-lg uppercase'>
-                    Memebers
-                  </h5>
-                </div>
-                <h1 className='font-AlbertSans font-extrabold text-3xl sm:text-5xl md:text-[70px] xl:text-[110px] text-white uppercase'>
-                  Doctors
+              <div className='flex items-center justify-center gap-4 sm:gap-8 w-full relative z-20 mt-4 lg:mt-8 2xl:mt-5'>
+                <h1 className='font-AlbertSans font-extrabold text-4xl sm:text-5xl md:text-[80px] xl:text-[120px] text-white uppercase tracking-wide drop-shadow-sm'>
+                  Sức khỏe
                 </h1>
               </div>
             </div>
@@ -75,19 +65,18 @@ const Banner = () => {
                   />
                 </div>
                 <div className='flex-1'>
-                  <h5 className='font-AlbertSans font-semibold text-2xl text-white'>
-                    Best Medical
+                  <h5 className='font-AlbertSans font-semibold text-2xl text-white tracking-wide'>
+                    Dịch Vụ Y Tế
                   </h5>
-                  <p className='font-DMSans text-TextColor-0 lg:text-white xl:text-TextColor-0 mt-[6px]'>
-                    Rapidiously reinvent long-term{' '}
-                    <br className='hidden sm:block' /> impact collaboration
+                  <p className='font-AlbertSans text-TextColor-0 lg:text-white xl:text-TextColor-0 mt-[6px] text-sm md:text-base leading-relaxed'>
+                    Nền tảng đặt lịch khám và <br className='hidden sm:block' /> tư vấn trực tuyến hàng đầu
                   </p>
                 </div>
               </div>
               <div>
                 <Link to={'/appointment'}>
                   <button className='primary-btn'>
-                    Free Consultation
+                    Đặt Lịch Ngay
                     <GoArrowRight
                       size={'22'}
                       className='-rotate-45'

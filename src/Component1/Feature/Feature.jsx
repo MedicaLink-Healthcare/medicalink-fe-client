@@ -28,7 +28,7 @@ const Feature = () => {
             <span className='absolute bg-PrimaryColor-0 left-[87.5%] top-0 h-full w-0 transition-all duration-500 -z-10 group-hover:w-[25%] group-hover:left-[75%]'></span>
             <div className='flex justify-between items-center border-b-2 border-white pb-[30px] mb-10'>
               <h5 className='font-AlbertSans font-semibold text-[22px] 2xl:text-[25px] text-HeadingColor-0 transition-all duration-500 group-hover:text-white'>
-                Our Professionals
+                Đội Ngũ Chuyên Gia
               </h5>
               <Link to={'/'}>
                 <button className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white'>
@@ -46,11 +46,11 @@ const Feature = () => {
             <h4 className='font-AlbertSans font-semibold text-[30px] text-HeadingColor-0 mt-7 flex items-center gap-2 justify-center transition-all duration-500 group-hover:text-white'>
               100+{' '}
               <span className='font-AlbertSans font-semibold text-lg text-PrimaryColor-0 transition-all duration-500 group-hover:text-white'>
-                Doctors
+                Bác Sĩ
               </span>
             </h4>
             <p className='font-DMSans text-TextColor-0 transition-all duration-500 group-hover:text-white mt-2'>
-              Rapidiously reinvent long-term impact collaboration
+              Cam kết mang lại sức khỏe và hạnh phúc dài lâu
             </p>
           </div>
           <div
@@ -64,11 +64,11 @@ const Feature = () => {
             <span className='absolute bg-PrimaryColor-0 left-[87.5%] top-0 h-full w-0 transition-all duration-500 -z-10 group-hover:w-[25%] group-hover:left-[75%]'></span>
             <div className='flex justify-between items-center border-b-2 border-white pb-[27px] mb-10'>
               <h5 className='font-AlbertSans font-semibold text-[22px] 2xl:text-[25px] text-HeadingColor-0 transition-all duration-500 group-hover:text-white'>
-                Appointments
+                Lịch Khám
               </h5>
               <Link to={'/'}>
                 <button className='text-white text-sm transition-all duration-500 px-5 xl:px-[30px] py-2 rounded-3xl bg-PrimaryColor-0 font-AlbertSans uppercase group-hover:text-PrimaryColor-0 group-hover:bg-white'>
-                  Booking
+                  Đặt Lịch
                 </button>
               </Link>
             </div>
@@ -85,7 +85,7 @@ const Feature = () => {
               </button>
             </Link>
             <p className='font-DMSans text-TextColor-0 transition-all duration-500 group-hover:text-white mt-[14px]'>
-              Rapidiously reinvent long-term impact collaboration
+              Cam kết mang lại sức khỏe và hạnh phúc dài lâu
             </p>
           </div>
           <div
@@ -99,7 +99,7 @@ const Feature = () => {
             <span className='absolute bg-PrimaryColor-0 left-[87.5%] top-0 h-full w-0 transition-all duration-500 -z-10 group-hover:w-[25%] group-hover:left-[75%]'></span>
             <div className='flex justify-between items-center border-b-2 border-white pb-[30px] mb-10'>
               <h5 className='font-AlbertSans font-semibold text-[22px] 2xl:text-[25px] text-HeadingColor-0 transition-all duration-500 group-hover:text-white'>
-                Locations
+                Địa Điểm
               </h5>
               <Link to={'/'}>
                 <button className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white'>
@@ -115,11 +115,11 @@ const Feature = () => {
               />
             </div>
             <p className='font-DMSans text-TextColor-0 transition-all duration-500 group-hover:text-white mt-2 mb-5'>
-              Rapidiously reinvent long-term impact collaboration
+              Cam kết mang lại sức khỏe và hạnh phúc dài lâu
             </p>
             <Link to={'/'}>
               <button className='text-white text-sm transition-all duration-500 px-[30px] py-2 rounded-3xl bg-PrimaryColor-0 font-AlbertSans uppercase group-hover:text-PrimaryColor-0 group-hover:bg-white'>
-                Booking
+                Đặt Lịch
               </button>
             </Link>
           </div>

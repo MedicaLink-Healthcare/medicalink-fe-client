@@ -49,15 +49,13 @@ const About = () => {
             data-aos-duration='1000'
           >
             <h5 className='font-AlbertSans font-medium text-sm sm:text-base text-PrimaryColor-0 uppercase mb-4'>
-              About Company
+              Về chúng tôi
             </h5>
             <h1 className='font-AlbertSans font-bold capitalize text-HeadingColor-0 text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[42px] lg:leading-[52px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-              Best Health Center <br /> Since - 2007
+              Chuyên khoa hàng đầu
             </h1>
             <p className='font-DMSans text-TextColor2-0 mt-4 mb-8'>
-              Continually evolve professional intellectual capital without
-              enterprise users. Seamlessly matrix value added e-commerce.
-              Uniquely e-enable innovative technologies via team
+              Phát triển không ngừng vốn trí tuệ chuyên môn. Ma trận liền mạch thương mại điện tử giá trị gia tăng. Công nghệ độc đáo, tạo điều kiện thuận lợi cho các công nghệ sáng tạo thông qua nhóm
             </p>
             <div className='grid grid-cols-1 sm:grid-cols-2 items-center gap-[30px]'>
               <div className='group px-4 sm:px-10 lg:px-5 xl:px-8 2xl:px-10 pt-9 pb-[26px] bg-PrimaryColor-0 rounded-2xl relative z-10 overflow-hidden'>
@@ -75,7 +73,7 @@ const About = () => {
                   />
                 </div>
                 <h5 className='font-AlbertSans font-semibold text-white text-[22px] pt-4'>
-                  Latest Equipments
+                  Thiết bị hiện đại
                 </h5>
               </div>
               <div className='group px-4 sm:px-10 lg:px-5 xl:px-8 2xl:px-10 pt-9 pb-[26px] bg-Secondarycolor-0 rounded-2xl relative z-10 overflow-hidden'>
@@ -93,7 +91,7 @@ const About = () => {
                   />
                 </div>
                 <h5 className='font-AlbertSans font-semibold text-white text-[22px] pt-4'>
-                  Patient Satisfaction
+                  Hài lòng của bệnh nhân
                 </h5>
               </div>
             </div>

@@ -19,7 +19,7 @@ const ServiceData = [
     serviceDesc:
       'Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development',
     serviceUrl: '/',
-    btnContent: 'Read More',
+    btnContent: 'Xem thêm',
     btnIcon: btnIcon,
   },
   {
@@ -31,7 +31,7 @@ const ServiceData = [
     serviceDesc:
       'Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development',
     serviceUrl: '/',
-    btnContent: 'Read More',
+    btnContent: 'Xem thêm',
     btnIcon: btnIcon,
   },
   {
@@ -43,7 +43,7 @@ const ServiceData = [
     serviceDesc:
       'Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development',
     serviceUrl: '/',
-    btnContent: 'Read More',
+    btnContent: 'Xem thêm',
     btnIcon: btnIcon,
   },
   {
@@ -55,7 +55,7 @@ const ServiceData = [
     serviceDesc:
       'Evolve professional intellectual capital from without enterprise user seamlessl prox value added e-commerce medical creams need and clean development',
     serviceUrl: '/',
-    btnContent: 'Read More',
+    btnContent: 'Xem thêm',
     btnIcon: btnIcon,
   },
 ];

@@ -40,9 +40,9 @@ const TestimonialInner = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Testimonial'}
+        breadCrumbTitle={'Đánh giá'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Testimonial'}
+        breadCrumbLink={'Đánh giá'}
       />
       <section
         className='py-28 bg-BodyBg-0 relative z-10 overflow-hidden'
@@ -58,12 +58,12 @@ const TestimonialInner = () => {
           {isError && (
             <p className='text-center text-red-600 font-DMSans'>
               {error?.message ||
-                'Failed to load testimonials. Please try again later.'}
+                'Không tải được đánh giá. Vui lòng thử lại sau.'}
             </p>
           )}
           {!isLoading && !isError && list.length === 0 && (
             <p className='text-center font-AlbertSans text-TextColor2-0 text-lg'>
-              No testimonials yet.
+              Hiện chưa có đánh giá nào.
             </p>
           )}
           {!isLoading && !isError && list.length > 0 && (
@@ -89,7 +89,7 @@ const TestimonialInner = () => {
                           {t.authorName}
                         </h5>
                         <p className='font-AlbertSans text-TextColor2-0'>
-                          {t.authorTitle || 'Patient'}
+                          {t.authorTitle || 'Bệnh nhân'}
                         </p>
                       </div>
                     </div>
@@ -133,7 +133,7 @@ const TestimonialInner = () => {
                   <TestimonialInnerCard
                     testiImg={t.authorAvatar || '/images/people2.png'}
                     testiName={t.authorName}
-                    testiDesignation={t.authorTitle || 'Patient'}
+                    testiDesignation={t.authorTitle || 'Bệnh nhân'}
                     testiDesc={t.content}
                     testiQuote={testiQuote}
                     rating={t.rating ?? 5}

@@ -17,7 +17,7 @@ const BreadCrumb = ({
           <ul className='flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-center mt-[22px]'>
             <li>
               <Link to={'/'}>
-                <button className='font-AlbertSans text-white transition-all duration-500 hover:text-PrimaryColor-0 uppercase'>
+                <button className='font-AlbertSans font-semibold text-white transition-all duration-500 hover:text-PrimaryColor-0 uppercase'>
                   Medicalink
                 </button>
               </Link>
@@ -27,7 +27,7 @@ const BreadCrumb = ({
             </li>
             <li>
               <Link to={url}>
-                <button className='font-AlbertSans text-white uppercase'>
+                <button className='font-AlbertSans font-semibold text-white uppercase'>
                   {breadCrumbLink}
                 </button>
               </Link>

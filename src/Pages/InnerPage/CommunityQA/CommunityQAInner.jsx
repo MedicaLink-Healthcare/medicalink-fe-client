@@ -13,9 +13,9 @@ import {
 import { useSpecialtiesQuery } from '@/api/hooks/specialty/useSpecialtyQueries';
 
 const statusLabel = {
-  PENDING: 'Pending',
-  ANSWERED: 'Answered',
-  CLOSED: 'Closed',
+  PENDING: 'Đang chờ',
+  ANSWERED: 'Trả lời',
+  CLOSED: 'Đã đóng',
 };
 
 const extractQuestions = (payload) => {
@@ -102,13 +102,13 @@ const CommunityQAInner = () => {
     };
     createMutation.mutate(payload, {
       onSuccess: () => {
-        setFormMessage({ type: 'ok', text: 'Thank you! Your question has been sent.' });
+        setFormMessage({ type: 'ok', text: 'Cảm ơn! Câu hỏi của bạn đã được gửi.' });
         setForm({ title: '', body: '', authorName: '', authorEmail: '', specialtyId: '' });
       },
       onError: (err) => {
         setFormMessage({
           type: 'err',
-          text: err?.message || 'Failed to send question. Please try again.',
+          text: err?.message || 'Không gửi được câu hỏi. Vui lòng thử lại.',
         });
       },
     });
@@ -117,9 +117,9 @@ const CommunityQAInner = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Community Q&A'}
+        breadCrumbTitle={'Hỏi đáp cộng đồng'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Community Q&A'}
+        breadCrumbLink={'Hỏi đáp cộng đồng'}
       />
       <section className='bg-BodyBg-0 pt-10 pb-28'>
         <div className='Container'>
@@ -129,15 +129,15 @@ const CommunityQAInner = () => {
             data-aos-duration='800'
           >
             <h3 className='font-AlbertSans font-bold text-HeadingColor-0 text-2xl mb-2'>
-              Ask a question
+              Đặt câu hỏi
             </h3>
             <p className='font-DMSans text-TextColor2-0 mb-6 text-sm md:text-base'>
-              Fill in the information below (email optional). The system has a limit on the number of times sent per minute — please do not spam.
+              Điền thông tin bên dưới (email tùy chọn). Hệ thống có giới hạn số lần gửi trong phút - vui lòng không spam.
             </p>
             <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-4'>
               <div>
                 <label className='font-AlbertSans text-sm text-HeadingColor-0 block mb-1'>
-                  Title <span className='text-red-500'>*</span>
+                  Tiêu đề <span className='text-red-500'>*</span>
                 </label>
                 <input
                   required
@@ -145,12 +145,12 @@ const CommunityQAInner = () => {
                   className='w-full rounded-xl border-2 border-white bg-white bg-opacity-80 px-4 py-3 font-DMSans'
                   value={form.title}
                   onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-                  placeholder='Example: Headache symptoms persist...'
+                  placeholder='Ví dụ: Triệu chứng đau đầu kéo dài...'
                 />
               </div>
               <div>
                 <label className='font-AlbertSans text-sm text-HeadingColor-0 block mb-1'>
-                  Content <span className='text-red-500'>*</span>
+                  Nội dung <span className='text-red-500'>*</span>
                 </label>
                 <textarea
                   required
@@ -158,13 +158,13 @@ const CommunityQAInner = () => {
                   className='w-full rounded-xl border-2 border-white bg-white bg-opacity-80 px-4 py-3 font-DMSans'
                   value={form.body}
                   onChange={(e) => setForm((f) => ({ ...f, body: e.target.value }))}
-                  placeholder='Detailed description...'
+                  placeholder='Mô tả chi tiết...'
                 />
               </div>
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                 <div>
                   <label className='font-AlbertSans text-sm text-HeadingColor-0 block mb-1'>
-                    Display name
+                    Tên hiển thị
                   </label>
                   <input
                     maxLength={120}
@@ -191,7 +191,7 @@ const CommunityQAInner = () => {
               </div>
               <div>
                 <label className='font-AlbertSans text-sm text-HeadingColor-0 block mb-1'>
-                  Specialty (optional)
+                  Chuyên khoa (tùy chọn)
                 </label>
                 <select
                   className='w-full rounded-xl border-2 border-white bg-white bg-opacity-80 px-4 py-3 font-DMSans'
@@ -222,18 +222,18 @@ const CommunityQAInner = () => {
                 disabled={createMutation.isPending}
                 className='primary-btn w-fit disabled:opacity-50'
               >
-                {createMutation.isPending ? 'Sending...' : 'Send question'}
+                {createMutation.isPending ? 'Đang gửi...' : 'Gửi câu hỏi'}
               </button>
             </form>
           </div>
 
           <div className='text-center mb-10'>
             <h2 className='font-AlbertSans font-bold text-HeadingColor-0 text-2xl md:text-3xl'>
-              Recent questions
+              Câu hỏi gần đây
             </h2>
             {isError && (
               <p className='text-red-600 mt-4 font-DMSans'>
-                {error?.message || 'Failed to load list.'}
+                {error?.message || 'Không tải được danh sách.'}
               </p>
             )}
           </div>
@@ -242,7 +242,7 @@ const CommunityQAInner = () => {
             <Loading />
           ) : questions.length === 0 ? (
             <p className='font-AlbertSans text-TextColor2-0 text-center text-lg'>
-              No questions yet. Be the first to ask a question above.
+              Hiện chưa có câu hỏi nào. Hãy là người đầu tiên đặt câu hỏi ở trên.
             </p>
           ) : (
             <>
@@ -280,14 +280,14 @@ const CommunityQAInner = () => {
                     </p>
                     <div className='mt-3 flex flex-wrap gap-4 text-sm font-DMSans text-TextColor2-0'>
                       <span>
-                        Views: {q.viewCount ?? 0}
+                        Số lượt xem: {q.viewCount ?? 0}
                       </span>
                       <span>
-                        Answers: {q.answersCount ?? 0}
+                        Số câu trả lời: {q.answersCount ?? 0}
                       </span>
                       {q.acceptedAnswersCount > 0 && (
                         <span className='text-green-700'>
-                          {q.acceptedAnswersCount} answers have been accepted
+                          {q.acceptedAnswersCount} câu trả lời được chấp nhận
                         </span>
                       )}
                     </div>
