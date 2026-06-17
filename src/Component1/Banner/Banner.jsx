@@ -34,8 +34,8 @@ const Banner = () => {
                 />
               </div>
               <div className='flex items-center justify-center gap-3 sm:gap-6'>
-                <h1 className='font-AlbertSans font-extrabold text-4xl sm:text-5xl md:text-[80px] xl:text-[120px] text-white uppercase tracking-wide drop-shadow-sm'>
-                  Chăm sóc
+                <h1 className='font-AlbertSans font-extrabold text-4xl sm:text-5xl md:text-[70px] xl:text-[110px] text-white uppercase tracking-wide drop-shadow-sm'>
+                  Health Care
                 </h1>
                 <img
                   src={bannerHeart}
@@ -50,9 +50,9 @@ const Banner = () => {
                   className='max-w-[inherit]'
                 />
               </div>
-              <div className='flex items-center justify-center gap-4 sm:gap-8 w-full relative z-20 mt-4 lg:mt-8 2xl:mt-5'>
-                <h1 className='font-AlbertSans font-extrabold text-4xl sm:text-5xl md:text-[80px] xl:text-[120px] text-white uppercase tracking-wide drop-shadow-sm'>
-                  Sức khỏe
+              <div className='flex items-center justify-center gap-4 ml-16 sm:gap-8 w-full relative z-20 mt-4 lg:mt-8 2xl:mt-5'>
+                <h1 className='font-AlbertSans font-extrabold text-4xl sm:text-5xl md:text-[70px] xl:text-[110px] text-white uppercase tracking-wide drop-shadow-sm'>
+                  Medicalink
                 </h1>
               </div>
             </div>
