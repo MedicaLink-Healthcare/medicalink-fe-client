@@ -11,7 +11,7 @@ const ContactInner = () => {
       <BreadCrumb
         breadCrumbTitle={'Liên hệ'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Liên hệ?'}
+        breadCrumbLink={'Liên hệ'}
       />
       <Appointment />
       <ContactBox />
