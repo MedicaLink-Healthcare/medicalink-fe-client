@@ -9,9 +9,9 @@ const ContactInner = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Li�n h?'}
+        breadCrumbTitle={'Liên hệ'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Li�n h?'}
+        breadCrumbLink={'Liên hệ?'}
       />
       <Appointment />
       <ContactBox />
