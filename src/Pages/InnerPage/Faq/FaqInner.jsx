@@ -111,7 +111,7 @@ const FaqInner = () => {
                   </p>
                   <Link
                     to='/community-qa'
-                    className='inline-flex mt-8 primary-btn'
+                    className='primary-btn max-w-fit mx-auto mt-8'
                   >
                     Đến trang Hỏi đáp Cộng đồng
                   </Link>

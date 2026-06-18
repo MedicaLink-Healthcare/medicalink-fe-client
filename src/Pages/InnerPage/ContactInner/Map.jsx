@@ -8,7 +8,7 @@ const Map = () => {
           data-aos-duration='1000'
         >
           <iframe
-            src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d867283.0267128727!2d34.232606549050644!3d31.8841932044305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151cf2d28866bdd9%3A0xee17a001d166f686!2sPalestine!5e0!3m2!1sen!2sbd!4v1715597594739!5m2!1sen!2sbd'
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.8997713444705!2d108.19725807457212!3d16.07069008460901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31421852305f2481%3A0xce421714551517f6!2zMjU5IFRy4bqnbiBDYW8gVsOibiwgVGhhbmggS2jDqiwgxJDDoCBO4bq1bmcgNTUwMDAwLCBWaWV0bmFt!5e0!3m2!1sen!2sbd!4v1781796731585!5m2!1sen!2sbd"
             width='100%'
             height='500'
             allowFullScreen=''

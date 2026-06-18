@@ -166,7 +166,7 @@ const PatientLookup = () => {
                 <div className='flex flex-col items-center gap-4 pt-2'>
                   <button
                     type='submit'
-                    className='primary-btn h-[55px] px-12 w-full md:w-max min-w-[200px] shadow-lg shadow-PrimaryColor-0/20 active:scale-95 transition-transform'
+                    className='primary-btn h-[55px] items-center justify-center px-12 w-full md:w-max min-w-[200px] shadow-lg shadow-PrimaryColor-0/20 active:scale-95 transition-transform'
                     disabled={isLoading}
                   >
                     {isLoading ? 'Đang tìm kiếm...' : 'Tra Cứu'}
