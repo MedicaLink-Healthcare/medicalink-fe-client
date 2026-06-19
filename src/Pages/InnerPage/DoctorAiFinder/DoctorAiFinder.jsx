@@ -237,14 +237,17 @@ const DoctorAiFinder = () => {
           setAiNote(payload?.note ?? '');
           setExtractedSymptoms(extracted);
           setClarificationQuestion(payload?.clarification_question || '');
-          setIsEmergency(payload?.is_emergency || false);
+          const isEmerg = payload?.is_emergency || false;
+          const isOOS = payload?.is_fallback && payload?.fallback_reason === 'out_of_scope';
+
+          setIsEmergency(isEmerg);
           setEmergencyReason(payload?.emergency_reason || '');
-          setIsOutOfScope(payload?.is_fallback && payload?.fallback_reason === 'out_of_scope');
+          setIsOutOfScope(isOOS);
           setCquData(payload);
           setIsAnalyzed(true);
 
-          // Do not auto-select specialties if the AI is actively asking for clarification.
-          if (payload?.clarification_question) {
+          // Do not auto-select specialties if the AI is actively asking for clarification or if intercepted.
+          if (payload?.clarification_question || isEmerg || isOOS) {
             setSelectedIds(new Set());
           } else if (Array.isArray(ids) && ids.length) {
             setSelectedIds(new Set(ids.map(String)));
@@ -267,26 +270,71 @@ const DoctorAiFinder = () => {
     applyAiSuggestion(updatedSymptoms);
   };
 
-  const findDoctors = () => {
+  const findDoctors = async () => {
     setErrorMsg('');
     if (symptoms.trim().length < 8) {
       setErrorMsg('Vui lòng nhập ít nhất 8 ký tự mô tả triệu chứng hoặc nhu cầu của bạn.');
       return;
     }
-    if (isEmergency || isOutOfScope || clarificationQuestion) {
+    
+    // Đã phân tích nhưng có cảnh báo -> Đánh chặn
+    if (isAnalyzed && (isEmergency || isOutOfScope || clarificationQuestion)) {
       setErrorMsg('Vui lòng giải quyết cảnh báo hoặc trả lời câu hỏi làm rõ trước khi tìm bác sĩ.');
       return;
     }
+
+    let payloadToUse = cquData;
+    let currentExtracted = extractedSymptoms;
+    let currentSelected = Array.from(selectedIds);
+
+    // Tự động phân tích nếu người dùng chưa bấm
     if (!isAnalyzed) {
-      setErrorMsg('Vui lòng nhấn "Phân Tích Bằng AI" trước khi tìm bác sĩ.');
-      return;
+      try {
+        const res = await suggestMutation.mutateAsync({ symptoms: symptoms.trim() });
+        const payload = unwrapAiPayload(res);
+        const ids = payload?.specialty_ids ?? payload?.specialtyIds ?? [];
+        currentExtracted = payload?.extracted_symptoms ?? payload?.extractedSymptoms ?? [];
+        
+        setAiNote(payload?.note ?? '');
+        setExtractedSymptoms(currentExtracted);
+        setClarificationQuestion(payload?.clarification_question || '');
+        
+        const isEmerg = payload?.is_emergency || false;
+        const isOOS = payload?.is_fallback && payload?.fallback_reason === 'out_of_scope';
+        const hasQuestion = !!payload?.clarification_question;
+        
+        setIsEmergency(isEmerg);
+        setEmergencyReason(payload?.emergency_reason || '');
+        setIsOutOfScope(isOOS);
+        setCquData(payload);
+        setIsAnalyzed(true);
+
+        // ĐÁNH CHẶN NGAY TẠI ĐÂY NẾU CÓ CẢNH BÁO
+        if (hasQuestion || isEmerg || isOOS) {
+          setSelectedIds(new Set());
+          setErrorMsg('Vui lòng giải quyết cảnh báo hoặc trả lời câu hỏi làm rõ trước khi tìm bác sĩ.');
+          return; // Dừng luồng tìm bác sĩ
+        } else if (Array.isArray(ids) && ids.length) {
+          currentSelected = ids.map(String);
+          setSelectedIds(new Set(currentSelected));
+        } else {
+          currentSelected = [];
+          setSelectedIds(new Set());
+        }
+        
+        payloadToUse = payload;
+      } catch (e) {
+        setErrorMsg(e?.message || 'Không thể phân tích chuyên khoa. Vui lòng thử lại.');
+        return;
+      }
     }
-    const specialtyIds = Array.from(selectedIds);
-    const searchSymptoms = extractedSymptoms.length > 0 ? extractedSymptoms.join(', ') : symptoms.trim();
+
+    const specialtyIds = currentSelected;
+    const searchSymptoms = currentExtracted.length > 0 ? currentExtracted.join(', ') : symptoms.trim();
     const body = {
       symptoms: searchSymptoms,
       topK: 5,
-      cquData,
+      cquData: payloadToUse,
       ...(specialtyIds.length ? { specialtyIds } : {}),
     };
     recommendMutation.mutate(body, {
@@ -390,7 +438,7 @@ const DoctorAiFinder = () => {
               <button
                 type='button'
                 className='px-5 py-2.5 rounded-full bg-PrimaryColor-0 text-white font-AlbertSans text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity duration-200 inline-flex items-center gap-2'
-                disabled={recommendMutation.isPending || isEmergency || isOutOfScope || !!clarificationQuestion || symptoms.trim().length < 8 || !isAnalyzed}
+                disabled={recommendMutation.isPending || suggestMutation.isPending || isEmergency || isOutOfScope || !!clarificationQuestion || symptoms.trim().length < 8}
                 onClick={findDoctors}
               >
                 {recommendMutation.isPending ? (
