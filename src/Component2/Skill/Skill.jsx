@@ -28,8 +28,8 @@ const Skill = () => {
               SKILLS AND ABILITIES
             </h5>
             <h1 className='font-AlbertSans font-bold text-HeadingColor-0 text-[16px] leading-[23px] sm:text-[22px] sm:leading-[35px] md:text-[30px] md:leading-[35px] lg:text-[26px] lg:leading-[33px] xl:text-[32px] xl:leading-[39px] 2xl:text-[32px] 2xl:leading-[39px]'>
-              Since 2007 We’re working Medical{' '}
-              <br className='hidden md:block' /> group of more than 1200+
+              We’re working Medical{' '}
+              <br className='hidden md:block' /> group of more than 100+
               Patients <br className='hidden md:block' />
               help from our medical
             </h1>

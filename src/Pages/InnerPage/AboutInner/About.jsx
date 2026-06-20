@@ -65,7 +65,7 @@ const About = () => {
               Về chúng tôi
             </h5>
             <h1 className='font-AlbertSans font-bold capitalize text-HeadingColor-0 text-xl leading-[30px] sm:text-3xl sm:leading-[40px] md:text-[40px] md:leading-[50px] lg:text-[42px] lg:leading-[52px] xl:text-[52px] xl:leading-[62px] 2xl:text-[60px] 2xl:leading-[70px]'>
-              Trung tâm chăm sóc sức khỏe <br /> tốt nhất từ 2007
+              Trung tâm chăm sóc sức khỏe <br /> tốt nhất
             </h1>
             <p className='font-DMSans text-TextColor2-0 mt-4 mb-5'>
               Cam kết mang đến dịch vụ y tế chuyên nghiệp, tận tâm và không ngừng đổi mới công nghệ vì sức khỏe cộng đồng.

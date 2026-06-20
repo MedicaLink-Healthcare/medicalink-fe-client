@@ -19,7 +19,7 @@ const Subscribe = () => {
                 />
               </div>
               <h3 className='font-AlbertSans font-bold text-2xl sm:text-3xl flex-1 md:text-[32px] text-white leading-[38px]'>
-                Since 2007 We’re working Medical{' '}
+                We’re working Medical{' '}
                 <br className='hidden md:block' /> group more than 1200+ Patient
               </h3>
             </div>
@@ -29,7 +29,7 @@ const Subscribe = () => {
             >
               <Link to={'/contact'}>
                 <button className='primary-btn mt-3 !border-white'>
-                  Li�n h?
+                  Li�n h?
                   <GoArrowRight
                     size={'22'}
                     className='-rotate-45'
