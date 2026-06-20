@@ -536,15 +536,15 @@ const Navbar = () => {
               <ul>
                 <li>
                   <MdLocationPin />
-                  <Link to={'/'}>Melbone st, Australia, Ny 12099</Link>
+                  <Link to={'/'}>259 Trần Cao Vân, Đà Nẵng</Link>
                 </li>
                 <li>
                   <FaEnvelope />
-                  <Link to={'/'}>needhelp@company.com</Link>
+                  <Link to={'/'}>medicalink@example.com</Link>
                 </li>
                 <li>
                   <FaPhoneAlt />
-                  <Link to={'/'}>+48 555 223 224</Link>
+                  <Link to={'/'}>+123 (4567) - 890</Link>
                 </li>
               </ul>
             </div>
