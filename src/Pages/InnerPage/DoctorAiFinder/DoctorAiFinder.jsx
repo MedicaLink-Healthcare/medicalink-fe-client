@@ -330,9 +330,9 @@ const DoctorAiFinder = () => {
     }
 
     const specialtyIds = currentSelected;
-    const searchSymptoms = currentExtracted.length > 0 ? currentExtracted.join(', ') : symptoms.trim();
     const body = {
-      symptoms: searchSymptoms,
+      symptoms: symptoms.trim(),
+      extractedSymptoms: currentExtracted,
       topK: 5,
       cquData: payloadToUse,
       ...(specialtyIds.length ? { specialtyIds } : {}),
