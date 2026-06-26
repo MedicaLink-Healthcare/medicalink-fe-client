@@ -38,14 +38,14 @@ const ServiceDetails = () => {
     return (
       <>
         <BreadCrumb
-          breadCrumbTitle={'Service Details'}
+          breadCrumbTitle={'Chuyên Khoa'}
           breadCrumbIcon={<FaArrowRightLong />}
-          breadCrumbLink={'Service Details'}
+          breadCrumbLink={'Chi Tiết Chuyên Khoa'}
         />
         <section className='py-[120px] bg-BodyBg-0'>
           <div className='Container'>
             <p className='font-AlbertSans text-TextColor2-0 text-center text-xl'>
-              Specialty not found or failed to load.
+              Chuyên khoa không tìm thấy hoặc không tải được.
             </p>
           </div>
         </section>
@@ -56,7 +56,7 @@ const ServiceDetails = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Service Details'}
+        breadCrumbTitle={'Chi Tiết Chuyên Khoa'}
         breadCrumbIcon={<FaArrowRightLong />}
         breadCrumbLink={specialty.name}
       />
@@ -107,7 +107,7 @@ const ServiceDetails = () => {
                   <FaUserDoctor size={'50'} />
                 </div>
                 <h4 className='font-DMSans font-medium text-xl sm:text-[22px] text-white italic'>
-                  We provide professional medical services with a team of experienced doctors.
+                  Chúng tôi cung cấp dịch vụ y tế chuyên nghiệp với đội ngũ bác sĩ giàu kinh nghiệm.
                 </h4>
               </div>
               <h2
@@ -115,14 +115,14 @@ const ServiceDetails = () => {
                 data-aos='fade-up'
                 data-aos-duration='1000'
               >
-                Frequently Asked Questions
+                Câu Hỏi Thường Gặp
               </h2>
               <p
                 className='font-AlbertSans text-TextColor2-0 mt-6 mb-11'
                 data-aos='fade-up'
                 data-aos-duration='1000'
               >
-                Below are frequently asked questions related to {specialty.name}.
+                Dưới đây là những câu hỏi thường gặp liên quan đến {specialty.name}.
               </p>
               <Faq />
             </div>
@@ -133,7 +133,7 @@ const ServiceDetails = () => {
                 data-aos-duration='1000'
               >
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
-                  Specialties
+                    Các Chuyên Khoa
                 </h4>
                 <ul className='mt-8'>
                   {specialties.slice(0, 6).map((s) => (
@@ -171,7 +171,7 @@ const ServiceDetails = () => {
                 data-aos-duration='1000'
               >
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
-                  Downloads
+                  Tài Liệu
                 </h4>
                 <ul className='mt-8'>
                   <li>
@@ -182,7 +182,7 @@ const ServiceDetails = () => {
                             size={'20'}
                             className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white'
                           />
-                          Service Report
+                          Báo Cáo Dịch Vụ
                         </span>
                         <HiDownload size={'24'} className='text-white' />
                       </button>
@@ -196,7 +196,7 @@ const ServiceDetails = () => {
                             size={'20'}
                             className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white'
                           />
-                          Service Lists
+                          Danh Sách Dịch Vụ
                         </span>
                         <HiDownload size={'24'} className='text-white' />
                       </button>
@@ -213,22 +213,22 @@ const ServiceDetails = () => {
                   <img src={callIcon} draggable='false' />
                 </div>
                 <h6 className='font-AlbertSans font-medium text-lg text-white mt-9 mb-2'>
-                  Call Us Anytime
+                    Hãy Gọi Cho Chúng Tôi Bất Cứ Lúc Nào
                 </h6>
                 <Link to={'/'}>
                   <button className='font-AlbertSans font-semibold text-2xl text-white'>
-                    +123 (4567) 890
+                    +123 (4567) - 890
                   </button>
                 </Link>
                 <Link to={'/'}>
                   <button className='font-AlbertSans text-white flex gap-2 items-center mt-4 mb-[52px]'>
                     <MdEmail className='text-xl text-PrimaryColor-0' />
-                    example@gmail.com
+                    medicalink@example.com
                   </button>
                 </Link>
                 <Link to={'/contact'}>
                   <button className='font-AlbertSans text-white flex gap-2 items-center bg-PrimaryColor-0 w-full h-[58px] rounded-md justify-center z-10 relative before:absolute before:top-0 before:right-0 before:scale-0 before:-z-10 before:w-full before:h-full before:bg-SecondaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:scale-100 hover:text-white'>
-                    Li�n h?
+                    Liên Hệ Với Chúng Tôi
                     <FaArrowRight />
                   </button>
                 </Link>
