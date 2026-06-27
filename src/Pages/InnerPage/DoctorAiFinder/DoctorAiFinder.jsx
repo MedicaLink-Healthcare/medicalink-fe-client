@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FaArrowRightLong } from 'react-icons/fa6';
+import { FaArrowRightLong, FaTriangleExclamation, FaCircleExclamation } from 'react-icons/fa6';
+import { BsStars } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import BreadCrumb from '@/Shared/BreadCrumb/BreadCrumb';
 import HelmetChanger from '@/Shared/Helmet/Helmet';
@@ -206,79 +207,28 @@ const DoctorAiFinder = () => {
     if (errorMsg) setErrorMsg('');
   };
 
-  const applyAiSuggestion = (overrideSymptoms = null) => {
-    setErrorMsg('');
-    setAiNote('');
-    setClarificationQuestion('');
-    setIsEmergency(false);
-    setEmergencyReason('');
-    setIsOutOfScope(false);
-    setCquData(null);
 
-    // Support being called directly from onClick (Event object) or from code (string)
-    const textToAnalyze = typeof overrideSymptoms === 'string' ? overrideSymptoms : symptoms;
-
-    if (textToAnalyze.trim().length < 8) {
-      setErrorMsg('Vui lòng nhập ít nhất 8 ký tự mô tả triệu chứng hoặc nhu cầu của bạn.');
-      return;
-    }
-    if (!catalog.length) {
-      setErrorMsg('Danh sách chuyên khoa đang tải. Vui lòng thử lại sau.');
-      return;
-    }
-    suggestMutation.mutate(
-      { symptoms: textToAnalyze.trim() },
-      {
-        onSuccess: (res) => {
-          const payload = unwrapAiPayload(res);
-          const ids = payload?.specialty_ids ?? payload?.specialtyIds ?? [];
-          const extracted = payload?.extracted_symptoms ?? payload?.extractedSymptoms ?? [];
-
-          setAiNote(payload?.note ?? '');
-          setExtractedSymptoms(extracted);
-          setClarificationQuestion(payload?.clarification_question || '');
-          const isEmerg = payload?.is_emergency || false;
-          const isOOS = payload?.is_fallback && payload?.fallback_reason === 'out_of_scope';
-
-          setIsEmergency(isEmerg);
-          setEmergencyReason(payload?.emergency_reason || '');
-          setIsOutOfScope(isOOS);
-          setCquData(payload);
-          setIsAnalyzed(true);
-
-          // Do not auto-select specialties if the AI is actively asking for clarification or if intercepted.
-          if (payload?.clarification_question || isEmerg || isOOS) {
-            setSelectedIds(new Set());
-          } else if (Array.isArray(ids) && ids.length) {
-            setSelectedIds(new Set(ids.map(String)));
-          } else {
-            setSelectedIds(new Set());
-          }
-        },
-        onError: (e) => {
-          setErrorMsg(e?.message || 'Không thể phân tích chuyên khoa. Vui lòng thử lại.');
-        },
-      },
-    );
-  };
 
   const handleAnswerSubmit = () => {
     if (!userAnswer.trim()) return;
     const updatedSymptoms = symptoms + '\n\nBổ sung: ' + userAnswer.trim();
     setSymptoms(updatedSymptoms);
     setUserAnswer('');
-    applyAiSuggestion(updatedSymptoms);
+    setIsAnalyzed(false);
+    findDoctors(updatedSymptoms);
   };
 
-  const findDoctors = async () => {
+  const findDoctors = async (overrideSymptoms = null) => {
+    const textToAnalyze = typeof overrideSymptoms === 'string' ? overrideSymptoms : symptoms;
+
     setErrorMsg('');
-    if (symptoms.trim().length < 8) {
+    if (textToAnalyze.trim().length < 8) {
       setErrorMsg('Vui lòng nhập ít nhất 8 ký tự mô tả triệu chứng hoặc nhu cầu của bạn.');
       return;
     }
-    
+
     // Đã phân tích nhưng có cảnh báo -> Đánh chặn
-    if (isAnalyzed && (isEmergency || isOutOfScope || clarificationQuestion)) {
+    if (isAnalyzed && (isEmergency || isOutOfScope || clarificationQuestion) && typeof overrideSymptoms !== 'string') {
       setErrorMsg('Vui lòng giải quyết cảnh báo hoặc trả lời câu hỏi làm rõ trước khi tìm bác sĩ.');
       return;
     }
@@ -287,22 +237,22 @@ const DoctorAiFinder = () => {
     let currentExtracted = extractedSymptoms;
     let currentSelected = Array.from(selectedIds);
 
-    // Tự động phân tích nếu người dùng chưa bấm
-    if (!isAnalyzed) {
+    // Tự động phân tích nếu người dùng chưa bấm hoặc có override text
+    if (!isAnalyzed || typeof overrideSymptoms === 'string') {
       try {
-        const res = await suggestMutation.mutateAsync({ symptoms: symptoms.trim() });
+        const res = await suggestMutation.mutateAsync({ symptoms: textToAnalyze.trim() });
         const payload = unwrapAiPayload(res);
         const ids = payload?.specialty_ids ?? payload?.specialtyIds ?? [];
         currentExtracted = payload?.extracted_symptoms ?? payload?.extractedSymptoms ?? [];
-        
+
         setAiNote(payload?.note ?? '');
         setExtractedSymptoms(currentExtracted);
         setClarificationQuestion(payload?.clarification_question || '');
-        
+
         const isEmerg = payload?.is_emergency || false;
         const isOOS = payload?.is_fallback && payload?.fallback_reason === 'out_of_scope';
         const hasQuestion = !!payload?.clarification_question;
-        
+
         setIsEmergency(isEmerg);
         setEmergencyReason(payload?.emergency_reason || '');
         setIsOutOfScope(isOOS);
@@ -321,7 +271,7 @@ const DoctorAiFinder = () => {
           currentSelected = [];
           setSelectedIds(new Set());
         }
-        
+
         payloadToUse = payload;
       } catch (e) {
         setErrorMsg(e?.message || 'Không thể phân tích chuyên khoa. Vui lòng thử lại.');
@@ -331,7 +281,7 @@ const DoctorAiFinder = () => {
 
     const specialtyIds = currentSelected;
     const body = {
-      symptoms: symptoms.trim(),
+      symptoms: textToAnalyze.trim(),
       extractedSymptoms: currentExtracted,
       topK: 5,
       cquData: payloadToUse,
@@ -368,6 +318,10 @@ const DoctorAiFinder = () => {
           }
           .animate-shake {
             animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+          }
+          @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
           }
         `}
       </style>
@@ -429,22 +383,14 @@ const DoctorAiFinder = () => {
             <div className='flex flex-wrap items-center gap-3 mt-4'>
               <button
                 type='button'
-                className='px-5 py-2.5 rounded-full bg-Secondarycolor-0 text-white font-AlbertSans text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity duration-200'
-                disabled={suggestMutation.isPending || specLoading || symptoms.trim().length < 8}
-                onClick={applyAiSuggestion}
-              >
-                {suggestMutation.isPending ? 'Đang phân tích...' : 'Phân Tích Bằng AI'}
-              </button>
-              <button
-                type='button'
                 className='px-5 py-2.5 rounded-full bg-PrimaryColor-0 text-white font-AlbertSans text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity duration-200 inline-flex items-center gap-2'
                 disabled={recommendMutation.isPending || suggestMutation.isPending || isEmergency || isOutOfScope || !!clarificationQuestion || symptoms.trim().length < 8}
                 onClick={findDoctors}
               >
-                {recommendMutation.isPending ? (
+                {suggestMutation.isPending || recommendMutation.isPending ? (
                   <>
                     <span className='inline-block size-4 border-2 border-white border-t-transparent rounded-full animate-spin' />
-                    Đang tìm kiếm...
+                    {suggestMutation.isPending ? 'AI đang phân tích...' : 'Đang tìm kiếm...'}
                   </>
                 ) : (
                   'Tìm Bác Sĩ'
@@ -452,19 +398,47 @@ const DoctorAiFinder = () => {
               </button>
             </div>
 
+            {(suggestMutation.isPending || recommendMutation.isPending) && (
+              <div className='mt-6 p-5 rounded-2xl bg-gradient-to-r from-PrimaryColor-0/5 via-PrimaryColor-0/10 to-PrimaryColor-0/5 border border-PrimaryColor-0/20 relative overflow-hidden'>
+                <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[shimmer_2s_infinite]' />
+
+                <div className='flex items-center gap-4 relative z-10'>
+                  <div className='relative flex items-center justify-center size-12 shrink-0'>
+                    <div className='absolute inset-0 bg-PrimaryColor-0/20 rounded-full animate-ping' style={{ animationDuration: '2s' }} />
+                    <div className='absolute inset-2 bg-PrimaryColor-0 rounded-full flex items-center justify-center shadow-lg shadow-PrimaryColor-0/40'>
+                      <BsStars className='text-white text-lg animate-pulse' />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className='font-AlbertSans font-bold text-HeadingColor-0 text-base'>
+                      Trợ Lý AI đang xử lý...
+                    </h3>
+                    <p className='text-sm text-TextColor2-0 font-AlbertSans mt-1'>
+                      {suggestMutation.isPending
+                        ? 'Đang phân tích triệu chứng và định tuyến chuyên khoa...'
+                        : 'Đang quét hồ sơ bác sĩ để tìm kết quả phù hợp nhất...'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {aiNote && !isOutOfScope ? (
               <p
-                className='mt-4 text-sm text-HeadingColor-0 bg-BodyBg-0 rounded-xl px-4 py-3 border border-BodyBg2-0'
+                className='mt-4 text-sm text-HeadingColor-0 bg-BodyBg-0 rounded-xl px-4 py-3 border border-BodyBg2-0 flex items-start gap-2'
                 role='status'
               >
-                <span className='font-semibold'>Ghi chú từ AI: </span>
-                {aiNote}
+                <BsStars className='text-PrimaryColor-0 shrink-0 mt-0.5' />
+                <span>
+                  <span className='font-semibold'>Ghi chú từ AI: </span>
+                  {aiNote}
+                </span>
               </p>
             ) : null}
 
             {isOutOfScope ? (
               <div className='mt-5 p-4 rounded-xl bg-orange-50 border border-orange-200 flex items-start gap-3'>
-                <span className='text-orange-600 text-2xl'>⚠️</span>
+                <FaTriangleExclamation className='text-orange-500 text-3xl shrink-0 mt-1' />
                 <div>
                   <h3 className='font-AlbertSans font-bold text-orange-800 text-base mb-1'>CÂU HỎI NGOÀI LỀ</h3>
                   <p className='text-sm text-orange-700 font-AlbertSans leading-relaxed'>
@@ -477,7 +451,7 @@ const DoctorAiFinder = () => {
             {isEmergency ? (
               <div ref={emergencyRef} className='mt-5 p-4 rounded-xl bg-red-50 border border-red-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4'>
                 <div className='flex items-start gap-3'>
-                  <span className='text-red-600 text-2xl mt-0.5'>🚨</span>
+                  <FaCircleExclamation className='text-red-600 text-3xl shrink-0 mt-1' />
                   <div>
                     <h3 className='font-AlbertSans font-bold text-red-800 text-base mb-1'>CẢNH BÁO Y TẾ KHẨN CẤP</h3>
                     <p className='text-sm text-red-700 font-AlbertSans leading-relaxed'>
@@ -533,10 +507,16 @@ const DoctorAiFinder = () => {
               </p>
             ) : null}
 
-            <div className='mt-10'>
-              <h2 className='font-AlbertSans font-semibold text-lg text-HeadingColor-0 mb-3'>
-                Lọc theo chuyên khoa
-              </h2>
+            {isAnalyzed && catalog.length > 0 ? (
+              <div className='mt-10'>
+                <div className='flex items-center gap-2 mb-3'>
+                  <h2 className='font-AlbertSans font-semibold text-lg text-HeadingColor-0'>
+                    Chuyên khoa AI đã chọn
+                  </h2>
+                  <span className='text-xs text-PrimaryColor-0 bg-PrimaryColor-0/10 px-2 py-1 rounded-md font-medium'>
+                    Có thể tùy chỉnh
+                  </span>
+                </div>
               {specLoading ? (
                 <Loading />
               ) : (
@@ -560,10 +540,12 @@ const DoctorAiFinder = () => {
                   })}
                 </div>
               )}
-              <p className='text-xs text-TextColor2-0 mt-2 leading-relaxed'>
-                Chọn chuyên khoa để thu hẹp kết quả. Bỏ trống để tìm trên toàn bộ danh sách bác sĩ.
-              </p>
-            </div>
+                  <p className='text-xs text-TextColor2-0 mt-2 leading-relaxed'>
+                    Bạn có thể chọn thêm hoặc bỏ chọn các chuyên khoa trên, sau đó bấm <b>&quot;Tìm Bác Sĩ&quot;</b> để AI cập nhật lại danh sách.
+                  </p>
+                </div>
+            ) : null}
+
           </div>
 
           <div id='ai-doctor-results' ref={resultsAnchorRef} className='scroll-mt-24' />
