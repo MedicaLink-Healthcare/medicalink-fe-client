@@ -20,9 +20,9 @@ const ServiceDetails4 = () => {
   return (
     <>
       <BreadCrumb
-        breadCrumbTitle={'Service Details'}
+        breadCrumbTitle={'Chi Tiết Dịch Vụ'}
         breadCrumbIcon={<FaArrowRightLong />}
-        breadCrumbLink={'Service Details'}
+        breadCrumbLink={'Chi Tiết Dịch Vụ'}
       />
       <section className='py-[120px] bg-BodyBg-0'>
         <div className='Container'>
@@ -44,30 +44,21 @@ const ServiceDetails4 = () => {
                 data-aos='fade-up'
                 data-aos-duration='1000'
               >
-                Delivering world class medical care
+                Cung Cấp Chăm Sóc Y Tế Hàng Đầu Thế Giới
               </h2>
               <p
                 className='font-AlbertSans text-TextColor2-0 mt-5'
                 data-aos='fade-up'
                 data-aos-duration='1000'
               >
-                Alternative innovation to ethical network environmental
-                whiteboard pursue compelling results premier methods
-                empowerment. Dramatically architect go forward opportunities
-                before user-centric partner Credibly implement exceptional
+                Đổi mới liên tục mang đến kết quả vượt trội với các phương pháp y tế hàng đầu. Kiến tạo các cơ hội phát triển lấy bệnh nhân làm trung tâm, đảm bảo triển khai đáng tin cậy và xuất sắc.
               </p>
               <p
                 className='font-AlbertSans text-TextColor2-0 mt-7 mb-11'
                 data-aos='fade-up'
                 data-aos-duration='1000'
               >
-                Continually fashion orthogonal leadership skills whereas
-                wireless metrics. Uniquely syndicate exceptio opportunities with
-                interdependent users. Globally enhance fully tested
-                meta-services rather than pan solutions. Proactively integrate
-                client-integrate go forward architectures and turnkey
-                meta-services. Interactively harness integrated ROI whereas
-                frictionless products.
+                Không ngừng xây dựng các kỹ năng lãnh đạo xuất sắc và áp dụng các tiêu chuẩn quản lý tiên tiến. Nâng cao chất lượng dịch vụ trên toàn cầu thay vì chỉ giải quyết từng phần. Tích hợp chủ động các kiến trúc phát triển hướng tới khách hàng và cung cấp các dịch vụ trọn gói. Tương tác hiệu quả nhằm tối ưu hóa ROI cùng các sản phẩm tiện ích.
               </p>
               <div className='grid grid-cols-1 md:grid-cols-2 sm:items-center gap-8 mb-14'>
                 <div
@@ -83,11 +74,10 @@ const ServiceDetails4 = () => {
                   </div>
                   <div className='flex-1'>
                     <h5 className='font-AlbertSans font-bold text-[22px] text-HeadingColor-0'>
-                      Make Appointment
+                      Đặt Lịch Hẹn
                     </h5>
                     <p className='font-AlbertSans text-TextColor2-0 mt-1'>
-                      Ethical network environmental architect go forward opportu
-                      credibly implement
+                      Xây dựng các giải pháp y tế hiệu quả và triển khai các cơ hội chăm sóc sức khỏe đáng tin cậy.
                     </p>
                   </div>
                 </div>
@@ -104,11 +94,10 @@ const ServiceDetails4 = () => {
                   </div>
                   <div className='flex-1'>
                     <h5 className='font-AlbertSans font-bold text-[22px] text-HeadingColor-0'>
-                      Get Consultation
+                      Nhận Tư Vấn
                     </h5>
                     <p className='font-AlbertSans text-TextColor2-0 mt-1'>
-                      Ethical network environmental architect go forward opportu
-                      credibly implement
+                      Xây dựng các giải pháp y tế hiệu quả và triển khai các cơ hội chăm sóc sức khỏe đáng tin cậy.
                     </p>
                   </div>
                 </div>
@@ -122,19 +111,14 @@ const ServiceDetails4 = () => {
                   <FaUserDoctor size={'50'} />
                 </div>
                 <h4 className='font-DMSans font-medium text-xl sm:text-[22px] text-white italic'>
-                  Competently architect intermandated deliverables client niches
-                  continually underwhelm
+                  Kiến tạo xuất sắc các dịch vụ y tế chuyên sâu, đáp ứng liên tục mọi nhu cầu của khách hàng
                 </h4>
               </div>
               <h2 className='font-AlbertSans font-bold text-[28px] text-HeadingColor-0 capitalize mt-24'>
-                What the Benifits?
+                Lợi Ích Là Gì?
               </h2>
               <p className='font-AlbertSans text-TextColor2-0 mt-6 mb-11'>
-                Methods empowerment. Dramatically architect go forward
-                opportunities credibly revolutionize front-end initiatives for
-                interoperable outsourcing. Conveniently repurpose market-driven
-                deliverables without holistic potentialitiess distinctively
-                integrate
+                Trao quyền hiệu quả. Cải tiến đột phá các quy trình dành cho đối tác, thiết lập các tiêu chuẩn vượt trội nhằm mang lại kết quả tốt nhất. Tối ưu hóa các dịch vụ tiện ích để nâng cao trải nghiệm người dùng.
               </p>
               <Faq />
             </div>
@@ -145,7 +129,7 @@ const ServiceDetails4 = () => {
                 data-aos-duration='1000'
               >
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
-                  Categories
+                  Danh Mục
                 </h4>
                 <ul className='mt-8'>
                   <li>
@@ -153,7 +137,7 @@ const ServiceDetails4 = () => {
                       <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
                         <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
                           <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Dental Care
+                          Chăm Sóc Răng Miệng
                         </span>
                         <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
                       </button>
@@ -164,7 +148,7 @@ const ServiceDetails4 = () => {
                       <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
                         <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
                           <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Pharmachology
+                          Dược Lý
                         </span>
                         <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
                       </button>
@@ -175,7 +159,7 @@ const ServiceDetails4 = () => {
                       <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
                         <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
                           <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Plastic Surgery
+                          Phẫu Thuật Thẩm Mỹ
                         </span>
                         <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
                       </button>
@@ -186,7 +170,7 @@ const ServiceDetails4 = () => {
                       <button className='w-full font-AlbertSans text-left text-white transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-PrimaryColor-0 bg-opacity-100 border-2 border-PrimaryColor-0 border-opacity-100 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
                         <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
                           <FaRegFolderOpen className='text-white transition-all duration-500 group-hover:text-white' />
-                          Mental Care
+                          Chăm Sóc Tâm Lý
                         </span>
                         <FaArrowRightLong className='text-white transition-all duration-500 group-hover:text-white' />
                       </button>
@@ -197,7 +181,7 @@ const ServiceDetails4 = () => {
                       <button className='w-full font-AlbertSans text-left text-HeadingColor-0 transition-all duration-500 group px-7 py-4 flex items-center justify-between rounded-md bg-white bg-opacity-30 border-2 border-white border-opacity-80 mb-3 overflow-hidden z-[1] relative before:absolute before:top-0 before:right-0 before:w-0 before:-z-[1] before:h-full before:bg-PrimaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:border-PrimaryColor-0 hover:text-white'>
                         <span className='flex items-center gap-3 lg:gap-1 xl:gap-3'>
                           <FaRegFolderOpen className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
-                          Hematology
+                          Huyết Học
                         </span>
                         <FaArrowRightLong className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white' />
                       </button>
@@ -211,7 +195,7 @@ const ServiceDetails4 = () => {
                 data-aos-duration='1000'
               >
                 <h4 className='font-AlbertSans font-semibold text-2xl text-HeadingColor-0 pb-2 mb-8 relative before:absolute before:bottom-0 before:left-0 before:w-7 before:h-[2px] before:bg-PrimaryColor-0'>
-                  Downloads
+                  Tài Liệu Tải Xuống
                 </h4>
                 <ul className='mt-8'>
                   <li>
@@ -222,7 +206,7 @@ const ServiceDetails4 = () => {
                             size={'20'}
                             className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white'
                           />
-                          Service Report
+                          Báo Cáo Dịch Vụ
                         </span>
                         <HiDownload
                           size={'24'}
@@ -239,7 +223,7 @@ const ServiceDetails4 = () => {
                             size={'20'}
                             className='text-PrimaryColor-0 transition-all duration-500 group-hover:text-white'
                           />
-                          Service Lists
+                          Danh Sách Dịch Vụ
                         </span>
                         <HiDownload
                           size={'24'}
@@ -262,7 +246,7 @@ const ServiceDetails4 = () => {
                   />
                 </div>
                 <h6 className='font-AlbertSans font-medium text-lg text-white mt-9 mb-2'>
-                  Call Us Anytime
+                  Gọi Cho Chúng Tôi Bất Cứ Lúc Nào
                 </h6>
                 <Link to={'/'}>
                   <button className='font-AlbertSans font-semibold text-2xl text-white'>
@@ -277,7 +261,7 @@ const ServiceDetails4 = () => {
                 </Link>
                 <Link to={'/contact'}>
                   <button className='font-AlbertSans text-white flex gap-2 items-center bg-PrimaryColor-0 w-full h-[58px] rounded-md justify-center z-10 relative before:absolute before:top-0 before:right-0 before:scale-0 before:-z-10 before:w-full before:h-full before:bg-SecondaryColor-0 before:rounded before:transition-all before:duration-500 hover:before:scale-100 hover:text-white'>
-                    Li�n h?
+                    Liên Hệ
                     <FaArrowRight />
                   </button>
                 </Link>

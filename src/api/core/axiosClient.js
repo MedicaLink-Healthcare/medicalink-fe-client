@@ -33,7 +33,7 @@ axiosClient.interceptors.response.use(
     if (error.response) {
       const { status, data } = error.response;
       return Promise.reject({
-        message: data?.message || 'Request failed',
+        message: data?.message || 'Kết nối với server không thành công',
         status,
         data,
       });
@@ -41,7 +41,7 @@ axiosClient.interceptors.response.use(
 
     if (error.request) {
       return Promise.reject({
-        message: 'No response from server',
+        message: 'Không nhận được phản hồi từ server',
       });
     }
 
