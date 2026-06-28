@@ -145,7 +145,7 @@ const TeamDetailsMain = ({ doctor }) => {
                   <div className='bg-white/40 border-2 rounded-[30px] border-white p-6 sm:p-10 relative overflow-hidden'>
                     <h2 className='font-AlbertSans font-bold text-2xl text-HeadingColor-0 mb-4 flex items-center gap-3'>
 
-                      Thông tin của tôi
+                      Thông tin Bác Sĩ
                     </h2>
                     <ExpandableContent
                       htmlContent={sanitizeHtml(doctor.introduction?.replace(/xem thêm\s*$/i, '').trim(), {
