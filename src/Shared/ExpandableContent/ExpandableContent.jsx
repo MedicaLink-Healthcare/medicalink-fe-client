@@ -7,8 +7,8 @@ const ExpandableContent = ({
   children,
   maxHeight = 300,
   className = '',
-  expandText = 'Xem th�m',
-  collapseText = 'Show less'
+  expandText = 'Xem thêm',
+  collapseText = 'Thu gọn'
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
