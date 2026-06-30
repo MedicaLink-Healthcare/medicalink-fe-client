@@ -311,7 +311,7 @@ const AppointmentBooking = () => {
         ) {
           msg = 'Ca khám đang được giữ chỗ bởi người khác. Vui lòng chọn giờ khác.';
         } else if (!msg) {
-          msg = 'Could not reserve this time slot. It may have been taken. Pick another.';
+          msg = 'Không thể giữ chỗ thời gian này. Có thể đã có người đặt. Vui lòng chọn giờ khác.';
         }
         setFormError(msg);
         setSelectedSlot(null);
@@ -348,7 +348,7 @@ const AppointmentBooking = () => {
 
   const handleSearchPatient = async () => {
     if (!searchIdentifier.trim()) {
-      setFormError('Please enter email or phone.');
+      setFormError('Vui lòng nhập email hoặc số điện thoại.');
       return;
     }
     setIsSearching(true);
@@ -365,10 +365,10 @@ const AppointmentBooking = () => {
         setPhone(found.phone);
         setEmail(found.email || '');
       } else {
-        setFormError('Patient record not found. Please try again or register as a New Patient.');
+        setFormError('Không tìm thấy hồ sơ bệnh nhân. Vui lòng thử lại hoặc đăng ký Bệnh nhân mới.');
       }
     } catch (e) {
-      setFormError('Error finding patient record. ' + (e?.response?.data?.message || e.message));
+      setFormError('Lỗi khi tìm kiếm hồ sơ bệnh nhân. ' + (e?.response?.data?.message || e.message));
     } finally {
       setIsSearching(false);
     }
@@ -390,19 +390,19 @@ const AppointmentBooking = () => {
     setFormSuccess('');
 
     if (!selectedSlot) {
-      setFormError('Please complete step 1 and hold a time slot.');
+      setFormError('Vui lòng hoàn thành bước 1 và giữ chỗ thời gian khám.');
       return;
     }
     if (!specialtyId) {
-      setFormError('Please select a specialty.');
+      setFormError('Vui lòng chọn chuyên khoa.');
       return;
     }
     if (patientType === 'new' && (!fullName.trim() || !phone.trim() || !reason.trim())) {
-      setFormError('Full name, phone, and reason are required.');
+      setFormError('Họ tên, số điện thoại và lý do khám là bắt buộc.');
       return;
     }
     if (patientType === 'returning' && (!foundPatient?.id || !reason.trim())) {
-      setFormError('Please find your record and provide a reason.');
+      setFormError('Vui lòng tìm hồ sơ của bạn và nhập lý do khám.');
       return;
     }
 
@@ -425,7 +425,7 @@ const AppointmentBooking = () => {
             ...(email.trim() ? { email: email.trim() } : {}),
           });
           const created = pickInnerPayload(createRaw);
-          if (!created?.id) throw new Error('Could not create patient profile');
+          if (!created?.id) throw new Error('Không thể tạo hồ sơ bệnh nhân');
           patientId = created.id;
         }
       }
@@ -481,7 +481,7 @@ const AppointmentBooking = () => {
       ) {
         msg = 'Ca khám đang được giữ chỗ bởi người khác. Vui lòng chọn giờ khác.';
       } else if (!msg) {
-        msg = 'Booking failed. The hold may have expired — choose a slot again.';
+        msg = 'Đặt lịch thất bại. Giữ chỗ có thể đã hết hạn — vui lòng chọn lại thời gian.';
       }
       setFormError(msg);
     }
@@ -522,12 +522,12 @@ const AppointmentBooking = () => {
 
           {specialtiesError ? (
             <p className='font-DMSans text-sm text-red-600'>
-              Failed to load specialties. Please refresh the page.
+              Lỗi tải chuyên khoa. Vui lòng làm mới trang.
             </p>
           ) : null}
           {locationsError ? (
             <p className='font-DMSans text-sm text-red-600'>
-              Failed to load locations. Please refresh the page.
+              Lỗi tải địa điểm. Vui lòng làm mới trang.
             </p>
           ) : null}
 
@@ -675,7 +675,7 @@ const AppointmentBooking = () => {
 
           {!effectiveLocationId && selectedDoctor && locations.length === 0 && (
             <p className='font-DMSans text-sm text-amber-700'>
-              Loading location...
+              Đang tải địa điểm...
             </p>
           )}
 
@@ -704,7 +704,7 @@ const AppointmentBooking = () => {
                 </div>
               ) : slotsError ? (
                 <p className='font-DMSans text-sm text-red-600'>
-                  {slotsErr?.message || 'Failed to load availability.'}
+                  {slotsErr?.message || 'Lỗi tải danh sách khung giờ trống.'}
                 </p>
               ) : slots.length === 0 ? (
                  <div className='rounded-xl border border-dashed border-Secondarycolor-0 border-opacity-45 p-6 text-center text-sm font-DMSans text-TextColor2-0'>
@@ -838,7 +838,7 @@ const AppointmentBooking = () => {
             onSubmit={(e) => {
               e.preventDefault();
               if (!canContinueToConfirm) {
-                setFormError('Please fill out all required fields.');
+                setFormError('Vui lòng điền đầy đủ các thông tin bắt buộc.');
                 return;
               }
               setFormError('');
