@@ -5,20 +5,20 @@ const Faq = () => {
   const Faqs = [
     {
       faqNumber: '01',
-      title: 'What if my patient does not have a matched sibling?',
-      text: 'Alternative in network environmental whiteboard pursue compelling results for premier our team methods empowerment. Dramatically architect go forward opportunities or premier to designer methods empowerment. Dramatically architect.',
+      title: 'Phải làm sao nếu bệnh nhân của tôi không có người hiến tủy phù hợp?',
+      text: 'Các giải pháp thay thế trong mạng lưới môi trường linh hoạt giúp đội ngũ của chúng tôi đạt được kết quả tối ưu thông qua các phương pháp tiên tiến. Kiến tạo mạnh mẽ các cơ hội phát triển hoặc áp dụng các phương pháp thiết kế hàng đầu.',
       active: false,
     },
     {
       faqNumber: '02',
-      title: 'How is the Emergency Department staffed?',
-      text: 'Alternative in network environmental whiteboard pursue compelling results for premier our team methods empowerment. Dramatically architect go forward opportunities or premier to designer methods empowerment. Dramatically architect.',
+      title: 'Khoa Cấp cứu được bố trí nhân sự như thế nào?',
+      text: 'Các giải pháp thay thế trong mạng lưới môi trường linh hoạt giúp đội ngũ của chúng tôi đạt được kết quả tối ưu thông qua các phương pháp tiên tiến. Kiến tạo mạnh mẽ các cơ hội phát triển hoặc áp dụng các phương pháp thiết kế hàng đầu.',
       active: false,
     },
     {
       faqNumber: '03',
-      title: 'What all should I carry for my first appointment?',
-      text: 'Alternative in network environmental whiteboard pursue compelling results for premier our team methods empowerment. Dramatically architect go forward opportunities or premier to designer methods empowerment. Dramatically architect.',
+      title: 'Tôi nên mang theo những gì cho lần hẹn khám đầu tiên?',
+      text: 'Các giải pháp thay thế trong mạng lưới môi trường linh hoạt giúp đội ngũ của chúng tôi đạt được kết quả tối ưu thông qua các phương pháp tiên tiến. Kiến tạo mạnh mẽ các cơ hội phát triển hoặc áp dụng các phương pháp thiết kế hàng đầu.',
       active: true,
     },
   ];
